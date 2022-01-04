@@ -6,10 +6,11 @@ void TitleScene::Start()
 	Background.Content = "TitleScene";
 	Background.Length = { 2560 / 2, 1440 / 2 };
 
-   /* SelectArrow.Content = "";
-    SelectArrow.Length = {};
-    SelectArrow.Duration = 1;
-    SelectArrow.Repeatable = true;*/
+    SelectMode.Content = "SelectMode";
+    SelectMode.Location = { 360, -80 };
+    SelectMode.Length = { 24, 24 };
+    SelectMode.Duration = 2;
+    SelectMode.Repeatable = true;
 
     StartGame.Content = "Game Start";
     StartGame.Location = { 1100, 450 };
@@ -33,14 +34,22 @@ void TitleScene::Start()
 
 bool TitleScene::Update()
 {
-    UINT Selection = 0;
+    if (Input::Get::Key::Down(VK_UP))
+    {
+        if (0 < Selection) Selection--; 
 
-    if (Input::Get::Key::Down(VK_UP))    Selection--;
-    if (Input::Get::Key::Down(VK_DOWN))  Selection++;
+    }
+    if (Input::Get::Key::Down(VK_DOWN))
+    {
+        if (Selection < 2) Selection++;
+    }
 
+    SelectMode.Location[1] = -80.0f - static_cast<int>(Selection * 50);
     Camera.Set();
 
     Background.Draw();
+
+    SelectMode.Draw();
     StartGame.Draw();
     Option.Draw();
     EndGame.Draw();

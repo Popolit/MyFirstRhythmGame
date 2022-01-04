@@ -23,4 +23,13 @@
     <ClCompile Include="Component\Note.cpp" />
     <ClCompile Include="Manager\GeneralSetting.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Font\CookieRun Black.ttf" />
+    <Font Include="Font\CookieRun Bold.ttf" />
+    <Font Include="Font\CookieRun Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Image\TitleScene.png" />
+    <Image Include="Animation\SelectMode[23].png" />
+  </ItemGroup>
 </Project>

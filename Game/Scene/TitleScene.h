@@ -9,11 +9,13 @@ public:
 	void End()    override;
 
 private:
+	UINT Selection = 0;
+
 	Rendering::Camera               Camera;
 
 	Rendering::Image::Component     Background;
 
-	Rendering::Animation::Component SelectArrow;
+	Rendering::Animation::Component SelectMode;
 
 	Rendering::Text::Component StartGame;
 	Rendering::Text::Component Option;

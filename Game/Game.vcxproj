@@ -210,6 +210,15 @@
     </ClCompile>
     <ClCompile Include="Scene\TitleScene.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Font\CookieRun Black.ttf" />
+    <Font Include="Font\CookieRun Bold.ttf" />
+    <Font Include="Font\CookieRun Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Animation\SelectMode[23].png" />
+    <Image Include="Image\TitleScene.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
