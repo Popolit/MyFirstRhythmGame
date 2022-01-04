@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{d9ec8c07-50bc-47a5-82e0-066c6ff8524e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\HLSL">
+      <UniqueIdentifier>{51800c18-bf83-4e05-80bf-d4267c3c56fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\ByteCode">
+      <UniqueIdentifier>{907bb37c-6f28-428d-bfdb-95b3d161b3a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image">
+      <UniqueIdentifier>{a429c5f2-a74f-4f07-8f1e-8f3ecf03caf9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shader\Bytecode\Pixel.h">
+      <Filter>Shader\ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\Bytecode\Vertex.h">
+      <Filter>Shader\ByteCode</Filter>
+    </ClInclude>
+    <ClInclude Include="FreeImage.h" />
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="Rendering.h" />
+    <ClInclude Include="PipeLine.h" />
+    <ClInclude Include="Time.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="Game.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Entry.cpp" />
+    <ClCompile Include="PipeLine.cpp" />
+    <ClCompile Include="Rendering.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Colision.cpp" />
+    <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\Animation.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\HLSL\Pixel.hlsl">
+      <Filter>Shader\HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\HLSL\Vertex.hlsl">
+      <Filter>Shader\HLSL</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\HLSL\Layout.hlsli">
+      <Filter>Shader\HLSL</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Image\dice.png">
+      <Filter>Image</Filter>
+    </Image>
+    <Image Include="Image\Free.png">
+      <Filter>Image</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

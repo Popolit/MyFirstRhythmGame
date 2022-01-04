@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Engine\Collision.h" />
+    <ClInclude Include="Engine\Game.h" />
+    <ClInclude Include="Engine\Input.h" />
+    <ClInclude Include="Engine\Matrix.h" />
+    <ClInclude Include="Engine\Rendering.h" />
+    <ClInclude Include="Engine\Time.h" />
+    <ClInclude Include="Engine\Vector.h" />
+    <ClInclude Include="Manager\Game.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Manager\Scene.h" />
+    <ClInclude Include="Scene\TitleScene.h" />
+    <ClInclude Include="Component\Note.h" />
+    <ClInclude Include="Manager\ConstValue.h" />
+    <ClInclude Include="Manager\GeneralSetting.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Manager\Game.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Scene\TitleScene.cpp" />
+    <ClCompile Include="Component\Note.cpp" />
+    <ClCompile Include="Manager\GeneralSetting.cpp" />
+  </ItemGroup>
+</Project>
