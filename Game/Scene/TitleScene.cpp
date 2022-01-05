@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TitleScene.h"
 
-void TitleScene::Start()
+void TitleScene::Start(GeneralSetting *&generalSetting)
 {
 	Background.Content = "TitleScene";
 	Background.Length = { 2560 / 2, 1440 / 2 };
@@ -21,7 +21,7 @@ void TitleScene::Start()
     Option.Content = "Option";
     Option.Location = { 1130, 500 };
     Option.Length = { 150, 50 };
-    Option.Font = { "CookieRun Bold", 30, true };
+    Option.Font = { "CookieRun Bold", 30, true};
     Option.Color = { 255, 255, 255 };
 
     EndGame.Content = "End Game";
@@ -32,7 +32,7 @@ void TitleScene::Start()
    
 }
 
-bool TitleScene::Update()
+UINT TitleScene::Update()
 {
     if (Input::Get::Key::Down(VK_UP))
     {
@@ -43,6 +43,8 @@ bool TitleScene::Update()
     {
         if (Selection < 2) Selection++;
     }
+    if (Input::Get::Key::Down(VK_RETURN)) return Selection + 1;
+
 
     SelectMode.Location[1] = -80.0f - static_cast<int>(Selection * 50);
     Camera.Set();
@@ -54,8 +56,9 @@ bool TitleScene::Update()
     Option.Draw();
     EndGame.Draw();
 
-    if (Input::Get::Key::Down(VK_ESCAPE)) { return true; }
-    else { return false; }
+    return 0;
 }
 
 void TitleScene::End() { }
+
+void TitleScene::PlaySong() { }

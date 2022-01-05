@@ -2,7 +2,7 @@
 class Scene abstract
 {
 public:
-	virtual void Start() abstract;
-	virtual bool Update() abstract;
+	virtual void Start(GeneralSetting *&generalSetting) abstract;
+	virtual UINT Update() abstract;
 	virtual void End() abstract;
 };

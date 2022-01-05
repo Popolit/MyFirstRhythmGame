@@ -1,4 +1,5 @@
 #pragma once
+#include "GeneralSetting.h"
 #include "Engine/Game.h"
 
 class Game final : public Engine::Game
@@ -10,5 +11,6 @@ public:
 
 public:
 	std::vector<class Scene*> Scenes;
-	size_t Now = 0;
+	GeneralSetting *generalSetting = new GeneralSetting();
+	UINT Now = 0;
 };

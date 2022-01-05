@@ -14,14 +14,17 @@
     <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Component\Note.h" />
     <ClInclude Include="Manager\ConstValue.h" />
+    <ClInclude Include="Scene\PlayScene.h" />
+    <ClInclude Include="Component\Chart.h" />
+    <ClInclude Include="Scene\ModeScenes.h" />
     <ClInclude Include="Manager\GeneralSetting.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manager\Game.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
-    <ClCompile Include="Component\Note.cpp" />
-    <ClCompile Include="Manager\GeneralSetting.cpp" />
+    <ClCompile Include="Scene\PlayScene.cpp" />
+    <ClCompile Include="Component\Chart.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Font\CookieRun Black.ttf" />
@@ -31,5 +34,7 @@
   <ItemGroup>
     <Image Include="Image\TitleScene.png" />
     <Image Include="Animation\SelectMode[23].png" />
+    <Image Include="Image\PlayBG.png" />
+    <Image Include="Image\Note.png" />
   </ItemGroup>
 </Project>

@@ -1,26 +1,21 @@
 #pragma once
 #include "ModeScenes.h"
+#include "Component/Note.h"
 
-class TitleScene final : public ModeScenes
+class PlayScene final : public ModeScenes
 {
 private:
-	UINT Selection = 0;
-
+	size_t keys[4];
+	std::vector<Note> Notes[4];
+	
+	
 	Rendering::Camera               Camera;
+	Rendering::Image::Component		Lane;
 	Rendering::Image::Component     Background;
-	Rendering::Animation::Component SelectMode;
-
-	Rendering::Text::Component StartGame;
-	Rendering::Text::Component Option;
-	Rendering::Text::Component EndGame;
-
 
 public:
 	void Start(GeneralSetting *&generalSetting)  override;
 	UINT Update() override;
 	void End()    override;
 	void PlaySong() override;
-
 };
-
-

@@ -53,7 +53,7 @@ namespace Rendering::Pipeline
                         SelectObject(hDC, hFont);
 
                     SetTextColor(hDC, color);
-
+                    SetBkMode(hDC, TRANSPARENT);
                     RECT area
                     {
                         center.x - size.cx / 2,

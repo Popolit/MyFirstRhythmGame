@@ -183,6 +183,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component\Chart.h" />
     <ClInclude Include="Manager\ConstValue.h" />
     <ClInclude Include="Engine\Collision.h" />
     <ClInclude Include="Engine\Game.h" />
@@ -195,13 +196,15 @@
     <ClInclude Include="Manager\GeneralSetting.h" />
     <ClInclude Include="Manager\Scene.h" />
     <ClInclude Include="Component\Note.h" />
+    <ClInclude Include="Scene\ModeScenes.h" />
+    <ClInclude Include="Scene\PlayScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Scene\TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component\Chart.cpp" />
     <ClCompile Include="Manager\Game.cpp" />
-    <ClCompile Include="Component\Note.cpp" />
-    <ClCompile Include="Manager\GeneralSetting.cpp" />
+    <ClCompile Include="Scene\PlayScene.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -217,6 +220,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Animation\SelectMode[23].png" />
+    <Image Include="Image\Note.png" />
+    <Image Include="Image\PlayBG.png" />
     <Image Include="Image\TitleScene.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

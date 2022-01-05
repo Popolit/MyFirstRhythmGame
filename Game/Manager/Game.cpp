@@ -1,22 +1,26 @@
 #include "stdafx.h"
 #include "Game.h"
 #include "Scene/TitleScene.h"
+#include "Scene/PlayScene.h"
 
 void Game::Start()
 {
 	Scenes.push_back(new TitleScene);
-
-	Scenes.at(Now)->Start();
+	Scenes.push_back(new PlayScene);
+	Scenes.at(Now)->Start(generalSetting);
+	generalSetting->getSyncValue();
 }
 bool Game::Update()
 {
-	if (Scenes.at(Now)->Update())
+	UINT prev = Now;
+	Now = Scenes.at(Now)->Update();
+
+	if (Now != prev)
 	{
-		if (++Now < Scenes.size())
-		{
-			Scenes.at(Now)->Start();
-		}
+		Scenes.at(prev)->End();
+		Scenes.at(Now)->Start(generalSetting);
 	}
+
 	return false;
 }
 void Game::End()
