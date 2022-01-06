@@ -36,5 +36,7 @@
     <Image Include="Animation\SelectMode[23].png" />
     <Image Include="Image\PlayBG.png" />
     <Image Include="Image\Note.png" />
+    <Image Include="Image\Lane.png" />
+    <Image Include="Image\Perfect.png" />
   </ItemGroup>
 </Project>

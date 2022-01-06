@@ -12,6 +12,11 @@ public:
 
 	inline void setSyncValue(int const& inputSync) { SyncValue = inputSync; }
 
+	inline float getSpeed() { return Speed; }
+
+	inline void setSpeed(float const& inputSpeed) { Speed = inputSpeed; }
+
+
 	inline void getKeys(size_t(&keys)[4])
 	{
 		for (UINT u = 0; u < 4; u++) keys[u] = MappedKeys[u];

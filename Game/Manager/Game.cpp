@@ -8,7 +8,6 @@ void Game::Start()
 	Scenes.push_back(new TitleScene);
 	Scenes.push_back(new PlayScene);
 	Scenes.at(Now)->Start(generalSetting);
-	generalSetting->getSyncValue();
 }
 bool Game::Update()
 {
@@ -25,6 +24,7 @@ bool Game::Update()
 }
 void Game::End()
 {
+	delete generalSetting;
 	for (Scene const* const scene : Scenes) delete scene;
 }
 
