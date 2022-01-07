@@ -12,19 +12,22 @@ void PlayScene::Start(GeneralSetting *&generalSetting)
     Lane.Length = { 500, 720 };
     Lane.Location = { -300, 0 };
 
-    JudgePhrase.Length = { 300, 100 };
-    JudgePhrase.Location = { -300, 0 };
     this->generalSetting = generalSetting;
-    
+    generalSetting->getKeys(keys);
+
     Chart chart = Chart("Sample");
-  
     chart.makeNotes(Notes);
     for (UINT u = 0; u < 4; u++)
     {
         nextNodeIndex[u] = 0;
         noteCount[u] = Notes[u].size();
+        hitEffects[u] = new HitEffect();
+        hitEffects[u]->Start();
+        hitEffects[u]->setLane(u);
     }
 
+    judgePhrase = new JudgePhrase();
+    judgePhrase->Start();
     timed = 0.0f;
 }
 
@@ -34,59 +37,50 @@ UINT PlayScene::Update()
     Judge judges[4] = { None, None, None, None };
     timed += Time::Get::Delta();
 
-    if (Input::Get::Key::Down(keys[0])) nextNodeIndex[0] = 44;//judges[0] = Notes[0][nextNodeIndex[0]].Judge(static_cast<UINT>(timed * 1000));
-    if (Input::Get::Key::Down(keys[1])) judges[1] = Notes[1][nextNodeIndex[1]].Judge(static_cast<UINT>(timed * 1000));
-    if (Input::Get::Key::Down(keys[2])) judges[2] = Notes[2][nextNodeIndex[2]].Judge(static_cast<UINT>(timed * 1000));
-    if (Input::Get::Key::Down(keys[3])) judges[3] = Notes[3][nextNodeIndex[3]].Judge(static_cast<UINT>(timed * 1000));
-
     Camera.Location[1] +=  500 * Time::Get::Delta();
     Background.Location[1] +=   500 * Time::Get::Delta();
     Lane.Location[1] += 500 * Time::Get::Delta();
-    
     Camera.Set();
     
     Background.Draw();
     Lane.Draw();
     for (UINT u = 0; u < 4; u++)
     {
-        switch (judges[u])
+        //모든 노트를 처리함
+        if (nextNodeIndex[u] == noteCount[u]) continue;
+        //노트를 처리하는 파트
+        if (Input::Get::Key::Down(keys[u]))
         {
-            case Perfect:
+            judges[u] = Notes[u][nextNodeIndex[u]].Judge(static_cast<UINT>(timed * 1000));
+            if (judges[u] != None)
             {
                 nextNodeIndex[u]++;
-                JudgePhrase.Content = "Perfect";
-                JudgePhrase.Draw();
-                break;
-            }
-            case Good:
-            {
-                nextNodeIndex[u]++;
-                JudgePhrase.Content = "Perfect";
-                JudgePhrase.Draw();
-                break;
-            }
-            case Miss:
-            {
-                nextNodeIndex[u]++;
-                JudgePhrase.Content = "Perfect";
-                JudgePhrase.Draw();
-                break;
-            }
-            case None:
-            {
-                /*if (Notes[u][nextNodeIndex[u]].getTiming() < timed * 1000 - MissRange)
-                {
-                    nextNodeIndex[u]++;
-                }*/
-                break;
+                judgePhrase->setJudge(judges[u]);
+                if (judges[u] != Miss)  hitEffects[u]->reset();
             }
         }
+        //조작하지 않고 Miss라인을 넘어간 노트
+        else if (Notes[u][nextNodeIndex[u]].getTiming() < timed * 1000 - MissRange)
+        {
+            nextNodeIndex[u]++;
+        }
         for (UINT noteIndex = nextNodeIndex[u]; noteIndex < noteCount[u]; noteIndex++) Notes[u][noteIndex].DrawNote();
+        
     }
+    for(UINT u = 0; u < 4; u++) hitEffects[u]->Update();
+
+    judgePhrase->Update();
     if (Input::Get::Key::Down(VK_ESCAPE)) { return 0; }
     else { return 1; }
 }
 
-void PlayScene::End() { }
+void PlayScene::End() 
+{ 
+    delete judgePhrase; 
+    for (UINT u = 0; u < 4; u++)
+    {
+        delete hitEffects[u];
+    }
+}
 
 void PlayScene::PlaySong() {}

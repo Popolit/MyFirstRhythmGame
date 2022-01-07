@@ -184,6 +184,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Component\Chart.h" />
+    <ClInclude Include="Scene\HitEffect.h" />
+    <ClInclude Include="Scene\JudgePhrase.h" />
     <ClInclude Include="Manager\ConstValue.h" />
     <ClInclude Include="Engine\Collision.h" />
     <ClInclude Include="Engine\Game.h" />
@@ -203,8 +205,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component\Chart.cpp" />
+    <ClCompile Include="Scene\HitEffect.cpp" />
     <ClCompile Include="Manager\Game.cpp" />
     <ClCompile Include="Scene\PlayScene.cpp" />
+    <ClCompile Include="Scene\JudgePhrase.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -219,8 +223,11 @@
     <Font Include="Font\CookieRun Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Animation\HitEffect[12].png" />
     <Image Include="Animation\SelectMode[23].png" />
+    <Image Include="Image\Good.png" />
     <Image Include="Image\Lane.png" />
+    <Image Include="Image\Miss.png" />
     <Image Include="Image\Note.png" />
     <Image Include="Image\Perfect.png" />
     <Image Include="Image\PlayBG.png" />

@@ -41,9 +41,6 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Colision.cpp" />
     <ClCompile Include="Resource.cpp" />
-    <ClCompile Include="..\..\..\..\Desktop\Animation.cpp">
-      <Filter>Shader</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\HLSL\Pixel.hlsl">

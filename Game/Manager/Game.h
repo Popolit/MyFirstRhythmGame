@@ -10,7 +10,7 @@ public:
 	void End() override;
 
 public:
-	std::vector<class Scene*> Scenes;
+	std::vector<class ModeScenes*> Scenes;
 	GeneralSetting *generalSetting = new GeneralSetting();
 	UINT Now = 0;
 };

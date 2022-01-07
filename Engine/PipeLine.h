@@ -13,6 +13,13 @@ namespace Rendering::Pipeline
 	{
 		void Render(HFONT const hFont, LPCSTR const string, COLORREF const color, SIZE const size, POINT const center);
 	}
+
+	namespace Sound
+	{
+		void Create();
+		void Play();
+	}
+
 	namespace Transform
 	{
 		//변환 전, 변환 후

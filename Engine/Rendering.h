@@ -1,5 +1,7 @@
 #pragma once
 #include "Vector.h"
+#include <dsound.h>
+#pragma comment(lib, "dsound.lib")
 
 namespace Rendering
 {
@@ -86,6 +88,48 @@ namespace Rendering
 			Vector<2> Length = { 0, 0 };
 			float Angle = { 0 };
 			Vector<2> Location = { 0, 0 };
+		};
+	}
+
+
+	namespace Sound
+	{
+		class Component final
+		{
+		public:
+			void Play();
+		public:
+			char const* Content = nullptr;
+			IDirectSound* m_DirectSound = nullptr;
+			IDirectSoundBuffer* m_primaryBuffer = nullptr;
+			IDirectSoundBuffer* m_secondaryBuffer1 = nullptr;
+			struct WaveHeaderType
+			{
+				char chunkId[4];
+				unsigned long chunkSize;
+				char format[4];
+				char subChunkId[4];
+				unsigned long subChunkSize;
+				unsigned short audioFormat;
+				unsigned short numChannels;
+				unsigned long sampleRate;
+				unsigned long bytesPerSecond;
+				unsigned short blockAlign;
+				unsigned short bitsPerSample;
+				char dataChunkId[4];
+				unsigned long dataSize;
+			};
+
+		public:
+			void Shutdown();
+			bool InitializeDirectSound(HWND);
+			void ShutdownDirectSound();
+
+			bool LoadWaveFile(const char*, IDirectSoundBuffer**);
+			void ShutdownWaveFile(IDirectSoundBuffer**);
+
+			bool PlayWaveFile();
+			
 		};
 	}
 };

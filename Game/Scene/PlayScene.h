@@ -1,5 +1,7 @@
 #pragma once
 #include "ModeScenes.h"
+#include "JudgePhrase.h"
+#include "HitEffect.h"
 #include "Component/Note.h"
 #include "Component/Chart.h"
 
@@ -10,13 +12,14 @@ private:
 	std::vector<Note> Notes[4];
 	UINT nextNodeIndex[4] = { 0, 0, 0, 0 };
 	size_t noteCount[4] = { 0, 0, 0, 0 };
+	JudgePhrase* judgePhrase;
+	HitEffect *hitEffects[4];
 	GeneralSetting* generalSetting;
 	float timed = 0.0f;
 
 	Rendering::Camera               Camera;
 	Rendering::Image::Component		Lane;
 	Rendering::Image::Component     Background;
-	Rendering::Image::Component		JudgePhrase;
 
 public:
 	void Start(GeneralSetting *&generalSetting)  override;

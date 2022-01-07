@@ -18,6 +18,8 @@
     <ClInclude Include="Component\Chart.h" />
     <ClInclude Include="Scene\ModeScenes.h" />
     <ClInclude Include="Manager\GeneralSetting.h" />
+    <ClInclude Include="Scene\JudgePhrase.h" />
+    <ClInclude Include="Scene\HitEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manager\Game.cpp" />
@@ -25,6 +27,8 @@
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Scene\PlayScene.cpp" />
     <ClCompile Include="Component\Chart.cpp" />
+    <ClCompile Include="Scene\JudgePhrase.cpp" />
+    <ClCompile Include="Scene\HitEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Font\CookieRun Black.ttf" />
@@ -38,5 +42,8 @@
     <Image Include="Image\Note.png" />
     <Image Include="Image\Lane.png" />
     <Image Include="Image\Perfect.png" />
+    <Image Include="Image\Miss.png" />
+    <Image Include="Image\Good.png" />
+    <Image Include="Animation\HitEffect[12].png" />
   </ItemGroup>
 </Project>

@@ -6,7 +6,6 @@ private:
 	int SyncValue = 0;
 	float Speed = 0.5f;
 	size_t MappedKeys[4] = { 0x44, 0x46, 0x4A, 0x4B };
-
 public:
 	inline int getSyncValue() { return SyncValue; }
 

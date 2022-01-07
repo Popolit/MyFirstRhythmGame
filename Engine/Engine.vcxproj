@@ -185,7 +185,6 @@
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Desktop\Animation.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entry.cpp" />
     <ClCompile Include="Input.cpp" />
