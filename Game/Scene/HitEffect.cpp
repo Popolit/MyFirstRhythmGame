@@ -12,23 +12,22 @@ void HitEffect::Start()
 	effect.Repeatable = true;
 }
 
-void HitEffect::reset() { duration = 0.3f; }
+void HitEffect::reset() { duration = 0.3f;}
 
 void HitEffect::setLane(UINT const &lane)
 {
 	effect.Location[0] = -450 + static_cast<float>(100 * lane);
 }
 
-UINT HitEffect::Update()
+void HitEffect::Update()
 {
 	
 	effect.Location[1] += 500 * Time::Get::Delta();
-	if (duration <= 0) return 0;
+	if (duration <= 0) return;
 
 	duration -= Time::Get::Delta();
 	
 	effect.Draw();
-	return 0;
 }
 
 

@@ -1,8 +1,24 @@
 #include "stdafx.h"
 #include "TitleScene.h"
 
+ConstValue::SceneList operator++(ConstValue::SceneList& sl)
+{
+    return sl = sl == ConstValue::SceneList::End ? ConstValue::SceneList::End : static_cast<ConstValue::SceneList>(static_cast<int>(sl) + 1);
+}
+ConstValue::SceneList operator--(ConstValue::SceneList& sl)
+{
+    return sl = sl == ConstValue::SceneList::Title ? ConstValue::SceneList::Title : static_cast<ConstValue::SceneList>(static_cast<int>(sl) - 1);
+}
+
+bool operator<(ConstValue::SceneList &A, ConstValue::SceneList & B)
+{
+    return static_cast<UINT> (A) < static_cast<UINT> (B);
+}
+
 void TitleScene::Start(GeneralSetting *&generalSetting)
 {
+    Selection = ConstValue::SceneList::SelectSong;
+
 	Background.Content = "TitleScene";
 	Background.Length = { 2560 / 2, 1440 / 2 };
 
@@ -32,21 +48,27 @@ void TitleScene::Start(GeneralSetting *&generalSetting)
    
 }
 
-UINT TitleScene::Update()
+ConstValue::SceneList TitleScene::UpdateScene()
 {
+    using namespace ConstValue;
     if (Input::Get::Key::Down(VK_UP))
     {
-        if (0 < Selection) Selection--; 
-
+        if (SceneList::SelectSong < Selection)
+        {
+            --Selection;
+            SelectMode.Location[1] += 50;
+        }
     }
     if (Input::Get::Key::Down(VK_DOWN))
     {
-        if (Selection < 2) Selection++;
+        if (Selection < ConstValue::SceneList::End)
+        {
+            ++Selection;
+            SelectMode.Location[1] -= 50;
+        }
     }
-    if (Input::Get::Key::Down(VK_RETURN)) return Selection + 1;
+    if (Input::Get::Key::Down(VK_RETURN)) return Selection;
 
-
-    SelectMode.Location[1] = -80.0f - static_cast<int>(Selection * 50);
     Camera.Set();
 
     Background.Draw();
@@ -56,7 +78,7 @@ UINT TitleScene::Update()
     Option.Draw();
     EndGame.Draw();
 
-    return 0;
+    return ConstValue::SceneList::Title;
 }
 
 void TitleScene::End() { }

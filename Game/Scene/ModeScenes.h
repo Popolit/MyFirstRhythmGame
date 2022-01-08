@@ -6,12 +6,13 @@
 class ModeScenes : public Scene
 {
 public:
-	GeneralSetting generalSetting;
-	ConstValue::SceneList nowScene = ConstValue::SceneList::Main;
+	GeneralSetting *generalSetting;
 
 public:
-	void Start() override {};
+	void Start() {}
 	virtual void Start(GeneralSetting*& generalSetting) abstract;
+	void Update() {}
+	virtual ConstValue::SceneList UpdateScene() abstract;
 	virtual void PlaySong() abstract;
 };
 

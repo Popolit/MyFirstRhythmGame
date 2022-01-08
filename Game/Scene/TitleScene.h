@@ -4,7 +4,7 @@
 class TitleScene final : public ModeScenes
 {
 private:
-	UINT Selection = 0;
+	ConstValue::SceneList Selection;
 
 	Rendering::Camera               Camera;
 	Rendering::Image::Component     Background;
@@ -17,7 +17,7 @@ private:
 
 public:
 	void Start(GeneralSetting *&generalSetting)  override;
-	UINT Update() override;
+	ConstValue::SceneList UpdateScene() override;
 	void End()    override;
 	void PlaySong() override;
 

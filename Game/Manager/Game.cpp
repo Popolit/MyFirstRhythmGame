@@ -1,23 +1,33 @@
 #include "stdafx.h"
 #include "Game.h"
 #include "Scene/TitleScene.h"
+#include "Scene/OptionScene.h"
 #include "Scene/PlayScene.h"
 
 void Game::Start()
 {
+	generalSetting = new GeneralSetting();
+	Now = ConstValue::SceneList::Title;
+
 	Scenes.push_back(new TitleScene);
 	Scenes.push_back(new PlayScene);
-	Scenes.at(Now)->Start(generalSetting);
+	Scenes.push_back(new OptionScene);
+	Scenes.push_back(new OptionScene);
+
+	Scenes.at(0)->Start(generalSetting);
 }
 bool Game::Update()
 {
-	UINT prev = Now;
-	Now = Scenes.at(Now)->Update();
+	using namespace ConstValue;
+	SceneList prev = Now;
+	Now = Scenes.at(static_cast<int>(Now))->UpdateScene();
 
+	if (Now == SceneList::End) return true;
 	if (Now != prev)
 	{
-		Scenes.at(prev)->End();
-		Scenes.at(Now)->Start(generalSetting);
+		if (Now == SceneList::SelectSong) Now = SceneList::Play;
+		Scenes.at(static_cast<int>(Now))->End();
+		Scenes.at(static_cast<int>(Now))->Start(generalSetting);
 	}
 
 	return false;

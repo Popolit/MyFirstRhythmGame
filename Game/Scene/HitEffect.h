@@ -9,7 +9,7 @@ public:
 	void Start() override;
 	void reset();
 	void setLane(UINT const& lane);
-	UINT Update() override;
+	void Update() override;
 	void End() override;
 };
 

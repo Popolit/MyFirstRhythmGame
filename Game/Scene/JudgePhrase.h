@@ -16,7 +16,7 @@ private:
 public:
 	void Start() override;
 	void setJudge(ConstValue::Judge judge);
-	UINT Update() override;
+	void Update() override;
 	void End() override;
 };
 

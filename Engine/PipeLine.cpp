@@ -320,7 +320,7 @@ namespace Rendering::Pipeline
                 BlendState->Release();
             }
             {
-                MUST(DirectSoundCreate(NULL, &SDevice,NULL));
+               /* MUST(DirectSoundCreate(NULL, &SDevice,NULL));
                 MUST(SDevice->SetCooperativeLevel(hWindow, DSSCL_NORMAL));
 
                 WAVEFORMATEX wfx;
@@ -350,7 +350,7 @@ namespace Rendering::Pipeline
                 DWORD length;
                 MUST(buffer->Lock(0, 1, &buf, &length, 0, 0, 0));
                 memcpy_s(buf, length);
-                buffer->Unlock(buf, length, 0, 0);
+                buffer->Unlock(buf, length, 0, 0);*/
             }
             return;
         }

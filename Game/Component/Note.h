@@ -27,10 +27,10 @@ public:
 		using namespace ConstValue;
 		UINT const diff = Timing > inputTiming ? Timing - inputTiming : inputTiming - Timing;
 
-		if (diff <= JudgeRange) return Perfect;
-		else if (diff <= MissRange) return Good;
-		else if (diff <= recognizeRange) return Miss;
-		else return None;
+		if (diff <= JudgeRange) return Judge::Perfect;
+		else if (diff <= MissRange) return Judge::Good;
+		else if (diff <= recognizeRange) return Judge::Miss;
+		else return Judge::None;
 	}
 };
 

@@ -13,10 +13,11 @@ void PlayScene::Start(GeneralSetting *&generalSetting)
     Lane.Location = { -300, 0 };
 
     this->generalSetting = generalSetting;
-    generalSetting->getKeys(keys);
+    this->generalSetting->getKeys(keys);
 
     Chart chart = Chart("Sample");
     chart.makeNotes(Notes);
+    
     for (UINT u = 0; u < 4; u++)
     {
         nextNodeIndex[u] = 0;
@@ -25,16 +26,16 @@ void PlayScene::Start(GeneralSetting *&generalSetting)
         hitEffects[u]->Start();
         hitEffects[u]->setLane(u);
     }
-
+    
     judgePhrase = new JudgePhrase();
     judgePhrase->Start();
     timed = 0.0f;
 }
 
-UINT PlayScene::Update()
+ConstValue::SceneList PlayScene::UpdateScene()
 {
     using namespace ConstValue;
-    Judge judges[4] = { None, None, None, None };
+    Judge judges[4] = { Judge::None, Judge::None, Judge::None, Judge::None };
     timed += Time::Get::Delta();
 
     Camera.Location[1] +=  500 * Time::Get::Delta();
@@ -52,17 +53,18 @@ UINT PlayScene::Update()
         if (Input::Get::Key::Down(keys[u]))
         {
             judges[u] = Notes[u][nextNodeIndex[u]].Judge(static_cast<UINT>(timed * 1000));
-            if (judges[u] != None)
+            if (judges[u] != Judge::None)
             {
                 nextNodeIndex[u]++;
                 judgePhrase->setJudge(judges[u]);
-                if (judges[u] != Miss)  hitEffects[u]->reset();
+                if (judges[u] != Judge::Miss)  hitEffects[u]->reset();
             }
         }
         //조작하지 않고 Miss라인을 넘어간 노트
         else if (Notes[u][nextNodeIndex[u]].getTiming() < timed * 1000 - MissRange)
         {
             nextNodeIndex[u]++;
+            judgePhrase->setJudge(Judge::Miss);
         }
         for (UINT noteIndex = nextNodeIndex[u]; noteIndex < noteCount[u]; noteIndex++) Notes[u][noteIndex].DrawNote();
         
@@ -70,8 +72,8 @@ UINT PlayScene::Update()
     for(UINT u = 0; u < 4; u++) hitEffects[u]->Update();
 
     judgePhrase->Update();
-    if (Input::Get::Key::Down(VK_ESCAPE)) { return 0; }
-    else { return 1; }
+    if (Input::Get::Key::Down(VK_ESCAPE)) { return SceneList::Title; }
+    else { return SceneList::Play; }
 }
 
 void PlayScene::End() 
@@ -79,6 +81,7 @@ void PlayScene::End()
     delete judgePhrase; 
     for (UINT u = 0; u < 4; u++)
     {
+        Notes[u] = std::vector<Note>();
         delete hitEffects[u];
     }
 }

@@ -228,7 +228,7 @@ namespace Rendering
 		}
 	}
 
-	namespace Sound
+	/*namespace Sound
 	{
 		void Import(std::string const& file)
 		{
@@ -528,7 +528,7 @@ namespace Rendering
 
 			return true;
 		}
-	}
+	}*/
 
 
 	void Procedure(HWND const hWindow, UINT const uMessage, WPARAM const wParameter, LPARAM const lParameter)

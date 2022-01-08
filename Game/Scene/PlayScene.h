@@ -14,7 +14,6 @@ private:
 	size_t noteCount[4] = { 0, 0, 0, 0 };
 	JudgePhrase* judgePhrase;
 	HitEffect *hitEffects[4];
-	GeneralSetting* generalSetting;
 	float timed = 0.0f;
 
 	Rendering::Camera               Camera;
@@ -23,7 +22,7 @@ private:
 
 public:
 	void Start(GeneralSetting *&generalSetting)  override;
-	UINT Update() override;
+	ConstValue::SceneList UpdateScene() override;
 	void End()    override;
 	void PlaySong() override;
 };

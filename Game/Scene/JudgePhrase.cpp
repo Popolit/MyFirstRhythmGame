@@ -21,43 +21,39 @@ void JudgePhrase::Start()
 void JudgePhrase::setJudge(ConstValue::Judge judge) 
 {
 	renderingTime = 1.0f;
+
 	this->judge = judge; 
 }
 
-UINT JudgePhrase::Update()
+void JudgePhrase::Update()
 {
-	renderingTime -= Time::Get::Delta();
-
 	Perfect.Location[1] += 500 * Time::Get::Delta();
 	Good.Location[1] += 500 * Time::Get::Delta();
 	Miss.Location[1] += 500 * Time::Get::Delta();
 
+	if (renderingTime <= 0) return;
 
-	if (renderingTime <= 0)
-	{
-		renderingTime = 0;
-		return 0;
-	}
+	renderingTime -= Time::Get::Delta();
 
+	
 	switch (judge)
 	{
-		case ConstValue::Perfect:
+		case ConstValue::Judge::Perfect:
 		{
 			Perfect.Draw();
 			break;
 		}
-		case ConstValue::Good:
+		case ConstValue::Judge::Good:
 		{
 			Good.Draw();
 			break;
 		}
-		case ConstValue::Miss:
+		case ConstValue::Judge::Miss:
 		{
 			Miss.Draw();
 			break;
 		}
 	}
-	return 0;
 }
 
 

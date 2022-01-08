@@ -20,6 +20,7 @@
     <ClInclude Include="Manager\GeneralSetting.h" />
     <ClInclude Include="Scene\JudgePhrase.h" />
     <ClInclude Include="Scene\HitEffect.h" />
+    <ClInclude Include="Scene\OptionScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manager\Game.cpp" />
@@ -29,6 +30,7 @@
     <ClCompile Include="Component\Chart.cpp" />
     <ClCompile Include="Scene\JudgePhrase.cpp" />
     <ClCompile Include="Scene\HitEffect.cpp" />
+    <ClCompile Include="Scene\OptionScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Font\CookieRun Black.ttf" />

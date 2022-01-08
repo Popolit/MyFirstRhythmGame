@@ -1,5 +1,4 @@
 #pragma once
-#include "ConstValue.h"
 class GeneralSetting
 {
 private:
