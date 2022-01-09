@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Component\Chart.h" />
+    <ClInclude Include="Manager\Keycode.h" />
     <ClInclude Include="Scene\OptionScene.h" />
     <ClInclude Include="Scene\HitEffect.h" />
     <ClInclude Include="Scene\JudgePhrase.h" />

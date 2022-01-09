@@ -35,7 +35,11 @@ bool Game::Update()
 void Game::End()
 {
 	delete generalSetting;
-	for (Scene const* const scene : Scenes) delete scene;
+	for (Scene* scene : Scenes)
+	{
+		scene->End();
+		delete scene;
+	}
 }
 
 Engine::Game* Engine::Initialize() {return new::Game();}

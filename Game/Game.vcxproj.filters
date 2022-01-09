@@ -21,6 +21,7 @@
     <ClInclude Include="Scene\JudgePhrase.h" />
     <ClInclude Include="Scene\HitEffect.h" />
     <ClInclude Include="Scene\OptionScene.h" />
+    <ClInclude Include="Manager\Keycode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manager\Game.cpp" />

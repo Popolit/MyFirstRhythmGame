@@ -7,4 +7,5 @@ namespace ConstValue
 	const UINT recognizeRange = 1000; //ms;
 	enum class Judge { Perfect, Good, Miss, None };
 	enum class SceneList { Title, Play, SelectSong, Option, End  };
+	enum class OptionList { Sync, Speed, Keys };
 }

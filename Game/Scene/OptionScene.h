@@ -1,18 +1,33 @@
 #pragma once
 #include "ModeScenes.h"
+#include "Manager/ConstValue.h"
+#include <string>
+#include <unordered_map>
 class OptionScene final : public ModeScenes
 {
 private:
-	size_t keys[4];
+	ConstValue::OptionList Selection;
+	size_t Keys[4];
 	int SyncValue;
 	float Speed;
 
+	std::unordered_map <ConstValue::OptionList, Rendering::Text::Component> A;
+
 	Rendering::Camera               Camera;
 	Rendering::Image::Component     Background;
+	Rendering::Image::Component		OptionUnderLine;
 
-	Rendering::Text::Component		textSync;
-	Rendering::Text::Component		textSpeed;
-	Rendering::Text::Component		textKeys[4];
+	Rendering::Text::Component		OptionText;
+
+	Rendering::Text::Component		TextSync;
+	Rendering::Text::Component		TextSpeed;
+	Rendering::Text::Component		TextKeys;
+
+	Rendering::Text::Component		CurrentSync;
+	Rendering::Text::Component		CurrentSpeed;
+	Rendering::Text::Component		CurrentKeys[4];
+
+
 public:
 	void Start(GeneralSetting*& generalSetting)  override;
 	ConstValue::SceneList UpdateScene() override;
