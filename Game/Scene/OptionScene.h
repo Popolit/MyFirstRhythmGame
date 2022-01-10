@@ -2,7 +2,7 @@
 #include "ModeScenes.h"
 #include "Manager/ConstValue.h"
 #include <string>
-#include <unordered_map>
+#include "Manager/Keycode.h"
 class OptionScene final : public ModeScenes
 {
 private:
@@ -11,11 +11,14 @@ private:
 	int SyncValue;
 	float Speed;
 
-	std::unordered_map <ConstValue::OptionList, Rendering::Text::Component> A;
+	std::map <ConstValue::OptionList, Rendering::Text::Component> A;
 
 	Rendering::Camera               Camera;
 	Rendering::Image::Component     Background;
 	Rendering::Image::Component		OptionUnderLine;
+
+	
+
 
 	Rendering::Text::Component		OptionText;
 

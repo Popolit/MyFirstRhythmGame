@@ -71,11 +71,12 @@ ConstValue::SceneList OptionScene::UpdateScene()
 	TextSpeed.Draw();
 	TextKeys.Draw();
 
-	std::string str_sync = std::to_string(generalSetting->getSyncValue());
+	std::string str_sync = std::to_string(SyncValue);
 	CurrentSync.Content = str_sync.data();
 	CurrentSync.Draw();
-	VK_;
 
+	if (Input::Get::Key::Down(VK_DOWN)) SyncValue--;
+	if (Input::Get::Key::Down(VK_UP)) SyncValue++;
 	if (Input::Get::Key::Down(VK_ESCAPE)) return ConstValue::SceneList::Title;
 	return ConstValue::SceneList::Option;
 }
