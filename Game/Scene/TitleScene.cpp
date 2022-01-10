@@ -1,20 +1,6 @@
 #include "stdafx.h"
 #include "TitleScene.h"
 
-ConstValue::SceneList operator++(ConstValue::SceneList& sl)
-{
-    return sl = sl == ConstValue::SceneList::End ? ConstValue::SceneList::End : static_cast<ConstValue::SceneList>(static_cast<int>(sl) + 1);
-}
-ConstValue::SceneList operator--(ConstValue::SceneList& sl)
-{
-    return sl = sl == ConstValue::SceneList::Title ? ConstValue::SceneList::Title : static_cast<ConstValue::SceneList>(static_cast<int>(sl) - 1);
-}
-
-bool operator<(ConstValue::SceneList &A, ConstValue::SceneList & B)
-{
-    return static_cast<UINT> (A) < static_cast<UINT> (B);
-}
-
 void TitleScene::Start(GeneralSetting *&generalSetting)
 {
     Selection = ConstValue::SceneList::SelectSong;

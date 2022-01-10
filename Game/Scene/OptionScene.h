@@ -6,30 +6,32 @@
 class OptionScene final : public ModeScenes
 {
 private:
-	ConstValue::OptionList Selection;
-	size_t Keys[4];
 	int SyncValue;
-	float Speed;
+	float SpeedValue;
+	size_t Keys[4];
+	UINT KeyIndex = 0;
+	bool IsSelected = false;
+	bool IsSettingChanged;
 
-	std::map <ConstValue::OptionList, Rendering::Text::Component> A;
-
+	ConstValue::OptionList Selection;
+	void* Indicate = &SyncValue;
+	
 	Rendering::Camera               Camera;
 	Rendering::Image::Component     Background;
 	Rendering::Image::Component		OptionUnderLine;
-
-	
-
+	Rendering::Image::Component		KeysBox[4];
 
 	Rendering::Text::Component		OptionText;
 
-	Rendering::Text::Component		TextSync;
-	Rendering::Text::Component		TextSpeed;
-	Rendering::Text::Component		TextKeys;
+	Rendering::Text::Component		IndiSync;
+	Rendering::Text::Component		IndiSpeed;
+	Rendering::Text::Component		IndiKeys;
 
-	Rendering::Text::Component		CurrentSync;
-	Rendering::Text::Component		CurrentSpeed;
-	Rendering::Text::Component		CurrentKeys[4];
+	Rendering::Text::Component		TextSyncValue;
+	Rendering::Text::Component		TextSpeedValue;
+	Rendering::Text::Component		TextKeys[4];
 
+	Rendering::Animation::Component AnimSelect;
 
 public:
 	void Start(GeneralSetting*& generalSetting)  override;

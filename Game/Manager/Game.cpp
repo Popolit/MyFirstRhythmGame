@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Scene/TitleScene.h"
 #include "Scene/OptionScene.h"
+#include "Scene/SelectSongScene.h"
 #include "Scene/PlayScene.h"
 
 void Game::Start()
@@ -11,7 +12,7 @@ void Game::Start()
 
 	Scenes.push_back(new TitleScene);
 	Scenes.push_back(new PlayScene);
-	Scenes.push_back(new OptionScene);
+	Scenes.push_back(new SelectSongScene);
 	Scenes.push_back(new OptionScene);
 
 	Scenes.at(0)->Start(generalSetting);
@@ -26,7 +27,7 @@ bool Game::Update()
 	if (Now != prev)
 	{
 		if (Now == SceneList::SelectSong) Now = SceneList::Play;
-		Scenes.at(static_cast<int>(Now))->End();
+		Scenes.at(static_cast<int>(prev))->End();
 		Scenes.at(static_cast<int>(Now))->Start(generalSetting);
 	}
 
