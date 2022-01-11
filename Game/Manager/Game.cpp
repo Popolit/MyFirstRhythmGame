@@ -7,7 +7,7 @@
 
 void Game::Start()
 {
-	generalSetting = new GeneralSetting();
+	GameValue::Start();
 	Now = ConstValue::SceneList::Title;
 
 	Scenes.push_back(new TitleScene);
@@ -15,7 +15,7 @@ void Game::Start()
 	Scenes.push_back(new SelectSongScene);
 	Scenes.push_back(new OptionScene);
 
-	Scenes.at(0)->Start(generalSetting);
+	Scenes.at(0)->Start();
 }
 bool Game::Update()
 {
@@ -28,14 +28,13 @@ bool Game::Update()
 	{
 		if (Now == SceneList::SelectSong) Now = SceneList::Play;
 		Scenes.at(static_cast<int>(prev))->End();
-		Scenes.at(static_cast<int>(Now))->Start(generalSetting);
+		Scenes.at(static_cast<int>(Now))->Start();
 	}
 
 	return false;
 }
 void Game::End()
 {
-	delete generalSetting;
 	for (Scene* scene : Scenes)
 	{
 		scene->End();

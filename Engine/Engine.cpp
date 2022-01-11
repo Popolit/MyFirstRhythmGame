@@ -2,22 +2,17 @@
 #include "Game.h"
 
 //그려주는 역할
-namespace Rendering
-{
-	void Procedure(HWND const, UINT const, WPARAM const, LPARAM const);
-}
-namespace Input
-{
-	void Procedure(HWND const, UINT const, WPARAM const, LPARAM const);
-}
-namespace Time
-{
-	void Procedure(HWND const, UINT const, WPARAM const, LPARAM const);
-}
+namespace Rendering { void Procedure(HWND const, UINT const, WPARAM const, LPARAM const); }
+namespace Input { void Procedure(HWND const, UINT const, WPARAM const, LPARAM const); }
+namespace Time { void Procedure(HWND const, UINT const, WPARAM const, LPARAM const); }
+namespace Sound { void Procedure(HWND const, UINT const, WPARAM const, LPARAM const); }
+
 //값을 변경 (데미지 등)의 역할
 namespace Engine
 {
 	namespace { Game* Portfolio; }
+
+
 	LRESULT Procedure(HWND const hWindow, UINT const uMessage, WPARAM const wParameter, LPARAM const lParameter)
 	{
 		switch (uMessage)

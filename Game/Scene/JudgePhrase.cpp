@@ -3,6 +3,8 @@
 
 void JudgePhrase::Start()
 {
+	SpeedValue = GameValue::Get::SpeedValue();
+
 	Perfect.Content = "Perfect";
 	Perfect.Location = { -300, 0 };
 	Perfect.Length = { 150, 50 };
@@ -27,9 +29,9 @@ void JudgePhrase::setJudge(ConstValue::Judge judge)
 
 void JudgePhrase::Update()
 {
-	Perfect.Location[1] += 500 * Time::Get::Delta();
-	Good.Location[1] += 500 * Time::Get::Delta();
-	Miss.Location[1] += 500 * Time::Get::Delta();
+	Perfect.Location[1] += SpeedValue * 100 * Time::Get::Delta();
+	Good.Location[1] += SpeedValue * 100 * Time::Get::Delta();
+	Miss.Location[1] += SpeedValue * 100 * Time::Get::Delta();
 
 	if (renderingTime <= 0) return;
 

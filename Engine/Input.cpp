@@ -11,6 +11,7 @@ namespace Input
 		public:
 			void Down(WPARAM const code)
 			{
+				State.Key = code;
 				if (not Pressed(code))
 				{
 					State.Pressed[code >> 0x4] ^= (0x8000 >> (code & 0xF));
@@ -38,11 +39,16 @@ namespace Input
 				ZeroMemory(State.Changed, sizeof(State.Changed));
 			}
 
+			size_t GetPressedKey()
+			{
+				return static_cast<size_t> (State.Key);
+			}
 		private:
 			struct
 			{
 				USHORT Changed[16];
 				USHORT Pressed[16];
+				WPARAM Key;
 			}
 			State;
 		}
@@ -59,7 +65,7 @@ namespace Input
 			bool Down(size_t const code) { return     Input::Key.Pressed(code) and Input::Key.Changed(code); }
 			bool Press(size_t const code) { return     Input::Key.Pressed(code); }
 			bool Up(size_t const code) { return not Input::Key.Pressed(code) and Input::Key.Changed(code); }
-
+			size_t GetPressedKey() { return Input::Key.GetPressedKey(); }
 		}
 
 		namespace Cursour

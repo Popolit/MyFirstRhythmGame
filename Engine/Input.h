@@ -9,6 +9,7 @@ namespace Input
 			[[nodiscard]] bool Down(size_t const code);
 			[[nodiscard]] bool Press(size_t const code);
 			[[nodiscard]] bool Up(size_t const code);
+			[[nodiscard]] size_t GetPressedKey();
 		}
 		namespace Cursor
 		{

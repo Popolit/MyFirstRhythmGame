@@ -1,35 +1,39 @@
 #include "stdafx.h"
 #include "PlayScene.h"
 
-void PlayScene::Start(GeneralSetting *&generalSetting)
+void PlayScene::Start()
 {
-    Camera.Location = { 0, 0 };
-
-    Background.Content = "PlayBG";
-    Background.Length = { 1280, 720 };
-
-    Lane.Content = "Lane";
-    Lane.Length = { 500, 720 };
-    Lane.Location = { -300, 0 };
-
-    this->generalSetting = generalSetting;
-    this->generalSetting->getKeys(keys);
-
-    Chart chart = Chart("Sample");
-    chart.makeNotes(Notes);
-    
-    for (UINT u = 0; u < 4; u++)
+    //변수 셋팅
     {
-        nextNodeIndex[u] = 0;
-        noteCount[u] = Notes[u].size();
-        hitEffects[u] = new HitEffect();
-        hitEffects[u]->Start();
-        hitEffects[u]->setLane(u);
+        SpeedValue = GameValue::Get::SpeedValue();
+        GameValue::Get::Keys(MappedKeys);
+        judgePhrase = new JudgePhrase();
+        judgePhrase->Start();
+        timed = 0.0f;
+
+        Chart chart = Chart("Sample");
+        chart.makeNotes(Notes);
+
+        for (UINT u = 0; u < 4; u++)
+        {
+            nextNodeIndex[u] = 0;
+            noteCount[u] = Notes[u].size();
+            hitEffects[u] = new HitEffect();
+            hitEffects[u]->Start();
+            hitEffects[u]->setLane(u);
+        }
     }
-    
-    judgePhrase = new JudgePhrase();
-    judgePhrase->Start();
-    timed = 0.0f;
+    //드로잉 컴포넌트 셋팅
+    {
+        Camera.Location = { 0, 0 };
+
+        Background.Content = "PlayBG";
+        Background.Length = { 1280, 720 };
+
+        Lane.Content = "Lane";
+        Lane.Length = { 500, 720 };
+        Lane.Location = { -300, 0 };
+    }
 }
 
 ConstValue::SceneList PlayScene::UpdateScene()
@@ -38,9 +42,9 @@ ConstValue::SceneList PlayScene::UpdateScene()
     Judge judges[4] = { Judge::None, Judge::None, Judge::None, Judge::None };
     timed += Time::Get::Delta();
 
-    Camera.Location[1] +=  500 * Time::Get::Delta();
-    Background.Location[1] +=   500 * Time::Get::Delta();
-    Lane.Location[1] += 500 * Time::Get::Delta();
+    Camera.Location[1] += SpeedValue * 100 * Time::Get::Delta();
+    Background.Location[1] += SpeedValue * 100 * Time::Get::Delta();
+    Lane.Location[1] += SpeedValue * 100 * Time::Get::Delta();
     Camera.Set();
     
     Background.Draw();
@@ -50,7 +54,7 @@ ConstValue::SceneList PlayScene::UpdateScene()
         //모든 노트를 처리함
         if (nextNodeIndex[u] == noteCount[u]) continue;
         //노트를 처리하는 파트
-        if (Input::Get::Key::Down(keys[u]))
+        if (Input::Get::Key::Down(MappedKeys[u]))
         {
             judges[u] = Notes[u][nextNodeIndex[u]].Judge(static_cast<UINT>(timed * 1000));
             if (judges[u] != Judge::None)

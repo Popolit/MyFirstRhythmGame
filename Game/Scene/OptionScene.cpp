@@ -1,19 +1,16 @@
 #include "stdafx.h"
 #include "OptionScene.h"
 
-void OptionScene::Start(GeneralSetting*& generalSetting)
+void OptionScene::Start()
 {
 	//변수 셋팅
 	{
-		this->generalSetting = generalSetting;
-
 		Selection = ConstValue::OptionList::Sync;
+		KeyIndex = 0;
+		SyncValue = GameValue::Get::SyncValue();
+		SpeedValue = GameValue::Get::SpeedValue();
+		GameValue::Get::Keys(MappedKeys);
 		IsSelected = false;
-		IsSettingChanged = true;
-
-		SyncValue = generalSetting->getSyncValue();
-		SpeedValue = generalSetting->getSpeed();
-		generalSetting->getKeys(Keys);
 	}
 
 	//Image 셋팅
@@ -24,6 +21,18 @@ void OptionScene::Start(GeneralSetting*& generalSetting)
 		OptionUnderLine.Content = "Pixel";
 		OptionUnderLine.Location = { -50, 270 };
 		OptionUnderLine.Length = { 1100, 5 };
+
+		ArrowUp.Content = "ArrowUp";
+		ArrowUp.Location = { 450, 0 };
+		ArrowUp.Length = { 25, 25 };
+		
+		ArrowDown.Content = "ArrowDown";
+		ArrowDown.Location = { 450, 0 };
+		ArrowDown.Length = { 25, 25 };
+
+		ArrowSelection.Content = "ArrowSelection";
+		ArrowSelection.Location = { 450, 270 };
+		ArrowSelection.Length = { 50, 25 };
 	}
 	
 	//인터페이스 텍스트 설정
@@ -49,7 +58,7 @@ void OptionScene::Start(GeneralSetting*& generalSetting)
 
 		IndiKeys.Content = "키 설정 : ";
 		IndiKeys.Font = { "CookieRun Bold", 30, true };
-		IndiKeys.Location = { 380, 450 };
+		IndiKeys.Location = { 400, 450 };
 		IndiKeys.Length = { 200, 40 };
 		IndiKeys.Color = { 255, 255, 255 };
 	}
@@ -69,26 +78,22 @@ void OptionScene::Start(GeneralSetting*& generalSetting)
 
 		for (UINT u = 0; u < 4; u++)
 		{
-			TextKeys[u].Font = { "CookieRun Bold", 30, true };
-			TextKeys[u].Location = { 675 + u * 100, 450 };
-			TextKeys[u].Length = { 90, 40 };
+			TextKeys[u].Font = { "CookieRun Bold", 25, true };
+			TextKeys[u].Location = { 640 + u * 100, 475 };
+			TextKeys[u].Length = { 70, 70 };
 			TextKeys[u].Color = { 255, 255, 255 };
 
 			KeysBox[u].Content = "KeysBox";
-			KeysBox[u].Location = { 0 + u * 100, -85 };
+			KeysBox[u].Location = { 0 + u * 100, -95 };
 			KeysBox[u].Length = { 90, 90 };
 		}
 	}
-
-	AnimSelect.Content = "SelectMode";
-	AnimSelect.Location = { 360, -80 };
-	AnimSelect.Length = { 24, 24 };
-	AnimSelect.Duration = 2;
-	AnimSelect.Repeatable = true;
 }
 
 ConstValue::SceneList OptionScene::UpdateScene() 
 {
+	using namespace GameValue;
+
 	Camera.Set();
 	Background.Draw();
 	OptionText.Draw();
@@ -96,7 +101,6 @@ ConstValue::SceneList OptionScene::UpdateScene()
 	IndiSync.Draw();
 	IndiSpeed.Draw();
 	IndiKeys.Draw();
-	AnimSelect.Draw();
 
 	std::string str_sync = std::to_string(SyncValue);
 	TextSyncValue.Content = str_sync.data();
@@ -110,15 +114,20 @@ ConstValue::SceneList OptionScene::UpdateScene()
 	std::string str_keys[4];
 	for (UINT u = 0; u < 4; u++)
 	{
-		str_keys[u] = Keycode::toString(Keys[u]);
+		str_keys[u] = Keycode::toString(MappedKeys[u]);
 		TextKeys[u].Content = str_keys[u].data();
 		TextKeys[u].Draw();
 		KeysBox[u].Draw();
 	}
-	AnimSelect.Location[1] = 100 - 100 * static_cast<float>(Selection);
+
+	
+	
 	//수정할 옵션 선택
 	if (!IsSelected)
 	{
+		ArrowSelection.Location[1] = 100 - 100 * static_cast<float>(Selection);
+		ArrowSelection.Draw();
+
 		if (Input::Get::Key::Down(VK_DOWN))++Selection;
 		if (Input::Get::Key::Down(VK_UP)) --Selection;
 		if (Input::Get::Key::Down(VK_RETURN)) IsSelected = true;	
@@ -126,19 +135,26 @@ ConstValue::SceneList OptionScene::UpdateScene()
 	}
 	//선택한 옵션 수정
 	else
-	{		
+	{	
+		ArrowUp.Location[1] = 130 - 100 * static_cast<float>(Selection);
+		ArrowDown.Location[1] = 100 - 100 * static_cast<float>(Selection);
+
 		switch (Selection)
 		{
 			case ConstValue::OptionList::Sync:
 			{
 				if (Input::Get::Key::Down(VK_UP)) SyncValue++;
 				if (Input::Get::Key::Down(VK_DOWN)) SyncValue--;
+				ArrowUp.Draw();
+				ArrowDown.Draw();
 				break;
 			}
 			case ConstValue::OptionList::Speed:
 			{
-				if (Input::Get::Key::Down(VK_UP)) SpeedValue += 0.5f;
-				if (Input::Get::Key::Down(VK_DOWN)) SpeedValue -= 0.5f;
+				if (Input::Get::Key::Down(VK_UP) && SpeedValue < ConstValue::MaxSpeed) SpeedValue += 0.5f;
+				if (Input::Get::Key::Down(VK_DOWN) && SpeedValue > ConstValue::MinSpeed) SpeedValue -= 0.5f;
+				ArrowUp.Draw();
+				ArrowDown.Draw();
 				break;
 			}
 			case ConstValue::OptionList::Keys:
@@ -150,17 +166,34 @@ ConstValue::SceneList OptionScene::UpdateScene()
 				}
 				else
 				{
-					auto it = Keycode::KeyMap.begin();
-					for (; it != Keycode::KeyMap.end(); it++)
+					KeysBox[KeyIndex].Content = "KeysBoxSelected";
+					size_t PressedKey = Input::Get::Key::GetPressedKey();		
+					if (PressedKey == VK_ESCAPE)
 					{
-						if (Input::Get::Key::Down(it->first))
-						{
-							Keys[KeyIndex] = it->first;
-							KeyIndex++;
-							break;
-						}
+						KeyIndex = 0;
+						KeysBox[KeyIndex].Content = "KeysBox";
+						IsSelected = false;
+						break;
 					}
-					
+					if (Keycode::toString(PressedKey) != "")
+					{
+						bool IsAlreadyMapped = false;
+						//이전 키와 겹치면 불가능
+						for (UINT u = 0; u < KeyIndex; u++)
+						{
+							if (MappedKeys[u] == PressedKey)
+							{
+								IsAlreadyMapped = true;
+								break;
+							}
+						}
+						if (!IsAlreadyMapped)
+						{
+							KeysBox[KeyIndex].Content = "KeysBox";
+							MappedKeys[KeyIndex] = PressedKey;
+							KeyIndex++;
+						}
+					}					
 				}
 				break;
 			}
@@ -171,12 +204,9 @@ ConstValue::SceneList OptionScene::UpdateScene()
 }
 void OptionScene::End() 
 {
-	if (IsSettingChanged)
-	{
-		generalSetting->setSyncValue(SyncValue);
-		generalSetting->setSpeed(SpeedValue);
-		generalSetting->setKeys(Keys);
-		IsSettingChanged = false;
-	}
+	using namespace GameValue;
+	Set::SyncValue(SyncValue);
+	Set::SpeedValue(SpeedValue);
+	Set::Keys(MappedKeys);
 }
 void OptionScene::PlaySong() {}

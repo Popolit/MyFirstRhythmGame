@@ -64,7 +64,7 @@ namespace Rendering::Pipeline
                         center.y + size.cy / 2
                     };
 
-                    DrawText(hDC, string, ~'\0', &area, DT_TOP);
+                    DrawText(hDC, string, ~'\0', &area, DT_TOP | DT_CENTER | DT_WORDBREAK);
                 }
                 MUST(Surface->ReleaseDC(nullptr));
             }

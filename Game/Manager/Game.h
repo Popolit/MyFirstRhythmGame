@@ -1,6 +1,6 @@
 #pragma once
-#include "GeneralSetting.h"
 #include "Engine/Game.h"
+#include "GameValue.h"
 #include "ConstValue.h"
 
 class Game final : public Engine::Game
@@ -12,6 +12,5 @@ public:
 
 public:
 	std::vector<class ModeScenes*> Scenes;
-	GeneralSetting *generalSetting;
 	ConstValue::SceneList Now;
 };

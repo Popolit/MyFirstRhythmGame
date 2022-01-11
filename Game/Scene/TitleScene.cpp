@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TitleScene.h"
 
-void TitleScene::Start(GeneralSetting *&generalSetting)
+void TitleScene::Start()
 {
     Selection = ConstValue::SceneList::SelectSong;
 
@@ -21,13 +21,13 @@ void TitleScene::Start(GeneralSetting *&generalSetting)
     StartGame.Color = { 255, 255, 255 };
 
     Option.Content = "Option";
-    Option.Location = { 1130, 500 };
+    Option.Location = { 1100, 500 };
     Option.Length = { 150, 50 };
     Option.Font = { "CookieRun Bold", 30, true};
     Option.Color = { 255, 255, 255 };
 
     EndGame.Content = "End Game";
-    EndGame.Location = { 1110, 550 };
+    EndGame.Location = { 1100, 550 };
     EndGame.Length = { 150, 50 };
     EndGame.Font = { "CookieRun Bold", 30, true };
     EndGame.Color = { 255, 255, 255 };
@@ -56,9 +56,7 @@ ConstValue::SceneList TitleScene::UpdateScene()
     if (Input::Get::Key::Down(VK_RETURN)) return Selection;
 
     Camera.Set();
-
     Background.Draw();
-
     SelectMode.Draw();
     StartGame.Draw();
     Option.Draw();

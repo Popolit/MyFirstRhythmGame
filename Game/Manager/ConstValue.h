@@ -2,6 +2,12 @@
 
 namespace ConstValue
 {
+	const int MaxSync = 10000;
+	const int MinSync = -10000;
+
+	const float MaxSpeed = 12.0f;
+	const float MinSpeed = 0.5f;
+
 	const UINT JudgeRange = 33;	//ms
 	const UINT MissRange = 200; //ms
 	const UINT recognizeRange = 1000; //ms;

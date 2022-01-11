@@ -3,6 +3,7 @@
 
 void HitEffect::Start()
 {
+	SpeedValue = GameValue::Get::SpeedValue();
 	duration = 0.0f;
 
 	effect.Content = "HitEffect";
@@ -22,7 +23,7 @@ void HitEffect::setLane(UINT const &lane)
 void HitEffect::Update()
 {
 	
-	effect.Location[1] += 500 * Time::Get::Delta();
+	effect.Location[1] += SpeedValue * 100 * Time::Get::Delta();
 	if (duration <= 0) return;
 
 	duration -= Time::Get::Delta();

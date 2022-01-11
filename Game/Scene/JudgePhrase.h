@@ -1,4 +1,5 @@
 #pragma once
+#include "Manager/GameValue.h"
 #include "Manager/ConstValue.h"
 #include "Manager/Scene.h"
 
@@ -7,6 +8,7 @@ class JudgePhrase final : public Scene
 {
 private:
 	ConstValue::Judge judge;
+	float SpeedValue;
 	float renderingTime;
 	bool isVisible;
 

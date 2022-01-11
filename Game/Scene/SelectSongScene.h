@@ -10,7 +10,7 @@ private:
 	Rendering::Animation::Component SelectionBox;
 
 public:
-	void Start(GeneralSetting*& generalSetting)  override;
+	void Start()  override;
 	ConstValue::SceneList UpdateScene() override;
 	void End()    override;
 	void PlaySong() override;

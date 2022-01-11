@@ -41,6 +41,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Colision.cpp" />
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\HLSL\Pixel.hlsl">

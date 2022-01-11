@@ -1,5 +1,6 @@
 #pragma once
 #include "Note.h"
+#include "Manager/GameValue.h"
 #include <algorithm>
 #include <filesystem>
 #include <string>
@@ -7,7 +8,7 @@
 
 class Chart
 {
-private:	
+private:
 	std::vector<UINT> Timings[4];
 public:
 	Chart() = default;
@@ -74,11 +75,12 @@ public:
 
 	void makeNotes(std::vector<Note> (&Notes)[4])
 	{
+		int SyncValue = GameValue::Get::SyncValue();
 		for (UINT u = 0; u < 4; u++)
 		{
 			for (UINT Timing : Timings[u])
 			{
-				Note note = Note(Timing);
+				Note note = Note(Timing + SyncValue);
 				note.MakeNoteImage(u);
 				Notes[u].push_back(note);
 			}

@@ -1,4 +1,5 @@
 #pragma once
+#include "Manager/GameValue.h"
 #include "Manager/ConstValue.h"
 
 class Note
@@ -16,7 +17,8 @@ public:
 	{
 		NoteImage.Content = "Note";
 		NoteImage.Length = { 100, 10 };
-		NoteImage.Location = {- 450 + static_cast<int>(lineNum * NoteImage.Length[0]), Timing * 0.5f - 248 };
+		NoteImage.Location = {- 450 + static_cast<int>(lineNum * NoteImage.Length[0]), 
+							Timing * GameValue::Get::SpeedValue() / 10 - 248 };
 	}
 
 	inline void DrawNote() { NoteImage.Draw();}

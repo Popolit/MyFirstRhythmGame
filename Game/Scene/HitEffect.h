@@ -1,8 +1,10 @@
 #pragma once
+#include "Manager/GameValue.h"
 #include "Manager/Scene.h"
 class HitEffect final : public Scene
 {
 private:
+	float SpeedValue;
 	float duration;
 	Rendering::Animation::Component effect;
 public:

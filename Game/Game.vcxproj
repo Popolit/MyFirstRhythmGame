@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Component\Chart.h" />
+    <ClInclude Include="Manager\GameValue.h" />
     <ClInclude Include="Manager\Keycode.h" />
     <ClInclude Include="Scene\OptionScene.h" />
     <ClInclude Include="Scene\HitEffect.h" />
@@ -197,7 +198,7 @@
     <ClInclude Include="Engine\Time.h" />
     <ClInclude Include="Engine\Vector.h" />
     <ClInclude Include="Manager\Game.h" />
-    <ClInclude Include="Manager\GeneralSetting.h" />
+    <ClCompile Include="Manager\GameValue.cpp" />
     <ClInclude Include="Manager\Scene.h" />
     <ClInclude Include="Component\Note.h" />
     <ClInclude Include="Scene\ModeScenes.h" />
@@ -233,6 +234,7 @@
     <Image Include="Animation\HitEffect[12].png" />
     <Image Include="Animation\SelectMode[23].png" />
     <Image Include="Image\Good.png" />
+    <Image Include="Image\KeysBox.png" />
     <Image Include="Image\Lane.png" />
     <Image Include="Image\Miss.png" />
     <Image Include="Image\Note.png" />

@@ -17,12 +17,13 @@
     <ClInclude Include="Scene\PlayScene.h" />
     <ClInclude Include="Component\Chart.h" />
     <ClInclude Include="Scene\ModeScenes.h" />
-    <ClInclude Include="Manager\GeneralSetting.h" />
     <ClInclude Include="Scene\JudgePhrase.h" />
     <ClInclude Include="Scene\HitEffect.h" />
     <ClInclude Include="Scene\OptionScene.h" />
     <ClInclude Include="Manager\Keycode.h" />
     <ClInclude Include="Scene\SelectSongScene.h" />
+    <ClInclude Include="Manager\GeneralSetting.h" />
+    <ClInclude Include="Manager\GameValue.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manager\Game.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="Manager\Keycode.cpp" />
     <ClCompile Include="Manager\ConstValue.cpp" />
     <ClCompile Include="Scene\SelectSongScene.cpp" />
+    <ClCompile Include="Manager\GameValue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Font\CookieRun Black.ttf" />
@@ -52,5 +54,6 @@
     <Image Include="Image\Miss.png" />
     <Image Include="Image\Good.png" />
     <Image Include="Animation\HitEffect[12].png" />
+    <Image Include="Image\KeysBox.png" />
   </ItemGroup>
 </Project>

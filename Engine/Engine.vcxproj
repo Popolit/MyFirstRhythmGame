@@ -191,6 +191,7 @@
     <ClCompile Include="PipeLine.cpp" />
     <ClCompile Include="Rendering.cpp" />
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Colision.cpp" />
   </ItemGroup>

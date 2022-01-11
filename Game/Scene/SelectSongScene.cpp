@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SelectSongScene.h"
 
-void SelectSongScene::Start(GeneralSetting*& generalSetting)
+void SelectSongScene::Start()
 {
 }
 

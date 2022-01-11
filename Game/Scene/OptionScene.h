@@ -3,23 +3,25 @@
 #include "Manager/ConstValue.h"
 #include <string>
 #include "Manager/Keycode.h"
+
+
 class OptionScene final : public ModeScenes
 {
 private:
+	UINT KeyIndex;
+	bool IsSelected;
 	int SyncValue;
 	float SpeedValue;
-	size_t Keys[4];
-	UINT KeyIndex = 0;
-	bool IsSelected = false;
-	bool IsSettingChanged;
-
+	size_t MappedKeys[4];
 	ConstValue::OptionList Selection;
-	void* Indicate = &SyncValue;
 	
 	Rendering::Camera               Camera;
 	Rendering::Image::Component     Background;
 	Rendering::Image::Component		OptionUnderLine;
 	Rendering::Image::Component		KeysBox[4];
+	Rendering::Image::Component     ArrowUp;
+	Rendering::Image::Component     ArrowDown;
+	Rendering::Image::Component     ArrowSelection;
 
 	Rendering::Text::Component		OptionText;
 
@@ -34,7 +36,7 @@ private:
 	Rendering::Animation::Component AnimSelect;
 
 public:
-	void Start(GeneralSetting*& generalSetting)  override;
+	void Start()  override;
 	ConstValue::SceneList UpdateScene() override;
 	void End()    override;
 	void PlaySong() override;
