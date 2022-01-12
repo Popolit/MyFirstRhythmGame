@@ -2,6 +2,8 @@
 
 namespace ConstValue
 {
+	const UINT MaxScore = 1000000;
+
 	const int MaxSync = 10000;
 	const int MinSync = -10000;
 

@@ -22,7 +22,6 @@ void HitEffect::setLane(UINT const &lane)
 
 void HitEffect::Update()
 {
-	
 	effect.Location[1] += SpeedValue * 100 * Time::Get::Delta();
 	if (duration <= 0) return;
 

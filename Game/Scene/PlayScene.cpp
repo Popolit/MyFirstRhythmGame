@@ -14,14 +14,18 @@ void PlayScene::Start()
         Chart chart = Chart("Sample");
         chart.makeNotes(Notes);
 
+        UINT totalNoteCount = 0;
         for (UINT u = 0; u < 4; u++)
         {
             nextNodeIndex[u] = 0;
             noteCount[u] = Notes[u].size();
+            totalNoteCount += static_cast<UINT>(noteCount[u]);
             hitEffects[u] = new HitEffect();
             hitEffects[u]->Start();
             hitEffects[u]->setLane(u);
         }
+
+        CurrentScore = new Score(totalNoteCount);
     }
     //드로잉 컴포넌트 셋팅
     {
@@ -61,7 +65,11 @@ ConstValue::SceneList PlayScene::UpdateScene()
             {
                 nextNodeIndex[u]++;
                 judgePhrase->setJudge(judges[u]);
-                if (judges[u] != Judge::Miss)  hitEffects[u]->reset();
+                if (judges[u] != Judge::Miss)
+                {
+                    CurrentScore->Update(judges[u]);
+                    hitEffects[u]->reset();
+                }
             }
         }
         //조작하지 않고 Miss라인을 넘어간 노트
@@ -73,9 +81,10 @@ ConstValue::SceneList PlayScene::UpdateScene()
         for (UINT noteIndex = nextNodeIndex[u]; noteIndex < noteCount[u]; noteIndex++) Notes[u][noteIndex].DrawNote();
         
     }
-    for(UINT u = 0; u < 4; u++) hitEffects[u]->Update();
 
+    for(UINT u = 0; u < 4; u++) hitEffects[u]->Update();
     judgePhrase->Update();
+    CurrentScore->DrawScore();
     if (Input::Get::Key::Down(VK_ESCAPE)) { return SceneList::Title; }
     else { return SceneList::Play; }
 }
@@ -83,6 +92,7 @@ ConstValue::SceneList PlayScene::UpdateScene()
 void PlayScene::End() 
 { 
     delete judgePhrase; 
+    delete CurrentScore;
     for (UINT u = 0; u < 4; u++)
     {
         Notes[u] = std::vector<Note>();

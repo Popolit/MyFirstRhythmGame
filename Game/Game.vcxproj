@@ -198,12 +198,14 @@
     <ClInclude Include="Engine\Time.h" />
     <ClInclude Include="Engine\Vector.h" />
     <ClInclude Include="Manager\Game.h" />
+    <ClCompile Include="Component\Note.cpp" />
     <ClCompile Include="Manager\GameValue.cpp" />
     <ClInclude Include="Manager\Scene.h" />
     <ClInclude Include="Component\Note.h" />
     <ClInclude Include="Scene\ModeScenes.h" />
     <ClInclude Include="Scene\PlayScene.h" />
     <ClInclude Include="Scene\SelectSongScene.h" />
+    <ClInclude Include="Component\Score.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Scene\TitleScene.h" />
   </ItemGroup>
@@ -217,6 +219,7 @@
     <ClCompile Include="Scene\PlayScene.cpp" />
     <ClCompile Include="Scene\JudgePhrase.cpp" />
     <ClCompile Include="Scene\SelectSongScene.cpp" />
+    <ClCompile Include="Component\Score.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

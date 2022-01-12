@@ -22,8 +22,8 @@
     <ClInclude Include="Scene\OptionScene.h" />
     <ClInclude Include="Manager\Keycode.h" />
     <ClInclude Include="Scene\SelectSongScene.h" />
-    <ClInclude Include="Manager\GeneralSetting.h" />
     <ClInclude Include="Manager\GameValue.h" />
+    <ClInclude Include="Component\Score.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manager\Game.cpp" />
@@ -38,6 +38,8 @@
     <ClCompile Include="Manager\ConstValue.cpp" />
     <ClCompile Include="Scene\SelectSongScene.cpp" />
     <ClCompile Include="Manager\GameValue.cpp" />
+    <ClCompile Include="Component\Score.cpp" />
+    <ClCompile Include="Component\Note.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Font\CookieRun Black.ttf" />

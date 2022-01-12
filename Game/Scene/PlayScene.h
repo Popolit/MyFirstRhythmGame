@@ -4,6 +4,7 @@
 #include "HitEffect.h"
 #include "Component/Note.h"
 #include "Component/Chart.h"
+#include "Component/Score.h"
 
 class PlayScene final : public ModeScenes
 {
@@ -13,6 +14,7 @@ private:
 	std::vector<Note> Notes[4];
 	UINT nextNodeIndex[4];
 	size_t noteCount[4];
+	Score* CurrentScore;
 	JudgePhrase* judgePhrase;
 	HitEffect *hitEffects[4];
 	float timed;

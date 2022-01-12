@@ -8,7 +8,7 @@
 #define MUST(Expression) (assert(SUCCEEDED(Expression)))
 #endif
 
-#ifdef _XBOX
+#ifndef _XBOX
 #define fourccRIFF 'FFIR'
 #define fourccDATA 'atad'
 #define fourccFMT 'tmf'
