@@ -181,6 +181,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Shader\Bytecode\Pixel.h" />
     <ClInclude Include="Shader\Bytecode\Vertex.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>

@@ -16,6 +16,7 @@ private:
 public:
 	Score();
 	Score(UINT const &count);
+	~Score();
 	void Update(ConstValue::Judge const & judge);
 	void DrawScore();
 };

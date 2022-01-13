@@ -25,6 +25,11 @@ Score::Score(UINT const& count) : Score()
 	if(count != 0) TotalCount = count;
 }
 
+Score::~Score()
+{
+	CurrentScore.Content = nullptr;
+}
+
 void Score::Update(ConstValue::Judge const& judge)
 {
 	if (judge == ConstValue::Judge::Perfect) GainedScoreCount += 1.0f;
@@ -37,7 +42,6 @@ void Score::Update(ConstValue::Judge const& judge)
 	{
 		strScore += '0' + ((CalculatedScore / u) % 10);
 	}
-	//CurrentScore.Content = strScore.data();
 }
 
 void Score::DrawScore() 

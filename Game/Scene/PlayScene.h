@@ -23,6 +23,8 @@ private:
 	Rendering::Image::Component		Lane;
 	Rendering::Image::Component     Background;
 
+	Sound::Sound					Song;
+
 public:
 	void Start()  override;
 	ConstValue::SceneList UpdateScene() override;

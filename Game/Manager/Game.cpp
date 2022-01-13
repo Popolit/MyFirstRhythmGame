@@ -21,9 +21,10 @@ bool Game::Update()
 {
 	using namespace ConstValue;
 	SceneList prev = Now;
-	Now = Scenes.at(static_cast<int>(Now))->UpdateScene();
+	if(prev != SceneList::End) Now = Scenes.at(static_cast<int>(Now))->UpdateScene();
 
-	if (Now == SceneList::End) return true;
+	if (Now == SceneList::End) 
+		return true;
 	if (Now != prev)
 	{
 		if (Now == SceneList::SelectSong) Now = SceneList::Play;
@@ -35,7 +36,7 @@ bool Game::Update()
 }
 void Game::End()
 {
-	for (Scene* scene : Scenes)
+	for (ModeScenes* scene : Scenes)
 	{
 		scene->End();
 		delete scene;

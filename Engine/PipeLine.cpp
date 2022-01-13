@@ -1,6 +1,5 @@
 ﻿#include <cassert>
 #include <d3d11.h>
-#include <dsound.h>
 #include "Pipeline.h"
 
 #if not defined _DEBUG
@@ -17,8 +16,6 @@ namespace Rendering::Pipeline
         ID3D11DeviceContext* DeviceContext;
 
         IDXGISwapChain* SwapChain;
-
-        IDirectSound* SDevice;
 
         namespace Buffer
         {
@@ -71,14 +68,6 @@ namespace Rendering::Pipeline
             Surface->Release();
 
             DeviceContext->OMSetRenderTargets(1, &RenderTargetView, nullptr);
-        }
-    }
-
-    namespace Sound
-    {
-        void Create(IDirectSoundBuffer &buffer)
-        {
-
         }
     }
 
@@ -318,39 +307,6 @@ namespace Rendering::Pipeline
                 DeviceContext->OMSetBlendState(BlendState, nullptr, D3D11_DEFAULT_SAMPLE_MASK);
 
                 BlendState->Release();
-            }
-            {
-               /* MUST(DirectSoundCreate(NULL, &SDevice,NULL));
-                MUST(SDevice->SetCooperativeLevel(hWindow, DSSCL_NORMAL));
-
-                WAVEFORMATEX wfx;
-                LPDIRECTSOUNDBUFFER lpdsb = NULL;
-                DSBUFFERDESC Descriptor = DSBUFFERDESC();
-
-                wfx.wFormatTag = WAVE_FORMAT_PCM;
-                wfx.nChannels = 1;
-                wfx.wBitsPerSample = 16;
-                wfx.cbSize = 0;
-                wfx.nSamplesPerSec = 1600;
-                wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * (wfx.wBitsPerSample / 8);
-                wfx.nBlockAlign = (wfx.wBitsPerSample / 8) * wfx.nChannels;
-
-                Descriptor.dwSize = sizeof(DSBUFFERDESC);
-                Descriptor.dwFlags = DSBCAPS_STATIC | DSBCAPS_GLOBALFOCUS | DSBCAPS_CTRLVOLUME; //옵션 : 온보드하드웨어 사용 | 포커스를 잃어도 소리 재생 | 음량조절
-                Descriptor.dwBufferBytes = 4 * wfx.nAvgBytesPerSec;
-                Descriptor.lpwfxFormat = &wfx;
-
-                IDirectSoundBuffer* buffer;
-
-                MUST(SDevice->CreateSoundBuffer(&Descriptor, &buffer, 0));
-                lpdsb->SetFormat(&wfx);
-                lpdsb->Release();
-
-                void* buf;
-                DWORD length;
-                MUST(buffer->Lock(0, 1, &buf, &length, 0, 0, 0));
-                memcpy_s(buf, length);
-                buffer->Unlock(buf, length, 0, 0);*/
             }
             return;
         }

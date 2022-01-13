@@ -24,6 +24,8 @@
     <ClInclude Include="Scene\SelectSongScene.h" />
     <ClInclude Include="Manager\GameValue.h" />
     <ClInclude Include="Component\Score.h" />
+    <ClInclude Include="Component\Song.h" />
+    <ClInclude Include="Engine\Sound.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manager\Game.cpp" />
@@ -40,6 +42,7 @@
     <ClCompile Include="Manager\GameValue.cpp" />
     <ClCompile Include="Component\Score.cpp" />
     <ClCompile Include="Component\Note.cpp" />
+    <ClCompile Include="Component\Song.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Font\CookieRun Black.ttf" />

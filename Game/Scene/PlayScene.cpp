@@ -38,6 +38,12 @@ void PlayScene::Start()
         Lane.Length = { 500, 720 };
         Lane.Location = { -300, 0 };
     }
+    //노래 셋팅
+    {
+        Song.Content = "Sample";
+        Song.volume = 1;
+        Song.Play();
+    }
 }
 
 ConstValue::SceneList PlayScene::UpdateScene()
@@ -90,9 +96,10 @@ ConstValue::SceneList PlayScene::UpdateScene()
 }
 
 void PlayScene::End() 
-{ 
+{
+    Song.Stop();
     delete judgePhrase; 
-    delete CurrentScore;
+    //delete CurrentScore;
     for (UINT u = 0; u < 4; u++)
     {
         Notes[u] = std::vector<Note>();

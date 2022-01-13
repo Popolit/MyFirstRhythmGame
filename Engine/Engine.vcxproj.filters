@@ -31,6 +31,7 @@
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Sound.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entry.cpp" />

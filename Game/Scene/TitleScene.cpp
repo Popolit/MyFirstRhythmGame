@@ -32,6 +32,9 @@ void TitleScene::Start()
     EndGame.Font = { "CookieRun Bold", 30, true };
     EndGame.Color = { 255, 255, 255 };
    
+    /*BGM.Content = "Sample";
+    BGM.volume = 1;
+    BGM.Play();*/
 }
 
 ConstValue::SceneList TitleScene::UpdateScene()
@@ -65,6 +68,8 @@ ConstValue::SceneList TitleScene::UpdateScene()
     return ConstValue::SceneList::Title;
 }
 
-void TitleScene::End() { }
+void TitleScene::End() { }//BGM.Stop(); }
 
-void TitleScene::PlaySong() { }
+void TitleScene::PlaySong() 
+{
+}

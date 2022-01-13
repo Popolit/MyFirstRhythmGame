@@ -20,6 +20,7 @@ namespace Engine
 			case WM_CREATE:
 			{
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
+				Sound::Procedure(hWindow, uMessage, wParameter, lParameter);
 
 				(Portfolio = Initialize())->Start();
 
@@ -27,7 +28,7 @@ namespace Engine
 			}
 			case WM_APP:
 			{
-				if(Portfolio->Update()) CloseWindow(hWindow);	
+				if (Portfolio->Update()) DestroyWindow(hWindow);
 				Input::Procedure(hWindow, uMessage, wParameter, lParameter);
 				Rendering::Procedure(hWindow, uMessage, wParameter, lParameter);
 				Time::Procedure(hWindow, uMessage, wParameter, lParameter);
