@@ -26,6 +26,7 @@
     <ClInclude Include="Component\Score.h" />
     <ClInclude Include="Component\Song.h" />
     <ClInclude Include="Engine\Sound.h" />
+    <ClInclude Include="Scene\Combo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manager\Game.cpp" />
@@ -43,6 +44,7 @@
     <ClCompile Include="Component\Score.cpp" />
     <ClCompile Include="Component\Note.cpp" />
     <ClCompile Include="Component\Song.cpp" />
+    <ClCompile Include="Scene\Combo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Font\CookieRun Black.ttf" />
@@ -60,5 +62,10 @@
     <Image Include="Image\Good.png" />
     <Image Include="Animation\HitEffect[12].png" />
     <Image Include="Image\KeysBox.png" />
+    <Image Include="Image\NoteBlue.png" />
+    <Image Include="Image\NoteWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Datas\Sample.txt" />
   </ItemGroup>
 </Project>

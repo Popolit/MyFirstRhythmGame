@@ -26,6 +26,7 @@ void PlayScene::Start()
         }
 
         CurrentScore = new Score(totalNoteCount);
+        CurrentCombo = new Combo();
     }
     //드로잉 컴포넌트 셋팅
     {
@@ -41,7 +42,7 @@ void PlayScene::Start()
     //노래 셋팅
     {
         Song.Content = "Sample";
-        Song.volume = 1;
+        Song.Set();//(true, (UINT32)115002 * 26, 0, 115002 * 26, 800000);
         Song.Play();
     }
 }
@@ -71,6 +72,7 @@ ConstValue::SceneList PlayScene::UpdateScene()
             {
                 nextNodeIndex[u]++;
                 judgePhrase->setJudge(judges[u]);
+                CurrentCombo->Update(judges[u]);
                 if (judges[u] != Judge::Miss)
                 {
                     CurrentScore->Update(judges[u]);
@@ -82,15 +84,16 @@ ConstValue::SceneList PlayScene::UpdateScene()
         else if (Notes[u][nextNodeIndex[u]].getTiming() < timed * 1000 - MissRange)
         {
             nextNodeIndex[u]++;
+            CurrentCombo->Update(Judge::Miss);
             judgePhrase->setJudge(Judge::Miss);
         }
         for (UINT noteIndex = nextNodeIndex[u]; noteIndex < noteCount[u]; noteIndex++) Notes[u][noteIndex].DrawNote();
-        
     }
 
     for(UINT u = 0; u < 4; u++) hitEffects[u]->Update();
     judgePhrase->Update();
     CurrentScore->DrawScore();
+    CurrentCombo->Draw();
     if (Input::Get::Key::Down(VK_ESCAPE)) { return SceneList::Title; }
     else { return SceneList::Play; }
 }
@@ -99,7 +102,8 @@ void PlayScene::End()
 {
     Song.Stop();
     delete judgePhrase; 
-    //delete CurrentScore;
+    delete CurrentScore;
+    delete CurrentCombo;
     for (UINT u = 0; u < 4; u++)
     {
         Notes[u] = std::vector<Note>();

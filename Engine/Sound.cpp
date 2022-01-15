@@ -32,7 +32,7 @@ namespace Sound
 		IXAudio2MasteringVoice* MasterVoice = nullptr;	//오디오 캡슐화 오디오 그래프를 통과하는 모든 오디오의 최종대상
 
 		WAVEFORMATEXTENSIBLE wfx = { 0 };	//WAVE 형식을 저장함
-		XAUDIO2_BUFFER buffer = { 0 };
+		
 
 		IXAudio2SourceVoice* SourceVoice;
 	}
@@ -100,7 +100,7 @@ namespace Sound
 		return hr;
 	}
 
-	std::map<std::string, IXAudio2SourceVoice*> Storage;
+	std::map<std::string, std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER>> Storage;
 
 	void Import(std::string const & file)
 	{
@@ -117,6 +117,8 @@ namespace Sound
 		if (INVALID_HANDLE_VALUE == hFile) return;
 
 		if (INVALID_SET_FILE_POINTER == SetFilePointer(hFile, 0, NULL, FILE_BEGIN)) return;
+
+		XAUDIO2_BUFFER buffer = { 0 };
 
 		DWORD dwAudioSize;
 		DWORD dwAudioPosition;
@@ -137,20 +139,18 @@ namespace Sound
 		buffer.Flags = XAUDIO2_END_OF_STREAM;
 
 		MUST(XAudio2->CreateSourceVoice(&SourceVoice, (WAVEFORMATEX*)&wfx));
-		MUST(SourceVoice->SubmitSourceBuffer(&buffer));
 
 		{
 			size_t const x = file.find_first_of('/') + sizeof(char);
 			size_t const y = file.find_last_of('.');
 
-			Storage.try_emplace(file.substr(x, y - x), SourceVoice);
+			Storage.try_emplace(file.substr(x, y - x), std::make_pair(SourceVoice, buffer));
 		}
 		return;
 	}
 
 	void Procedure(HWND const hWindow, UINT const uMessage, WPARAM const wParameter, LPARAM const lParameter)
 	{
-
 		switch (uMessage)
 		{
 			case WM_CREATE:
@@ -166,39 +166,46 @@ namespace Sound
 		}
 	}
 
-	void Sound::Play()
+	void Sound::Set(bool isLoop, UINT32 playBegin, UINT32 playLength, UINT32 loopBegin, UINT32 loopLength)
 	{
-		IXAudio2SourceVoice* const& sound = Storage.at(Content);
-		MUST(sound->SetVolume(volume));
-		MUST(sound->Start());
+		if (paused) return;
+		std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER> source = Storage.at(Content);		
+
+		if (isLoop) source.second.LoopCount = XAUDIO2_LOOP_INFINITE;
+		else source.second.LoopCount = 0;
+		source.second.PlayBegin = playBegin;
+		source.second.PlayLength = playLength;
+		source.second.LoopBegin = loopBegin;
+		source.second.LoopLength = loopLength;
+
+		MUST(source.first->SubmitSourceBuffer(&source.second));
 	}
 
-	/*
-	void Sound::SamplePlay(UINT32 const & Playbegin, UINT32 const & Length)
+	void Sound::Play()
 	{
-		buffer = {  
-		UINT32     Flags;
-		UINT32     AudioBytes;
-		const BYTE *pAudioData;
-		UINT32     PlayBegin;
-		UINT32     PlayLength;
-		UINT32     LoopBegin;
-		UINT32     LoopLength;
-		UINT32     LoopCount;
-		void       *pContext;
+		std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER> source = Storage.at(Content);
+		paused = false;
+		MUST(source.first->Start(0));
 	}
-	*/
+
 	void Sound::Pause()
 	{
-		IXAudio2SourceVoice* const& sound = Storage.at(Content);
-		MUST(sound->Stop());
+		std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER> source = Storage.at(Content);
+		paused = true;
+		MUST(source.first->Stop());
 	}
 
 	void Sound::Stop()
 	{
-		IXAudio2SourceVoice* const& sound = Storage.at(Content);
-		MUST(sound->Stop());
-		MUST(sound->FlushSourceBuffers());
-		//MUST(sound->SubmitSourceBuffer(new XAUDIO2_BUFFER, new XAUDIO2_BUFFER_WMA));
+		std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER> source = Storage.at(Content);
+		paused = false;
+		MUST(source.first->Stop());
+		MUST(source.first->FlushSourceBuffers());
+	}
+
+	void Sound::SetVolume(float const& volume)
+	{
+		std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER> source = Storage.at(Content);
+		source.first->SetVolume(volume);
 	}
 }

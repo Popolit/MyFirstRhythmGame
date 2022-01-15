@@ -6,16 +6,22 @@ void JudgePhrase::Start()
 	SpeedValue = GameValue::Get::SpeedValue();
 
 	Perfect.Content = "Perfect";
-	Perfect.Location = { -300, 0 };
-	Perfect.Length = { 150, 50 };
+	Perfect.Location = { -290, 0 };
+	Perfect.Length = { 300, 100 };
+	Perfect.Duration = 0.1f;
+	Perfect.Repeatable = false;
 
 	Good.Content = "Good";
-	Good.Location = { -300, 0 };
-	Good.Length = { 150, 50 };
+	Good.Location = { -290, 0 };
+	Good.Length = { 300, 100 };
+	Good.Duration = 0.1f;
+	Good.Repeatable = false;
 
 	Miss.Content = "Miss";
-	Miss.Location = { -300, 0 };
-	Miss.Length = { 150, 50 };
+	Miss.Location = { -290, 0 };
+	Miss.Length = { 300, 100 };
+	Miss.Duration = 0.1f;
+	Miss.Repeatable = false;
 
 	renderingTime = 0.0f;	
 }
@@ -23,6 +29,9 @@ void JudgePhrase::Start()
 void JudgePhrase::setJudge(ConstValue::Judge judge) 
 {
 	renderingTime = 1.0f;
+	Perfect.Playback = 0.0f;
+	Good.Playback = 0.0f;
+	Miss.Playback = 0.0f;
 
 	this->judge = judge; 
 }

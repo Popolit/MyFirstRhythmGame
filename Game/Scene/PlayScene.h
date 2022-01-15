@@ -1,4 +1,5 @@
 #pragma once
+#include "Combo.h"
 #include "ModeScenes.h"
 #include "JudgePhrase.h"
 #include "HitEffect.h"
@@ -14,6 +15,7 @@ private:
 	std::vector<Note> Notes[4];
 	UINT nextNodeIndex[4];
 	size_t noteCount[4];
+	Combo* CurrentCombo;	//pCombo ·Î °íÃÄ!
 	Score* CurrentScore;
 	JudgePhrase* judgePhrase;
 	HitEffect *hitEffects[4];

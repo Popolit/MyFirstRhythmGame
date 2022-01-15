@@ -183,6 +183,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Scene\Combo.h" />
     <ClInclude Include="Component\Chart.h" />
     <ClInclude Include="Engine\Sound.h" />
     <ClInclude Include="Manager\GameValue.h" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Engine\Time.h" />
     <ClInclude Include="Engine\Vector.h" />
     <ClInclude Include="Manager\Game.h" />
+    <ClCompile Include="Scene\Combo.cpp" />
     <ClCompile Include="Component\Note.cpp" />
     <ClCompile Include="Manager\GameValue.cpp" />
     <ClInclude Include="Manager\Scene.h" />
@@ -244,9 +246,14 @@
     <Image Include="Image\Lane.png" />
     <Image Include="Image\Miss.png" />
     <Image Include="Image\Note.png" />
+    <Image Include="Image\NoteBlue.png" />
+    <Image Include="Image\NoteWhite.png" />
     <Image Include="Image\Perfect.png" />
     <Image Include="Image\PlayBG.png" />
     <Image Include="Image\TitleScene.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Datas\Sample.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -11,12 +11,13 @@ namespace GameValue
 	}
 	void Start()
 	{
+		using namespace ConstValue;
 		SyncValue = 0;
-		SpeedValue = 0.5f;
-		MappedKeys[0] = 0x44;
-		MappedKeys[1] = 0x46;
-		MappedKeys[2] = 0x4A;
-		MappedKeys[3] = 0x4B;
+		SpeedValue = DefSpeed;
+		MappedKeys[0] = DefKeys[0];
+		MappedKeys[1] = DefKeys[1];
+		MappedKeys[2] = DefKeys[2];
+		MappedKeys[3] = DefKeys[3];
 	}
 
 	namespace Get
@@ -24,6 +25,7 @@ namespace GameValue
 		int SyncValue() { return GameValue::SyncValue; }
 		float SpeedValue() { return GameValue::SpeedValue; }
 		void Keys(size_t (&target)[4]) { for (UINT u = 0; u < 4; u++) target[u] = GameValue::MappedKeys[u]; }
+		
 	}
 	namespace Set
 	{

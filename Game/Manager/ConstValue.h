@@ -1,5 +1,4 @@
 #pragma once
-
 namespace ConstValue
 {
 	const UINT MaxScore = 1000000;
@@ -7,12 +6,16 @@ namespace ConstValue
 	const int MaxSync = 10000;
 	const int MinSync = -10000;
 
-	const float MaxSpeed = 12.0f;
+	const float MaxSpeed = 20.0f;
+	const float DefSpeed = 6.0f;
 	const float MinSpeed = 0.5f;
 
-	const UINT JudgeRange = 33;	//ms
+	const UINT JudgeRange = 50;	//ms
 	const UINT MissRange = 200; //ms
 	const UINT recognizeRange = 1000; //ms;
+
+	const size_t DefKeys[4] = { 0x44, 0x46, 0x4A, 0x4B };
+
 	enum class Judge { Perfect, Good, Miss, None };
 	enum class SceneList { Title, Play, SelectSong, Option, End  };
 	enum class OptionList { Sync, Speed, Keys };

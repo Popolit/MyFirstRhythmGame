@@ -1,4 +1,5 @@
 #pragma once
+#include"ConstValue.h"
 
 namespace GameValue
 {

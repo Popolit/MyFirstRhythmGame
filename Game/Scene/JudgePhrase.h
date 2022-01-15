@@ -12,9 +12,9 @@ private:
 	float renderingTime;
 	bool isVisible;
 
-	Rendering::Image::Component Perfect;
-	Rendering::Image::Component Good;
-	Rendering::Image::Component Miss;
+	Rendering::Animation::Component Perfect;
+	Rendering::Animation::Component Good;
+	Rendering::Animation::Component Miss;
 public:
 	void Start() override;
 	void setJudge(ConstValue::Judge judge);

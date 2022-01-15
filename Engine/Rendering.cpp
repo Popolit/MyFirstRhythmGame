@@ -219,7 +219,7 @@ namespace Rendering
 				Playback += delta;
 
 				//fmod(x, y) : x / y의 부동 소수점 부분만 반환
-				if (Duration * descriptor.Motion)
+				if (Duration < Playback)
 				{
 					if (Repeatable) Playback = fmod(Playback, Duration);
 					else Playback -= delta;

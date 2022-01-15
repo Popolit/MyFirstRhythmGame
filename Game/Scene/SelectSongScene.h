@@ -5,7 +5,7 @@ class SelectSongScene final : public ModeScenes
 {
 private:
 	ConstValue::SceneList Selection;
-	//std::map<> ;
+	//std::vector<Song *> SongList;
 
 
 	Rendering::Camera               Camera;

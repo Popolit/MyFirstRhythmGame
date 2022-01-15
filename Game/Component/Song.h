@@ -2,16 +2,17 @@
 #include <string>
 class Song
 {
-private:
-	std::string Name;
+protected:
+	std::string Title;
 	std::string Artist;
 	UINT BestScore;
 	UINT Length;
 	UINT Highlight;
 
-	//Image 파일
-	//Sound 파일
+	Rendering::Image::Component Thumbnail;
+	Sound::Sound song;
 public:
-	void Import(std::string const& name);
+	Song();
+	Song(std::string const& file);
 };
 

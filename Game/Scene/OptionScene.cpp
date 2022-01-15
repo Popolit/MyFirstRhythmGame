@@ -19,8 +19,8 @@ void OptionScene::Start()
 		Background.Length = { 1280, 720 };
 
 		OptionUnderLine.Content = "Pixel";
-		OptionUnderLine.Location = { -50, 270 };
-		OptionUnderLine.Length = { 1100, 5 };
+		OptionUnderLine.Location = { -5, 270 };
+		OptionUnderLine.Length = { 1170, 5 };
 
 		ArrowUp.Content = "ArrowUp";
 		ArrowUp.Location = { 450, 0 };
@@ -46,19 +46,19 @@ void OptionScene::Start()
 
 		IndiSync.Content = "싱크 : ";
 		IndiSync.Font = { "CookieRun Bold", 30, true };
-		IndiSync.Location = { 400, 250 };
+		IndiSync.Location = { 300, 250 };
 		IndiSync.Length = { 200, 40 };
 		IndiSync.Color = { 255, 255, 255 };
 
 		IndiSpeed.Content = "속도 : ";
 		IndiSpeed.Font = { "CookieRun Bold", 30, true };
-		IndiSpeed.Location = { 400, 350 };
+		IndiSpeed.Location = { 300, 350 };
 		IndiSpeed.Length = { 200, 40 };
 		IndiSpeed.Color = { 255, 255, 255 };
 
 		IndiKeys.Content = "키 설정 : ";
 		IndiKeys.Font = { "CookieRun Bold", 30, true };
-		IndiKeys.Location = { 400, 450 };
+		IndiKeys.Location = { 300, 450 };
 		IndiKeys.Length = { 200, 40 };
 		IndiKeys.Color = { 255, 255, 255 };
 	}
@@ -67,24 +67,24 @@ void OptionScene::Start()
 	//옵션 수치 설정
 	{
 		TextSyncValue.Font = { "CookieRun Bold", 30, true };
-		TextSyncValue.Location = { 880, 250 };
+		TextSyncValue.Location = { 790, 255 };
 		TextSyncValue.Length = { 200, 40 };
 		TextSyncValue.Color = { 255, 255, 255 };
 
 		TextSpeedValue.Font = { "CookieRun Bold", 30, true };
-		TextSpeedValue.Location = { 880, 350 };
+		TextSpeedValue.Location = { 790, 355 };
 		TextSpeedValue.Length = { 200, 40 };
 		TextSpeedValue.Color = { 255, 255, 255 };
 
 		for (UINT u = 0; u < 4; u++)
 		{
 			TextKeys[u].Font = { "CookieRun Bold", 25, true };
-			TextKeys[u].Location = { 640 + u * 100, 475 };
+			TextKeys[u].Location = { 640 + u * 100, 480 };
 			TextKeys[u].Length = { 70, 70 };
 			TextKeys[u].Color = { 255, 255, 255 };
 
 			KeysBox[u].Content = "KeysBox";
-			KeysBox[u].Location = { 0 + u * 100, -95 };
+			KeysBox[u].Location = { 0 + u * 100, -100 };
 			KeysBox[u].Length = { 90, 90 };
 		}
 	}

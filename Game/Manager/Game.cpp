@@ -23,8 +23,11 @@ bool Game::Update()
 	SceneList prev = Now;
 	if(prev != SceneList::End) Now = Scenes.at(static_cast<int>(Now))->UpdateScene();
 
-	if (Now == SceneList::End) 
+	if (Now == SceneList::End)
+	{
+		Now = prev;
 		return true;
+	}
 	if (Now != prev)
 	{
 		if (Now == SceneList::SelectSong) Now = SceneList::Play;
@@ -36,9 +39,9 @@ bool Game::Update()
 }
 void Game::End()
 {
+	Scenes.at(static_cast<int>(Now))->End();
 	for (ModeScenes* scene : Scenes)
 	{
-		scene->End();
 		delete scene;
 	}
 }

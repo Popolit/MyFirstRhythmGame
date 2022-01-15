@@ -1,4 +1,0 @@
-C:\Users\popol\source\repos\Engine\.lib\Engine.pdb
-C:\Users\popol\source\repos\Engine\.int\Engine\Engine.pdb
-C:\Users\popol\source\repos\MyFirstRhythmGame\.lib\Engine.pdb
-C:\Users\popol\source\repos\MyFirstRhythmGame\.int\Engine\Engine.pdb
