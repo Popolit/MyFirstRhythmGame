@@ -30,4 +30,34 @@ namespace ConstValue
     {
         return static_cast<UINT> (A) < static_cast<UINT> (B);
     }
+
+
+    Difficulty operator++(Difficulty& d)
+    {
+        return d = (d == Difficulty::Hard) ? Difficulty::Hard : static_cast<Difficulty>(static_cast<int>(d) + 1);
+    }
+    Difficulty operator--(Difficulty& d)
+    {
+        return d = (d == Difficulty::Easy) ? Difficulty::Easy : static_cast<Difficulty>(static_cast<int>(d) - 1);
+    }
+
+    std::string toString(Difficulty& d)
+    {
+        switch (d)
+        {
+            case Difficulty::Easy:
+            {
+                return "Easy";
+            }
+            case Difficulty::Normal:
+            {
+                return "Normal";
+            }
+            case Difficulty::Hard:
+            {
+                return "Hard";
+            }
+        }
+        return "";
+    }
 }

@@ -166,17 +166,20 @@ namespace Sound
 		}
 	}
 
-	void Sound::Set(bool isLoop, UINT32 playBegin, UINT32 playLength, UINT32 loopBegin, UINT32 loopLength)
+	void Sound::Set(bool isLoop, UINT32 loopBegin)
 	{
 		if (paused) return;
-		std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER> source = Storage.at(Content);		
+		std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER> source = Storage.at(Content);
 
-		if (isLoop) source.second.LoopCount = XAUDIO2_LOOP_INFINITE;
+		if (isLoop)
+		{
+			source.second.LoopCount = XAUDIO2_LOOP_INFINITE;
+			source.second.PlayBegin = loopBegin * 26;
+			source.second.LoopBegin = loopBegin * 26;
+			source.second.LoopLength = 850000;
+		}
 		else source.second.LoopCount = 0;
-		source.second.PlayBegin = playBegin;
-		source.second.PlayLength = playLength;
-		source.second.LoopBegin = loopBegin;
-		source.second.LoopLength = loopLength;
+		source.second.PlayLength = 0;
 
 		MUST(source.first->SubmitSourceBuffer(&source.second));
 	}

@@ -13,7 +13,7 @@ private:
 	float SpeedValue;
 	size_t MappedKeys[4];
 	std::vector<Note> Notes[4];
-	UINT nextNodeIndex[4];
+	UINT nextNoteIndex[4];
 	size_t noteCount[4];
 	Combo* CurrentCombo;	//pCombo ·Î °íÃÄ!
 	Score* CurrentScore;

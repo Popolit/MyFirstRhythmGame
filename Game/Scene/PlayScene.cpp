@@ -11,13 +11,10 @@ void PlayScene::Start()
         judgePhrase->Start();
         timed = 0.0f;
 
-        Chart chart = Chart("Sample");
-        chart.makeNotes(Notes);
-
         UINT totalNoteCount = 0;
         for (UINT u = 0; u < 4; u++)
         {
-            nextNodeIndex[u] = 0;
+            nextNoteIndex[u] = 0;
             noteCount[u] = Notes[u].size();
             totalNoteCount += static_cast<UINT>(noteCount[u]);
             hitEffects[u] = new HitEffect();
@@ -41,8 +38,8 @@ void PlayScene::Start()
     }
     //노래 셋팅
     {
-        Song.Content = "Sample";
-        Song.Set();//(true, (UINT32)115002 * 26, 0, 115002 * 26, 800000);
+        Song.Content = "Chronomia";
+        Song.Set();
         Song.Play();
     }
 }
@@ -63,14 +60,14 @@ ConstValue::SceneList PlayScene::UpdateScene()
     for (UINT u = 0; u < 4; u++)
     {
         //모든 노트를 처리함
-        if (nextNodeIndex[u] == noteCount[u]) continue;
+        if (nextNoteIndex[u] == noteCount[u]) continue;
         //노트를 처리하는 파트
         if (Input::Get::Key::Down(MappedKeys[u]))
         {
-            judges[u] = Notes[u][nextNodeIndex[u]].Judge(static_cast<UINT>(timed * 1000));
+            judges[u] = Notes[u][nextNoteIndex[u]].Judge(static_cast<UINT>(timed * 1000));
             if (judges[u] != Judge::None)
             {
-                nextNodeIndex[u]++;
+                nextNoteIndex[u]++;
                 judgePhrase->setJudge(judges[u]);
                 CurrentCombo->Update(judges[u]);
                 if (judges[u] != Judge::Miss)
@@ -81,13 +78,13 @@ ConstValue::SceneList PlayScene::UpdateScene()
             }
         }
         //조작하지 않고 Miss라인을 넘어간 노트
-        else if (Notes[u][nextNodeIndex[u]].getTiming() < timed * 1000 - MissRange)
+        else if (Notes[u][nextNoteIndex[u]].getTiming() < timed * 1000 - MissRange)
         {
-            nextNodeIndex[u]++;
+            nextNoteIndex[u]++;
             CurrentCombo->Update(Judge::Miss);
             judgePhrase->setJudge(Judge::Miss);
         }
-        for (UINT noteIndex = nextNodeIndex[u]; noteIndex < noteCount[u]; noteIndex++) Notes[u][noteIndex].DrawNote();
+        for (UINT noteIndex = nextNoteIndex[u]; noteIndex < noteCount[u]; noteIndex++) Notes[u][noteIndex].DrawNote();
     }
 
     for(UINT u = 0; u < 4; u++) hitEffects[u]->Update();
@@ -106,7 +103,7 @@ void PlayScene::End()
     delete CurrentCombo;
     for (UINT u = 0; u < 4; u++)
     {
-        Notes[u] = std::vector<Note>();
+        Notes[u].clear();
         delete hitEffects[u];
     }
 }

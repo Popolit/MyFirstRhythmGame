@@ -19,6 +19,7 @@ namespace ConstValue
 	enum class Judge { Perfect, Good, Miss, None };
 	enum class SceneList { Title, Play, SelectSong, Option, End  };
 	enum class OptionList { Sync, Speed, Keys };
+	enum class Difficulty { Easy, Normal, Hard };
 
     SceneList operator++(SceneList& sl);
     SceneList operator--(SceneList& sl);
@@ -27,4 +28,9 @@ namespace ConstValue
     OptionList operator++(OptionList& ol);
     OptionList operator--(OptionList& ol);
 	bool operator<(OptionList& A, OptionList& B);
+
+
+	Difficulty operator++(Difficulty& d);
+	Difficulty operator--(Difficulty& d);
+	bool operator<(Difficulty& A, Difficulty& B);
 }

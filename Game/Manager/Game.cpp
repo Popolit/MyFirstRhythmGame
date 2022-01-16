@@ -30,7 +30,6 @@ bool Game::Update()
 	}
 	if (Now != prev)
 	{
-		if (Now == SceneList::SelectSong) Now = SceneList::Play;
 		Scenes.at(static_cast<int>(prev))->End();
 		Scenes.at(static_cast<int>(Now))->Start();
 	}

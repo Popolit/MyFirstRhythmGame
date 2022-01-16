@@ -12,7 +12,7 @@ namespace Sound
 	class Sound final
 	{
 	public:
-		void Set(bool isLoop = false, UINT32 playBegin = 0, UINT32 playLength = 0, UINT32 loopBegin = 0, UINT32 loopLength = 0);
+		void Set(bool isLoop = false, UINT32 loopBegin = 0);
 		void Play();
 		void Pause();
 		void Stop();
