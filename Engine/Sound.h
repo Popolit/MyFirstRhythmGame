@@ -12,13 +12,18 @@ namespace Sound
 	class Sound final
 	{
 	public:
-		void Set(bool isLoop = false, UINT32 loopBegin = 0);
 		void Play();
 		void Pause();
 		void Stop();
-		void SetVolume(float const& volume);
+		void SetVolume();
+		bool isLoopEnd();
 	public:
 		char const* Content = nullptr;
-		bool paused = false;
+	public:
+		float volume = 0.0f;
+		bool pause = false;
+		bool loop = false;
+		UINT32 loopBegin = 0;
+		UINT32 loopLength = 850000;
 	};
 }

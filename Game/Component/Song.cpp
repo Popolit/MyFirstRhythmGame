@@ -86,11 +86,13 @@ Song::Song(std::string const& file)
 	}
 
 	song.Content = Title.c_str();
+	song.loop = true;
+	song.loopBegin = Highlight;
+	song.volume = 0.1f;
 }
 
 void Song::SetCenter()
 {
-	song.Set(true, Highlight);
 	song.Play();
 }
 

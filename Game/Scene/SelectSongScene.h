@@ -8,6 +8,8 @@ private:
 	std::string StrTitle;
 	size_t Selection;
 	size_t SongCount;
+	float Volume;
+	float LoopLength;
 	ConstValue::Difficulty Difficulty;
 	std::vector<Song*> SongList;
 
@@ -19,6 +21,7 @@ private:
 	Rendering::Text::Component		Title;
 	Rendering::Text::Component		Artist;
 	Rendering::Text::Component		MaxScore;
+	Rendering::Text::Component		Diff;
 
 public:
 	void Start()  override;

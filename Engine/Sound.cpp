@@ -26,15 +26,34 @@
 	
 namespace Sound
 {
+	class VoiceCallback final : public IXAudio2VoiceCallback
+	{
+	public:
+		bool End, LoopEnd;
+		VoiceCallback()
+		{
+			End = false;
+			LoopEnd = false;
+		}
+		~VoiceCallback() { }
+		void STDMETHODCALLTYPE OnStreamEnd() {}
+		void STDMETHODCALLTYPE OnVoiceProcessingPassEnd() {}
+		void STDMETHODCALLTYPE OnVoiceProcessingPassStart(UINT32 SamplesRequired) {}
+		void STDMETHODCALLTYPE OnBufferEnd(void* pBufferContext) { End = true; }
+		void STDMETHODCALLTYPE OnBufferStart(void* pBufferContext) { End = false; }
+		void STDMETHODCALLTYPE OnLoopEnd(void* pBufferContext) { LoopEnd = true; }
+		void STDMETHODCALLTYPE OnVoiceError(void* pBufferContext, HRESULT Error) {}
+	};
+
+
+
 	namespace
 	{
 		IXAudio2* XAudio2 = nullptr;	//XAudio 엔진 디바이스
 		IXAudio2MasteringVoice* MasterVoice = nullptr;	//오디오 캡슐화 오디오 그래프를 통과하는 모든 오디오의 최종대상
 
 		WAVEFORMATEXTENSIBLE wfx = { 0 };	//WAVE 형식을 저장함
-		
-
-		IXAudio2SourceVoice* SourceVoice;
+		VoiceCallback callback;
 	}
 
 	//오디오 찾기
@@ -100,7 +119,13 @@ namespace Sound
 		return hr;
 	}
 
-	std::map<std::string, std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER>> Storage;
+	struct Handle final 
+	{
+		IXAudio2SourceVoice* SourceVoice = nullptr;
+		XAUDIO2_BUFFER       buffer = { 0 };
+	};
+
+	std::map<std::string, Handle*> Storage;
 
 	void Import(std::string const & file)
 	{
@@ -134,17 +159,18 @@ namespace Sound
 		BYTE* pDataBuffer = new BYTE[dwAudioSize];
 		MUST(ReadAudioData(hFile, pDataBuffer, dwAudioSize, dwAudioPosition));
 
-		buffer.AudioBytes = dwAudioSize;
-		buffer.pAudioData = pDataBuffer;
-		buffer.Flags = XAUDIO2_END_OF_STREAM;
+		Handle* handle = new Handle();
+		handle->buffer.AudioBytes = dwAudioSize;
+		handle->buffer.pAudioData = pDataBuffer;
+		handle->buffer.Flags = XAUDIO2_END_OF_STREAM;
 
-		MUST(XAudio2->CreateSourceVoice(&SourceVoice, (WAVEFORMATEX*)&wfx));
+		MUST(XAudio2->CreateSourceVoice(&handle->SourceVoice, (WAVEFORMATEX*)&wfx, 0, XAUDIO2_DEFAULT_FREQ_RATIO, &callback));
 
 		{
 			size_t const x = file.find_first_of('/') + sizeof(char);
 			size_t const y = file.find_last_of('.');
 
-			Storage.try_emplace(file.substr(x, y - x), std::make_pair(SourceVoice, buffer));
+			Storage.try_emplace(file.substr(x, y - x), handle);
 		}
 		return;
 	}
@@ -166,49 +192,68 @@ namespace Sound
 		}
 	}
 
-	void Sound::Set(bool isLoop, UINT32 loopBegin)
-	{
-		if (paused) return;
-		std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER> source = Storage.at(Content);
-
-		if (isLoop)
-		{
-			source.second.LoopCount = XAUDIO2_LOOP_INFINITE;
-			source.second.PlayBegin = loopBegin * 26;
-			source.second.LoopBegin = loopBegin * 26;
-			source.second.LoopLength = 850000;
-		}
-		else source.second.LoopCount = 0;
-		source.second.PlayLength = 0;
-
-		MUST(source.first->SubmitSourceBuffer(&source.second));
-	}
 
 	void Sound::Play()
 	{
-		std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER> source = Storage.at(Content);
-		paused = false;
-		MUST(source.first->Start(0));
+		Handle*& sound = Storage.at(Content);
+
+		if (loop)
+		{
+			sound->buffer.LoopCount = XAUDIO2_LOOP_INFINITE;
+			sound->buffer.PlayBegin = loopBegin * 44;
+			sound->buffer.LoopBegin = loopBegin * 44;
+			sound->buffer.LoopLength = loopLength;
+		}
+		else
+		{
+			sound->buffer.LoopCount = 0;
+			sound->buffer.PlayBegin = 0;
+			sound->buffer.LoopBegin = 0;
+			sound->buffer.LoopLength = 0;
+		}
+		if (pause)
+		{
+			pause = false;
+			MUST(sound->SourceVoice->Start());
+			return;
+		}
+
+		MUST(sound->SourceVoice->Stop());
+		MUST(sound->SourceVoice->FlushSourceBuffers());
+		MUST(sound->SourceVoice->SubmitSourceBuffer(&sound->buffer));
+		MUST(sound->SourceVoice->SetVolume(volume));
+		MUST(sound->SourceVoice->Start());
 	}
 
 	void Sound::Pause()
 	{
-		std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER> source = Storage.at(Content);
-		paused = true;
-		MUST(source.first->Stop());
+		if (pause) return;
+		Handle*& sound = Storage.at(Content);
+		pause = true;
+		MUST(sound->SourceVoice->Stop());
 	}
 
 	void Sound::Stop()
 	{
-		std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER> source = Storage.at(Content);
-		paused = false;
-		MUST(source.first->Stop());
-		MUST(source.first->FlushSourceBuffers());
+		Handle*& sound = Storage.at(Content);
+		MUST(sound->SourceVoice->Stop());
+		MUST(sound->SourceVoice->FlushSourceBuffers());	
+		pause = false;
 	}
 
-	void Sound::SetVolume(float const& volume)
+	void Sound::SetVolume()
 	{
-		std::pair<IXAudio2SourceVoice*, XAUDIO2_BUFFER> source = Storage.at(Content);
-		source.first->SetVolume(volume);
+		Handle*& sound = Storage.at(Content);
+		sound->SourceVoice->SetVolume(volume);
+	}
+
+	bool Sound::isLoopEnd()
+	{
+		if (callback.LoopEnd)
+		{
+			callback.LoopEnd = false;
+			return true;
+		}
+		return false;
 	}
 }

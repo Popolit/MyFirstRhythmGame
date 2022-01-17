@@ -47,45 +47,87 @@ void SelectSongScene::Start()
 	Artist.Length = { 300, 100 };
 	Artist.Color = { 255, 255, 255 };
 
+	Diff.Content = "Easy";
+	Diff.Location = { 820,  420 };
+	Diff.Font = { "CookieRun Bold", 40, true };
+	Diff.Length = { 300, 100 };
+	Diff.Color = { 255, 255, 255 };
+
 	Thumbnail.Content = SongList.at(0)->Title.data();
 	Thumbnail.Length = { 400, 400 };
 	Thumbnail.Location = { -200, 0 };
 
 	Difficulty = ConstValue::Difficulty::Easy;
+	LoopLength = ConstValue::LoopLength;
+	Volume = 0.0f;
 }
 
 ConstValue::SceneList SelectSongScene::UpdateScene()
 {
+	Song* selectedSong = SongList.at(Selection);
+	//곡 변경
 	if (Input::Get::Key::Down(VK_LEFT) && Selection < SongCount - 1)
 	{
 		Difficulty = ConstValue::Difficulty::Easy;
-		SongList.at(Selection)->UnsetCenter();
+		selectedSong->UnsetCenter();
 		Selection++;
-		SongList.at(Selection)->SetCenter();
-		StrTitle = SongList.at(Selection)->GetTitle();
+		selectedSong = SongList.at(Selection);
+		selectedSong->SetCenter();
+		Volume = 0.0f;
+		LoopLength = ConstValue::LoopLength;
 	}
 	if (Input::Get::Key::Down(VK_RIGHT) && 0 < Selection)
 	{
 		Difficulty = ConstValue::Difficulty::Easy;
-		SongList.at(Selection)->UnsetCenter();
+		selectedSong->UnsetCenter();
 		Selection--;
-		SongList.at(Selection)->SetCenter();
-		StrTitle = SongList.at(Selection)->GetTitle();
+		selectedSong = SongList.at(Selection);
+		selectedSong->SetCenter();
+		Volume = 0.0f;
+		LoopLength = ConstValue::LoopLength;
+	}
+	if (Input::Get::Key::Down(VK_UP))
+	{
+		++Difficulty;
+		Diff.Content = ConstValue::ToString(Difficulty).c_str();
+	}
+	if (Input::Get::Key::Down(VK_DOWN))
+	{
+		--Difficulty;
+		Diff.Content = ConstValue::ToString(Difficulty).c_str();
 	}
 
-	if (Input::Get::Key::Down(VK_UP)) ++Difficulty;
-	if (Input::Get::Key::Down(VK_DOWN)) --Difficulty;
-	
 
+	StrTitle = selectedSong->Title;
+
+	LoopLength -= Time::Get::Delta();
+	if (selectedSong->song.isLoopEnd()) LoopLength = ConstValue::LoopLength;
+
+	//곡이 끝나기 2초전 페이드아웃
+	else if (LoopLength < 2.0f)
+	{
+		Volume -= Time::Get::Delta() / 20;
+		selectedSong->song.volume = Volume;
+		selectedSong->song.SetVolume();
+	}
+	//페이드 인
+	else if (Volume < 0.1f)
+	{
+		Volume += Time::Get::Delta() / 20;
+		selectedSong->song.volume = Volume;
+		selectedSong->song.SetVolume();
+	}
 	Camera.Set();
 	Background.Draw();
 	Thumbnail.Draw();
 	Title.Draw();
 	Artist.Draw();
+	Diff.Draw();
 
 
 	if (Input::Get::Key::Down(VK_RETURN))
 	{
+		GameValue::Set::pChart(selectedSong->Normal);
 		return ConstValue::SceneList::Play;
 	}
 	if (Input::Get::Key::Down(VK_ESCAPE)) return ConstValue::SceneList::Title;

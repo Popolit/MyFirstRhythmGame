@@ -7,6 +7,7 @@ void PlayScene::Start()
     {
         SpeedValue = GameValue::Get::SpeedValue();
         GameValue::Get::Keys(MappedKeys);
+        GameValue::Get::pChart()->makeNotes(Notes);
         judgePhrase = new JudgePhrase();
         judgePhrase->Start();
         timed = 0.0f;
@@ -39,7 +40,8 @@ void PlayScene::Start()
     //노래 셋팅
     {
         Song.Content = "Chronomia";
-        Song.Set();
+        Song.loop = false;
+        Song.volume = 0.1f;
         Song.Play();
     }
 }

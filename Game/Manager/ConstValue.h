@@ -6,6 +6,8 @@ namespace ConstValue
 	const int MaxSync = 10000;
 	const int MinSync = -10000;
 
+	const float LoopLength = 850000.0f / 44000.0f;
+
 	const float MaxSpeed = 20.0f;
 	const float DefSpeed = 6.0f;
 	const float MinSpeed = 0.5f;
@@ -20,6 +22,7 @@ namespace ConstValue
 	enum class SceneList { Title, Play, SelectSong, Option, End  };
 	enum class OptionList { Sync, Speed, Keys };
 	enum class Difficulty { Easy, Normal, Hard };
+	const std::string StrDiffi[3] = { "Easy", "Normal", "Hard" };
 
     SceneList operator++(SceneList& sl);
     SceneList operator--(SceneList& sl);
@@ -32,5 +35,5 @@ namespace ConstValue
 
 	Difficulty operator++(Difficulty& d);
 	Difficulty operator--(Difficulty& d);
-	bool operator<(Difficulty& A, Difficulty& B);
+	std::string const& ToString(Difficulty& d);
 }
