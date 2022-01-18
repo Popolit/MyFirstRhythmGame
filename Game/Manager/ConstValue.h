@@ -14,7 +14,7 @@ namespace ConstValue
 
 	const UINT JudgeRange = 50;	//ms
 	const UINT MissRange = 200; //ms
-	const UINT recognizeRange = 1000; //ms;
+	const UINT recognizeRange = 400; //ms;
 
 	const size_t DefKeys[4] = { 0x44, 0x46, 0x4A, 0x4B };
 

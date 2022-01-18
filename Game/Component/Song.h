@@ -13,6 +13,7 @@ private:
 	UINT Length;
 	UINT Highlight;
 
+	//std::map<std::string, Chart*> Charts;
 	Chart *Easy;
 	Chart *Normal;
 	Chart *Hard;

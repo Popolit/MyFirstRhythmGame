@@ -127,7 +127,25 @@ ConstValue::SceneList SelectSongScene::UpdateScene()
 
 	if (Input::Get::Key::Down(VK_RETURN))
 	{
-		GameValue::Set::pChart(selectedSong->Normal);
+		switch (Difficulty)
+		{
+			case ConstValue::Difficulty::Easy:
+			{
+				GameValue::Set::pChart(selectedSong->Easy);
+				break;
+			}
+			case ConstValue::Difficulty::Normal:
+			{
+				GameValue::Set::pChart(selectedSong->Normal);
+				break;
+			}
+			case ConstValue::Difficulty::Hard:
+			{
+				GameValue::Set::pChart(selectedSong->Hard);
+				break;
+			}
+		}
+		
 		return ConstValue::SceneList::Play;
 	}
 	if (Input::Get::Key::Down(VK_ESCAPE)) return ConstValue::SceneList::Title;

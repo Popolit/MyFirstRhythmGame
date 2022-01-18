@@ -93,7 +93,7 @@ ConstValue::SceneList PlayScene::UpdateScene()
     judgePhrase->Update();
     CurrentScore->DrawScore();
     CurrentCombo->Draw();
-    if (Input::Get::Key::Down(VK_ESCAPE)) { return SceneList::Title; }
+    if (Input::Get::Key::Down(VK_ESCAPE)) { return SceneList::SelectSong; }
     else { return SceneList::Play; }
 }
 
