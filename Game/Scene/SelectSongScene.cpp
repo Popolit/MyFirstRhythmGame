@@ -66,17 +66,7 @@ ConstValue::SceneList SelectSongScene::UpdateScene()
 {
 	Song* selectedSong = SongList.at(Selection);
 	//°î º¯°æ
-	if (Input::Get::Key::Down(VK_LEFT) && Selection < SongCount - 1)
-	{
-		Difficulty = ConstValue::Difficulty::Easy;
-		selectedSong->UnsetCenter();
-		Selection++;
-		selectedSong = SongList.at(Selection);
-		selectedSong->SetCenter();
-		Volume = 0.0f;
-		LoopLength = ConstValue::LoopLength;
-	}
-	if (Input::Get::Key::Down(VK_RIGHT) && 0 < Selection)
+	if (Input::Get::Key::Down(VK_LEFT) && 0 < Selection)
 	{
 		Difficulty = ConstValue::Difficulty::Easy;
 		selectedSong->UnsetCenter();
@@ -85,6 +75,22 @@ ConstValue::SceneList SelectSongScene::UpdateScene()
 		selectedSong->SetCenter();
 		Volume = 0.0f;
 		LoopLength = ConstValue::LoopLength;
+		Title.Content = selectedSong->Title.data();
+		Artist.Content = selectedSong->Artist.data();
+		Thumbnail.Content = selectedSong->Title.data();
+	}
+	if (Input::Get::Key::Down(VK_RIGHT) && Selection < SongCount - 1)
+	{
+		Difficulty = ConstValue::Difficulty::Easy;
+		selectedSong->UnsetCenter();
+		Selection++;
+		selectedSong = SongList.at(Selection);
+		selectedSong->SetCenter();
+		Volume = 0.0f;
+		LoopLength = ConstValue::LoopLength;
+		Title.Content = selectedSong->Title.data();
+		Artist.Content = selectedSong->Artist.data();
+		Thumbnail.Content = selectedSong->Title.data();
 	}
 	if (Input::Get::Key::Down(VK_UP))
 	{
@@ -127,6 +133,8 @@ ConstValue::SceneList SelectSongScene::UpdateScene()
 
 	if (Input::Get::Key::Down(VK_RETURN))
 	{
+		GameValue::PlaySE();
+		GameValue::Set::Title(selectedSong->Title);
 		switch (Difficulty)
 		{
 			case ConstValue::Difficulty::Easy:
@@ -145,7 +153,6 @@ ConstValue::SceneList SelectSongScene::UpdateScene()
 				break;
 			}
 		}
-		
 		return ConstValue::SceneList::Play;
 	}
 	if (Input::Get::Key::Down(VK_ESCAPE)) return ConstValue::SceneList::Title;

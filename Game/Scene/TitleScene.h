@@ -14,7 +14,7 @@ private:
 	Rendering::Text::Component Option;
 	Rendering::Text::Component EndGame;
 
-	//Sound::Sound BGM;
+	Sound::Sound BGM;
 
 public:
 	void Start()  override;

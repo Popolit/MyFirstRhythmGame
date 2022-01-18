@@ -32,9 +32,12 @@ void TitleScene::Start()
     EndGame.Font = { "CookieRun Bold", 30, true };
     EndGame.Color = { 255, 255, 255 };
     
-    /*BGM.Content = "Sample";
-    BGM.volume = 1;
-    BGM.Play();*/
+    BGM.Content = "TitleBGM";
+    BGM.volume = 0.1f;
+    BGM.loop = true;
+    BGM.loopBegin = 0;
+    BGM.loopLength = 0; 
+    BGM.Play();
 }
 
 ConstValue::SceneList TitleScene::UpdateScene()
@@ -56,7 +59,11 @@ ConstValue::SceneList TitleScene::UpdateScene()
             SelectMode.Location[1] -= 50;
         }
     }
-    if (Input::Get::Key::Down(VK_RETURN)) return Selection;
+    if (Input::Get::Key::Down(VK_RETURN))
+    {
+        GameValue::PlaySE();
+        return Selection;
+    }
 
     Camera.Set();
     Background.Draw();
@@ -68,7 +75,10 @@ ConstValue::SceneList TitleScene::UpdateScene()
     return ConstValue::SceneList::Title;
 }
 
-void TitleScene::End() { }
+void TitleScene::End() 
+{
+    BGM.Stop();
+}
 
 void TitleScene::PlaySong() 
 {

@@ -39,7 +39,7 @@ void PlayScene::Start()
     }
     //노래 셋팅
     {
-        Song.Content = "Chronomia";
+        Song.Content = GameValue::Get::Title();
         Song.loop = false;
         Song.volume = 0.1f;
         Song.Play();
