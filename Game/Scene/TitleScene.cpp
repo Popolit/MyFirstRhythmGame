@@ -5,15 +5,18 @@ void TitleScene::Start()
 {
     Selection = ConstValue::SceneList::SelectSong;
 
+    //이미지
 	Background.Content = "TitleScene";
-	Background.Length = { 2560 / 2, 1440 / 2 };
+    Background.Length = ConstValue::ScreenSize;
 
+    //애니메이션
     SelectMode.Content = "SelectMode";
     SelectMode.Location = { 360, -80 };
     SelectMode.Length = { 24, 24 };
     SelectMode.Duration = 2;
     SelectMode.Repeatable = true;
 
+    //텍스트
     StartGame.Content = "Game Start";
     StartGame.Location = { 1100, 450 };
     StartGame.Length = { 150, 50 };
@@ -32,12 +35,8 @@ void TitleScene::Start()
     EndGame.Font = { "CookieRun Bold", 30, true };
     EndGame.Color = { 255, 255, 255 };
     
-    BGM.Content = "TitleBGM";
-    BGM.volume = 0.1f;
-    BGM.loop = true;
-    BGM.loopBegin = 0;
-    BGM.loopLength = 0; 
-    BGM.Play();
+    GameValue::Set::BGM("TitleBGM");
+    GameValue::PlayBGM();
 }
 
 ConstValue::SceneList TitleScene::UpdateScene()
@@ -47,6 +46,7 @@ ConstValue::SceneList TitleScene::UpdateScene()
     {
         if (SceneList::SelectSong < Selection)
         {
+            GameValue::PlaySEMove();
             --Selection;
             SelectMode.Location[1] += 50;
         }
@@ -55,13 +55,14 @@ ConstValue::SceneList TitleScene::UpdateScene()
     {
         if (Selection < ConstValue::SceneList::End)
         {
+            GameValue::PlaySEMove();
             ++Selection;
             SelectMode.Location[1] -= 50;
         }
     }
     if (Input::Get::Key::Down(VK_RETURN))
     {
-        GameValue::PlaySE();
+        GameValue::PlaySEDecide();
         return Selection;
     }
 
@@ -77,9 +78,5 @@ ConstValue::SceneList TitleScene::UpdateScene()
 
 void TitleScene::End() 
 {
-    BGM.Stop();
-}
-
-void TitleScene::PlaySong() 
-{
+    GameValue::StopBGM();
 }

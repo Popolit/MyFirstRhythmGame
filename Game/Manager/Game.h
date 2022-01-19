@@ -11,6 +11,7 @@ public:
 	void End() override;
 
 public:
-	std::vector<class ModeScenes*> Scenes;
-	ConstValue::SceneList Now;
+	std::map<ConstValue::SceneList, class ModeScenes*> Scenes;
+	//std::vector<class ModeScenes*> Scenes;
+	ConstValue::SceneList NowScene;
 };

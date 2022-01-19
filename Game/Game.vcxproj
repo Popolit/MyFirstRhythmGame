@@ -183,14 +183,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Scene\Combo.h" />
+    <ClInclude Include="Scene\ResultScene.h" />
+    <ClInclude Include="Component\Combo.h" />
     <ClInclude Include="Component\Chart.h" />
     <ClInclude Include="Engine\Sound.h" />
     <ClInclude Include="Manager\GameValue.h" />
-    <ClInclude Include="Manager\Keycode.h" />
     <ClInclude Include="Scene\OptionScene.h" />
-    <ClInclude Include="Scene\HitEffect.h" />
-    <ClInclude Include="Scene\JudgePhrase.h" />
+    <ClInclude Include="Component\HitEffect.h" />
+    <ClInclude Include="Component\JudgePhrase.h" />
     <ClInclude Include="Manager\ConstValue.h" />
     <ClInclude Include="Engine\Collision.h" />
     <ClInclude Include="Engine\Game.h" />
@@ -200,7 +200,8 @@
     <ClInclude Include="Engine\Time.h" />
     <ClInclude Include="Engine\Vector.h" />
     <ClInclude Include="Manager\Game.h" />
-    <ClCompile Include="Scene\Combo.cpp" />
+    <ClCompile Include="Scene\ResultScene.cpp" />
+    <ClCompile Include="Component\Combo.cpp" />
     <ClCompile Include="Component\Note.cpp" />
     <ClCompile Include="Manager\GameValue.cpp" />
     <ClInclude Include="Manager\Scene.h" />
@@ -215,13 +216,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component\Chart.cpp" />
-    <ClCompile Include="Manager\Keycode.cpp" />
     <ClCompile Include="Manager\ConstValue.cpp" />
     <ClCompile Include="Scene\OptionScene.cpp" />
-    <ClCompile Include="Scene\HitEffect.cpp" />
+    <ClCompile Include="Component\HitEffect.cpp" />
     <ClCompile Include="Manager\Game.cpp" />
     <ClCompile Include="Scene\PlayScene.cpp" />
-    <ClCompile Include="Scene\JudgePhrase.cpp" />
+    <ClCompile Include="Component\JudgePhrase.cpp" />
     <ClCompile Include="Scene\SelectSongScene.cpp" />
     <ClCompile Include="Component\Score.cpp" />
     <ClCompile Include="Component\Song.cpp" />

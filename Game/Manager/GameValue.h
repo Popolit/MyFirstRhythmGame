@@ -6,7 +6,11 @@ class Chart;
 namespace GameValue
 {
 	void Start();
-	void PlaySE();
+	void PlayBGM();
+	void PauseBGM();
+	void StopBGM();
+	void PlaySEDecide();
+	void PlaySEMove();
 
 	namespace Get
 	{
@@ -15,14 +19,15 @@ namespace GameValue
 		void Keys(size_t(&target)[4]);
 		const char* Title();
 		Chart* pChart();
+		float Volume();
 	}
 	namespace Set
 	{
 		void SyncValue(int const &newSync);
 		void SpeedValue(float const &newSpeed);
-		void Keys(size_t (&newKeys)[4]);
-		void Title(std::string const & title);
+		void Keys(size_t (&newKeys)[4]);	
 		void pChart(Chart* ch);
-		void SetVolume(float const& volume);
+		void BGM(std::string const& title);
+		void Volume(float const& volume);
 	}
 }

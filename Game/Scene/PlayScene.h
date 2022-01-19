@@ -1,8 +1,8 @@
 #pragma once
-#include "Combo.h"
+#include "Component/Combo.h"
 #include "ModeScenes.h"
-#include "JudgePhrase.h"
-#include "HitEffect.h"
+#include "Component/JudgePhrase.h"
+#include "Component/HitEffect.h"
 #include "Component/Note.h"
 #include "Component/Chart.h"
 #include "Component/Score.h"
@@ -31,5 +31,4 @@ public:
 	void Start()  override;
 	ConstValue::SceneList UpdateScene() override;
 	void End()    override;
-	void PlaySong() override;
 };

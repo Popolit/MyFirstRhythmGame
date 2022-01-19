@@ -3,12 +3,13 @@
 
 void SelectSongScene::Start()
 {
+	//변수 셋팅
 	Selection = 0;
+	Difficulty = ConstValue::Difficulty::Easy;
+	LoopLength = ConstValue::LoopLength;
+	Volume = 0.0f;
 
-	Background.Content = "SelectSongBG1";
-	Background.Length = { 1280, 720 };
-
-	//데이터 파일 검색
+	//데이터 폴더 탐색, 곡 데이터를 받아옴
 	const std::string directory = "Datas";
 	using namespace std::filesystem;
 	if (exists(directory))
@@ -28,20 +29,28 @@ void SelectSongScene::Start()
 			}
 		}
 	}
-
 	SongCount = SongList.size();
+
+	//이미지 셋팅
+	Background.Content = "SelectSongBG1";
+	Background.Length = ConstValue::ScreenSize;
 
 	if (SongCount == 0) return;
 
-	SongList.at(0)->SetCenter();
+	Thumbnail.Content = SongList.at(Selection)->Title.data();
+	Thumbnail.Length = { 400, 400 };
+	Thumbnail.Location = { -200, 0 };
 
-	Title.Content = SongList.at(0)->Title.data();
+	SongList.at(Selection)->SetCenter();
+
+	//텍스트 셋팅
+	Title.Content = SongList.at(Selection)->Title.data();
 	Title.Location = { 820,  220 };
 	Title.Font = { "CookieRun Bold", 40, true };
 	Title.Length = { 300, 100 };
 	Title.Color = { 255, 255, 255 };
 
-	Artist.Content = SongList.at(0)->Artist.data();
+	Artist.Content = SongList.at(Selection)->Artist.data();
 	Artist.Location = { 820,  320 };
 	Artist.Font = { "CookieRun Bold", 40, true };
 	Artist.Length = { 300, 100 };
@@ -52,14 +61,6 @@ void SelectSongScene::Start()
 	Diff.Font = { "CookieRun Bold", 40, true };
 	Diff.Length = { 300, 100 };
 	Diff.Color = { 255, 255, 255 };
-
-	Thumbnail.Content = SongList.at(0)->Title.data();
-	Thumbnail.Length = { 400, 400 };
-	Thumbnail.Location = { -200, 0 };
-
-	Difficulty = ConstValue::Difficulty::Easy;
-	LoopLength = ConstValue::LoopLength;
-	Volume = 0.0f;
 }
 
 ConstValue::SceneList SelectSongScene::UpdateScene()
@@ -68,6 +69,7 @@ ConstValue::SceneList SelectSongScene::UpdateScene()
 	//곡 변경
 	if (Input::Get::Key::Down(VK_LEFT) && 0 < Selection)
 	{
+		GameValue::PlaySEMove();
 		Difficulty = ConstValue::Difficulty::Easy;
 		selectedSong->UnsetCenter();
 		Selection--;
@@ -81,6 +83,7 @@ ConstValue::SceneList SelectSongScene::UpdateScene()
 	}
 	if (Input::Get::Key::Down(VK_RIGHT) && Selection < SongCount - 1)
 	{
+		GameValue::PlaySEMove();
 		Difficulty = ConstValue::Difficulty::Easy;
 		selectedSong->UnsetCenter();
 		Selection++;
@@ -94,11 +97,13 @@ ConstValue::SceneList SelectSongScene::UpdateScene()
 	}
 	if (Input::Get::Key::Down(VK_UP))
 	{
+		GameValue::PlaySEMove();
 		++Difficulty;
 		Diff.Content = ConstValue::ToString(Difficulty).c_str();
 	}
 	if (Input::Get::Key::Down(VK_DOWN))
 	{
+		GameValue::PlaySEMove();
 		--Difficulty;
 		Diff.Content = ConstValue::ToString(Difficulty).c_str();
 	}
@@ -112,14 +117,14 @@ ConstValue::SceneList SelectSongScene::UpdateScene()
 	//곡이 끝나기 2초전 페이드아웃
 	else if (LoopLength < 2.0f)
 	{
-		Volume -= Time::Get::Delta() / 20;
+		Volume -= GameValue::Get::Volume() * Time::Get::Delta() / 2;
 		selectedSong->song.volume = Volume;
 		selectedSong->song.SetVolume();
 	}
 	//페이드 인
-	else if (Volume < 0.1f)
+	else if (Volume < GameValue::Get::Volume())
 	{
-		Volume += Time::Get::Delta() / 20;
+		Volume += GameValue::Get::Volume() * Time::Get::Delta() / 2;
 		selectedSong->song.volume = Volume;
 		selectedSong->song.SetVolume();
 	}
@@ -133,8 +138,8 @@ ConstValue::SceneList SelectSongScene::UpdateScene()
 
 	if (Input::Get::Key::Down(VK_RETURN))
 	{
-		GameValue::PlaySE();
-		GameValue::Set::Title(selectedSong->Title);
+		GameValue::PlaySEDecide();
+		GameValue::Set::BGM(selectedSong->Title);
 		switch (Difficulty)
 		{
 			case ConstValue::Difficulty::Easy:
@@ -165,5 +170,3 @@ void SelectSongScene::End()
 	for (Song const* song : SongList) delete song;
 	SongList.clear();
 }
-
-void SelectSongScene::PlaySong() { }

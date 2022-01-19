@@ -109,5 +109,3 @@ void PlayScene::End()
         delete hitEffects[u];
     }
 }
-
-void PlayScene::PlaySong() {}

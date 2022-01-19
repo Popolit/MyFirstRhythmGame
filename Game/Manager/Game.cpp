@@ -8,40 +8,39 @@
 void Game::Start()
 {
 	GameValue::Start();
-	Now = ConstValue::SceneList::Title;
+	NowScene = ConstValue::SceneList::Title;
 
-	Scenes.push_back(new TitleScene);
-	Scenes.push_back(new PlayScene);
-	Scenes.push_back(new SelectSongScene);
-	Scenes.push_back(new OptionScene);
+	Scenes.insert({ ConstValue::SceneList::Title, new TitleScene });
+	Scenes.insert({ ConstValue::SceneList::SelectSong, new SelectSongScene });
+	Scenes.insert({ ConstValue::SceneList::Option, new OptionScene });
+	Scenes.insert({ ConstValue::SceneList::Play, new PlayScene });
+	Scenes.insert({ ConstValue::SceneList::Result, new TitleScene });
 
-	Scenes.at(0)->Start();
+	Scenes[NowScene]->Start();
 }
 bool Game::Update()
 {
 	using namespace ConstValue;
-	SceneList prev = Now;
-	if(prev != SceneList::End) Now = Scenes.at(static_cast<int>(Now))->UpdateScene();
-
-	if (Now == SceneList::End)
+	SceneList prevScene = NowScene;
+	NowScene = Scenes[prevScene]->UpdateScene();
+	if (NowScene == SceneList::End)
 	{
-		Now = prev;
+		NowScene = prevScene;
 		return true;
 	}
-	if (Now != prev)
+	if (NowScene != prevScene)
 	{
-		Scenes.at(static_cast<int>(prev))->End();
-		Scenes.at(static_cast<int>(Now))->Start();
+		Scenes[prevScene]->End();
+		Scenes[NowScene]->Start();
 	}
-
 	return false;
 }
 void Game::End()
 {
-	Scenes.at(static_cast<int>(Now))->End();
-	for (ModeScenes* scene : Scenes)
+	Scenes[NowScene]->End();
+	for (auto it : Scenes)
 	{
-		delete scene;
+		delete it.second;
 	}
 }
 

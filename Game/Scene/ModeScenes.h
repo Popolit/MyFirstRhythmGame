@@ -8,6 +8,5 @@ class ModeScenes : public Scene
 public:
 	void Update() {}
 	virtual ConstValue::SceneList UpdateScene() abstract;
-	virtual void PlaySong() abstract;
 };
 
