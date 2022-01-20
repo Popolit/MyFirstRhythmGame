@@ -1,5 +1,5 @@
 #pragma once
-#include "Manager/GameValue.h"
+#include "Manager/Resource.h"
 #include "Manager/ConstValue.h"
 
 class Note

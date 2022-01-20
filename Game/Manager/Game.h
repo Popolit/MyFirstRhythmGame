@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/Game.h"
-#include "GameValue.h"
+#include "Resource.h"
 #include "ConstValue.h"
 
 class Game final : public Engine::Game
@@ -12,6 +12,5 @@ public:
 
 public:
 	std::map<ConstValue::SceneList, class ModeScenes*> Scenes;
-	//std::vector<class ModeScenes*> Scenes;
 	ConstValue::SceneList NowScene;
 };

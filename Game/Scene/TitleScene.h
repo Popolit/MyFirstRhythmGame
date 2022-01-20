@@ -14,7 +14,6 @@ private:
 	Rendering::Text::Component StartGame;
 	Rendering::Text::Component Option;
 	Rendering::Text::Component EndGame;
-
 public:
 	void Start()  override;
 	ConstValue::SceneList UpdateScene() override;

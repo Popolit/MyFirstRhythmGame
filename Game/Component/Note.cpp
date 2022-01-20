@@ -11,7 +11,7 @@ void Note::MakeNoteImage(UINT const& lineNum)
 	else NoteImage.Content = "NoteBlue";
 	NoteImage.Length = { 100, 20 };
 	NoteImage.Location = { -450 + static_cast<int>(lineNum * NoteImage.Length[0]),
-						Timing * GameValue::Get::SpeedValue() / 10 - 250 };
+						Timing * Resource::Get::SpeedValue() / 10 - 250 };
 }
 
 void Note::DrawNote() { NoteImage.Draw(); }

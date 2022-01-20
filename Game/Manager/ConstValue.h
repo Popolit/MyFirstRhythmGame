@@ -19,7 +19,7 @@ namespace ConstValue
 	const int MaxSync = 10000;
 	const int MinSync = -10000;
 
-	const float LoopLength = 850000.0f / 44000.0f;
+	const UINT32 LoopLength = static_cast<UINT32>(850000.0f / 44000.0f);
 
 	const float MaxSpeed = 20.0f;
 	const float DefSpeed = 6.0f;
@@ -46,10 +46,6 @@ namespace ConstValue
 	Difficulty operator++(Difficulty& d);
 	Difficulty operator--(Difficulty& d);
 	std::string const& ToString(Difficulty& d);
-
-
-
-	
 }
 
 namespace Keycode

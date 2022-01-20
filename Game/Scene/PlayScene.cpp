@@ -5,9 +5,9 @@ void PlayScene::Start()
 {
     //변수 셋팅
     {
-        SpeedValue = GameValue::Get::SpeedValue();
-        GameValue::Get::Keys(MappedKeys);
-        GameValue::Get::pChart()->makeNotes(Notes);
+        SpeedValue = Resource::Get::SpeedValue();
+        Resource::Get::Keys(MappedKeys);
+        Resource::Get::pChart()->makeNotes(Notes);
         judgePhrase = new JudgePhrase();
         judgePhrase->Start();
         timed = 0.0f;
@@ -39,7 +39,7 @@ void PlayScene::Start()
     }
     //노래 셋팅
     {
-        Song.Content = GameValue::Get::Title();
+        Song.Content = Resource::Get::Title();
         Song.loop = false;
         Song.volume = 0.1f;
         Song.Play();

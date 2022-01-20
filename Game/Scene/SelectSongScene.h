@@ -8,19 +8,16 @@ private:
 	std::string StrTitle;
 	size_t Selection;
 	size_t SongCount;
-	float Volume;
-	float LoopLength;
 	ConstValue::Difficulty Difficulty;
-	std::vector<Song*> SongList;
+
+	Song* NowPlaying;
+
 
 	Rendering::Camera               Camera;
 	Rendering::Image::Component     Background;
 	Rendering::Animation::Component SelectionBox;
 
-	Rendering::Image::Component		Thumbnail;
-	Rendering::Text::Component		Title;
-	Rendering::Text::Component		Artist;
-	Rendering::Text::Component		MaxScore;
+	
 	Rendering::Text::Component		Diff;
 
 public:

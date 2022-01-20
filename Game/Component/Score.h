@@ -1,6 +1,6 @@
 #pragma once
 #include "Manager/ConstValue.h"
-#include "Manager/GameValue.h"
+#include "Manager/Resource.h"
 #include <string>
 
 class Score

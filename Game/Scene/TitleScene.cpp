@@ -35,8 +35,9 @@ void TitleScene::Start()
     EndGame.Font = { "CookieRun Bold", 30, true };
     EndGame.Color = { 255, 255, 255 };
     
-    GameValue::Set::BGM("TitleBGM");
-    GameValue::PlayBGM();
+    SM = Resource::Get::SM();
+    SM->SetBGM("TitleBGM");
+    SM->BGM.Play();
 }
 
 ConstValue::SceneList TitleScene::UpdateScene()
@@ -46,7 +47,7 @@ ConstValue::SceneList TitleScene::UpdateScene()
     {
         if (SceneList::SelectSong < Selection)
         {
-            GameValue::PlaySEMove();
+            SM->SE_Move.Play();
             --Selection;
             SelectMode.Location[1] += 50;
         }
@@ -55,14 +56,14 @@ ConstValue::SceneList TitleScene::UpdateScene()
     {
         if (Selection < ConstValue::SceneList::End)
         {
-            GameValue::PlaySEMove();
+            SM->SE_Move.Play();
             ++Selection;
             SelectMode.Location[1] -= 50;
         }
     }
     if (Input::Get::Key::Down(VK_RETURN))
     {
-        GameValue::PlaySEDecide();
+        SM->SE_Decide.Play();
         return Selection;
     }
 
@@ -78,5 +79,5 @@ ConstValue::SceneList TitleScene::UpdateScene()
 
 void TitleScene::End() 
 {
-    GameValue::StopBGM();
+    SM->BGM.Stop();
 }

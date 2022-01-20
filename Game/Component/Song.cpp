@@ -5,6 +5,7 @@ Song::Song() {}
 
 Song::Song(std::string const& file)
 {
+	//파일을 입력받음
 	size_t x = file.find_first_of('/') + sizeof(char);
 	size_t y = file.find_last_of('.');
 
@@ -18,9 +19,31 @@ Song::Song(std::string const& file)
 		buffer = fgetc(pFile);
 		data += buffer;
 	};
+	ParseData(data);
 
-	x = data.find_first_of('[');
-	y = data.find_first_of(']');
+	Thumbnail.Content = STR.Title.data();
+	Thumbnail.Length = { 400, 400 };
+	Thumbnail.Location = { -200, 0 };
+
+	//텍스트 셋팅
+	Title.Content = STR.Title.data();
+	Title.Location = { 820,  220 };
+	Title.Font = { "CookieRun Bold", 40, true };
+	Title.Length = { 300, 100 };
+	Title.Color = { 255, 255, 255 };
+
+	Artist.Content = STR.Artist.data();
+	Artist.Location = { 820,  320 };
+	Artist.Font = { "CookieRun Bold", 40, true };
+	Artist.Length = { 300, 100 };
+	Artist.Color = { 255, 255, 255 };
+}
+
+//데이터 파싱
+void Song::ParseData(std::string& data)
+{
+	size_t x = data.find_first_of('[');
+	size_t y = data.find_first_of(']');
 	while (y != std::string::npos)
 	{
 		//데이터 구분
@@ -43,15 +66,16 @@ Song::Song(std::string const& file)
 			content.erase(std::remove(content.begin(), content.end(), ' '), content.end());
 
 			pos = content.find_first_of(',');
-			Title = content.substr(0, pos);
+			STR.Title = content.substr(0, pos);
 			content.erase(0, pos + sizeof(char));
 
-			Artist = content.substr(0, content.find_first_of(','));
+			STR.Artist = content.substr(0, content.find_first_of(','));
 			pos = content.find_first_of(',');
 			content.erase(0, pos + sizeof(char));
 
 			Highlight = stoi(content);
 		}
+		//노트 데이터 파싱
 		else if (classification == "Notes")
 		{
 			size_t nx = content.find_first_of('#');
@@ -84,24 +108,24 @@ Song::Song(std::string const& file)
 			}
 		}
 	}
-
-	song.Content = Title.c_str();
-	song.loop = true;
-	song.loopBegin = Highlight;
-	song.volume = 0.1f;
 }
 
 void Song::SetCenter()
 {
-	song.Play();
+	//song.Play();
 }
 
 void Song::UnsetCenter()
 {
-	song.Stop();
+	//song.Stop();
 }
 
 std::string Song::GetTitle()
 {
-	return Title;
+	return STR.Title;
+}
+
+UINT Song::GetHighlight()
+{
+	return Highlight;
 }

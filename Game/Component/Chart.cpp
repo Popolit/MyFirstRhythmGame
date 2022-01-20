@@ -31,7 +31,7 @@ Chart::Chart(std::string& notedata)
 void Chart::makeNotes(std::vector<Note>(&Notes)[4])
 {
 	if (!isChartExist) return;
-	int SyncValue = GameValue::Get::SyncValue();
+	int SyncValue = Resource::Get::SyncValue();
 	for (UINT u = 0; u < 4; u++)
 	{
 		for (std::pair<UINT, UINT> ndata : NoteData[u])

@@ -7,7 +7,7 @@
 
 void Game::Start()
 {
-	GameValue::Start();
+	Resource::Start();
 	NowScene = ConstValue::SceneList::Title;
 
 	Scenes.insert({ ConstValue::SceneList::Title, new TitleScene });

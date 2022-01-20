@@ -3,7 +3,7 @@
 
 void HitEffect::Start()
 {
-	SpeedValue = GameValue::Get::SpeedValue();
+	SpeedValue = Resource::Get::SpeedValue();
 	duration = 0.0f;
 
 	effect.Content = "HitEffect";

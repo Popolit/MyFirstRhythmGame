@@ -187,7 +187,7 @@
     <ClInclude Include="Component\Combo.h" />
     <ClInclude Include="Component\Chart.h" />
     <ClInclude Include="Engine\Sound.h" />
-    <ClInclude Include="Manager\GameValue.h" />
+    <ClInclude Include="Manager\Resource.h" />
     <ClInclude Include="Scene\OptionScene.h" />
     <ClInclude Include="Component\HitEffect.h" />
     <ClInclude Include="Component\JudgePhrase.h" />
@@ -203,7 +203,7 @@
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Component\Combo.cpp" />
     <ClCompile Include="Component\Note.cpp" />
-    <ClCompile Include="Manager\GameValue.cpp" />
+    <ClCompile Include="Manager\Resource.cpp" />
     <ClInclude Include="Manager\Scene.h" />
     <ClInclude Include="Component\Note.h" />
     <ClInclude Include="Scene\ModeScenes.h" />
@@ -211,6 +211,7 @@
     <ClInclude Include="Scene\SelectSongScene.h" />
     <ClInclude Include="Component\Score.h" />
     <ClInclude Include="Component\Song.h" />
+    <ClInclude Include="Manager\SoundManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Scene\TitleScene.h" />
   </ItemGroup>
@@ -225,6 +226,7 @@
     <ClCompile Include="Scene\SelectSongScene.cpp" />
     <ClCompile Include="Component\Score.cpp" />
     <ClCompile Include="Component\Song.cpp" />
+    <ClCompile Include="Manager\SoundManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

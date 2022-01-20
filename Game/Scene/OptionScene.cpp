@@ -6,13 +6,15 @@ void OptionScene::Start()
 	//변수 셋팅
 	Selection = ConstValue::OptionList::Sync;
 	KeyIndex = 0;
-	Str.Sync = std::to_string(GameValue::Get::SyncValue());
-	Str.Speed = std::to_string(GameValue::Get::SpeedValue());
+	Str.Sync = std::to_string(Resource::Get::SyncValue());
+	Str.Speed = std::to_string(Resource::Get::SpeedValue());
 	Str.Speed = Str.Speed.substr(0, Str.Speed.find_first_of('.') + 2 * sizeof(char));
 	//Str.Volume = 
-	GameValue::Get::Keys(MappedKeys);
+	Resource::Get::Keys(MappedKeys);
 	for (UINT u = 0; u < 4; u++) Str.Keys[u] = Keycode::toString(MappedKeys[u]);
 	IsSelected = false;
+
+	SM = Resource::Get::SM();
 
 
 	//Image 셋팅
@@ -91,7 +93,7 @@ void OptionScene::Start()
 
 ConstValue::SceneList OptionScene::UpdateScene() 
 {
-	using namespace GameValue;
+	using namespace Resource;
 	Camera.Set();
 	Background.Draw();
 	OptionText.Draw();
@@ -117,17 +119,17 @@ ConstValue::SceneList OptionScene::UpdateScene()
 
 		if (Input::Get::Key::Down(VK_DOWN))
 		{
-			PlaySEMove();
+			SM->SE_Move.Play();
 			++Selection;
 		}
 		if (Input::Get::Key::Down(VK_UP))
 		{
-			PlaySEMove();
+			SM->SE_Move.Play();
 			--Selection;
 		}
 		if (Input::Get::Key::Down(VK_RETURN))
 		{
-			PlaySEDecide();
+			SM->SE_Decide.Play();
 			IsSelected = true;
 		}
 		if (Input::Get::Key::Down(VK_ESCAPE)) return ConstValue::SceneList::Title;
@@ -146,13 +148,13 @@ ConstValue::SceneList OptionScene::UpdateScene()
 				int sync = Get::SyncValue();
 				if (Input::Get::Key::Down(VK_UP))
 				{
-					PlaySEMove();		
+					SM->SE_Move.Play();
 					Set::SyncValue(++sync);
 					Str.Sync = std::to_string(sync);
 				}
 				if (Input::Get::Key::Down(VK_DOWN))
 				{
-					PlaySEMove();
+					SM->SE_Move.Play();
 					Set::SyncValue(--sync);
 					Str.Sync = std::to_string(sync);
 				}
@@ -165,7 +167,7 @@ ConstValue::SceneList OptionScene::UpdateScene()
 				float SpeedValue = Get::SpeedValue();
 				if (Input::Get::Key::Down(VK_UP) && SpeedValue < ConstValue::MaxSpeed)
 				{
-					GameValue::PlaySEMove();
+					SM->SE_Move.Play();
 					SpeedValue += 0.5f;
 					Set::SpeedValue(SpeedValue);
 					Str.Speed = std::to_string(SpeedValue);
@@ -173,7 +175,7 @@ ConstValue::SceneList OptionScene::UpdateScene()
 				}
 				if (Input::Get::Key::Down(VK_DOWN) && SpeedValue > ConstValue::MinSpeed)
 				{
-					GameValue::PlaySEMove();
+					SM->SE_Move.Play();
 					SpeedValue -= 0.5f;
 					Set::SpeedValue(SpeedValue);
 					Str.Speed = std::to_string(SpeedValue);
@@ -220,7 +222,7 @@ ConstValue::SceneList OptionScene::UpdateScene()
 						}					
 						if (!IsAlreadyMapped)
 						{
-							GameValue::PlaySEDecide();
+							SM->SE_Move.Play();
 							Str.Keys[KeyIndex] = Keycode::toString(PressedKey);
 							KeyBox[KeyIndex].Content = "KeyBox";
 							MappedKeys[KeyIndex] = PressedKey;
@@ -238,5 +240,5 @@ ConstValue::SceneList OptionScene::UpdateScene()
 }
 void OptionScene::End() 
 {
-	GameValue::Set::Keys(MappedKeys);
+	Resource::Set::Keys(MappedKeys);
 }

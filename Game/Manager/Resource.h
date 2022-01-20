@@ -1,16 +1,13 @@
 #pragma once
 #include"ConstValue.h"
+#include "SoundManager.h"
 
 class Chart;
-
-namespace GameValue
+class Song;
+namespace Resource
 {
 	void Start();
-	void PlayBGM();
-	void PauseBGM();
-	void StopBGM();
-	void PlaySEDecide();
-	void PlaySEMove();
+	void GetSongs();
 
 	namespace Get
 	{
@@ -18,8 +15,9 @@ namespace GameValue
 		float SpeedValue();
 		void Keys(size_t(&target)[4]);
 		const char* Title();
+		Song* SongAt(size_t& index);
 		Chart* pChart();
-		float Volume();
+		SoundManager* SM();
 	}
 	namespace Set
 	{
@@ -27,7 +25,6 @@ namespace GameValue
 		void SpeedValue(float const &newSpeed);
 		void Keys(size_t (&newKeys)[4]);	
 		void pChart(Chart* ch);
-		void BGM(std::string const& title);
-		void Volume(float const& volume);
+		void Volume(float const&volume);
 	}
 }

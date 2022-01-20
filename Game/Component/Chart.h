@@ -1,6 +1,6 @@
 #pragma once
 #include "Note.h"
-#include "Manager/GameValue.h"
+#include "Manager/Resource.h"
 #include <algorithm>
 #include <filesystem>
 #include <string>

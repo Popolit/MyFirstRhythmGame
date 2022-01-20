@@ -3,7 +3,7 @@
 
 void JudgePhrase::Start()
 {
-	SpeedValue = GameValue::Get::SpeedValue();
+	SpeedValue = Resource::Get::SpeedValue();
 
 	Perfect.Content = "Perfect";
 	Perfect.Location = { -290, 0 };

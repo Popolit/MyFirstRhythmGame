@@ -1,29 +1,36 @@
 #pragma once
 #include "Chart.h"
 
-#include <string>
 class Song
 {
 private:
-	friend class SelectSongScene;
+	struct 
+	{
+		std::string Title;
+		std::string Artist;
+		std::string BestScore;
+	}STR;
 
-	std::string Title;
-	std::string Artist;
-	UINT BestScore;
-	UINT Length;
+	//UINT Length;
 	UINT Highlight;
 
-	//std::map<std::string, Chart*> Charts;
 	Chart *Easy;
 	Chart *Normal;
 	Chart *Hard;
 
-	Sound::Sound song;
+	Rendering::Image::Component		Thumbnail;
+
+	Rendering::Text::Component		Title;
+	Rendering::Text::Component		Artist;
+	Rendering::Text::Component		MaxScore;
+
 public:
 	Song();
 	Song(std::string const& file);
+	void ParseData(std::string& data);
 	void SetCenter();
 	void UnsetCenter();
 	std::string GetTitle();
+	UINT GetHighlight();
 };
 
