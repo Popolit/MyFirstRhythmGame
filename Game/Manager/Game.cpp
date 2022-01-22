@@ -3,6 +3,7 @@
 #include "Scene/TitleScene.h"
 #include "Scene/OptionScene.h"
 #include "Scene/SelectSongScene.h"
+#include "Scene/ResultScene.h"
 #include "Scene/PlayScene.h"
 
 void Game::Start()
@@ -14,7 +15,7 @@ void Game::Start()
 	Scenes.insert({ ConstValue::SceneList::SelectSong, new SelectSongScene });
 	Scenes.insert({ ConstValue::SceneList::Option, new OptionScene });
 	Scenes.insert({ ConstValue::SceneList::Play, new PlayScene });
-	Scenes.insert({ ConstValue::SceneList::Result, new TitleScene });
+	Scenes.insert({ ConstValue::SceneList::Result, new ResultScene });
 
 	Scenes[NowScene]->Start();
 }

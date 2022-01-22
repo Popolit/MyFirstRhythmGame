@@ -5,15 +5,32 @@ class ResultScene final : public ModeScenes
 private:
 	ConstValue::SceneList Selection;
 
+	struct 
+	{
+		std::string Perfect;
+		std::string Good;
+		std::string Miss;
+	}Count;
+
+	struct
+	{
+		Rendering::Text::Component	Perfect;
+		Rendering::Text::Component	Good;
+		Rendering::Text::Component	Miss;
+	}Text;
+
+	struct
+	{
+		Rendering::Image::Component	Perfect;
+		Rendering::Image::Component	Good;
+		Rendering::Image::Component	Miss;
+	}Image;
+
 	Rendering::Camera               Camera;
 	Rendering::Image::Component     Background;
-	Rendering::Animation::Component SelectMode;
-
-	Rendering::Text::Component StartGame;
-	Rendering::Text::Component Option;
-	Rendering::Text::Component EndGame;
 
 	Sound::Sound BGM;
+	Song* NowPlaying;
 
 public:
 	void Start()  override;

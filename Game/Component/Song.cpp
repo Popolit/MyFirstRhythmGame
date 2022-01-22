@@ -63,15 +63,16 @@ void Song::ParseData(std::string& data)
 		{
 			size_t pos = 0;
 			content = content.substr(0, content.find_first_of('\n'));
-			content.erase(std::remove(content.begin(), content.end(), ' '), content.end());
 
 			pos = content.find_first_of(',');
 			STR.Title = content.substr(0, pos);
 			content.erase(0, pos + sizeof(char));
+			while (content[0] == ' ') content.erase(0, 1);
 
 			STR.Artist = content.substr(0, content.find_first_of(','));
 			pos = content.find_first_of(',');
 			content.erase(0, pos + sizeof(char));
+			while (content[0] == ' ') content.erase(0, 1);
 
 			Highlight = stoi(content);
 		}
@@ -110,15 +111,21 @@ void Song::ParseData(std::string& data)
 	}
 }
 
-void Song::SetCenter()
+Chart* Song::GetChart(ConstValue::Difficulty const& diff)
 {
-	//song.Play();
+	using namespace ConstValue;
+	switch (diff)
+	{
+		case Difficulty::Easy:
+			return Easy;
+		case Difficulty::Normal:
+			return Normal;
+		case Difficulty::Hard:
+			return Hard;
+	}
+	return nullptr;
 }
 
-void Song::UnsetCenter()
-{
-	//song.Stop();
-}
 
 std::string Song::GetTitle()
 {
@@ -128,4 +135,11 @@ std::string Song::GetTitle()
 UINT Song::GetHighlight()
 {
 	return Highlight;
+}
+
+void Song::Draw()
+{
+	Thumbnail.Draw();
+	Title.Draw();
+	Artist.Draw();
 }

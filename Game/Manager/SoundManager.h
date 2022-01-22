@@ -5,6 +5,7 @@ class SoundManager
 {
 public:
 	float Volume;
+	float LoopLength;
 	struct 
 	{
 		std::string BGM;
@@ -18,8 +19,7 @@ public:
 public:
 	SoundManager();
 	void SetBGM(std::string const& title, UINT32 const& Highlight = 0);
-	void SetNowPlaying(std::string const& title);
 	void SetVolume(float const& volume);
-	void SetHighlight(UINT32 const& Highlight);
+	void SetFadeIO();
 };
 

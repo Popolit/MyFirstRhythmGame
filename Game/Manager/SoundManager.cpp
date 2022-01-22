@@ -3,7 +3,10 @@
 
 SoundManager::SoundManager()
 {
-	BGM.Content = STR.BGM.data();
+	Volume = 0.0f;
+	LoopLength = 850000 / 44100.0f;
+
+	BGM.Content = STR.BGM.c_str();
 	BGM.loop = true;
 
 	NowPlaying.Content = STR.NowPlaying.data();
@@ -19,16 +22,19 @@ SoundManager::SoundManager()
 
 void SoundManager::SetBGM(std::string const& title, UINT32 const& Highlight) 
 { 
-	STR.BGM = title; 
+	STR.BGM = title;
+	BGM.Content = STR.BGM.c_str();
+	BGM.volume = Volume;
+	LoopLength = 850000 / 44100.0f;
 	if (Highlight)
 	{
 		BGM.loop = true;
 		BGM.loopBegin = Highlight;
 		BGM.loopLength = 850000;
-		BGM.SetVolume();
+		BGM.volume = 0.0f;
 	}
+	else BGM.loop = false;
 }
-void SoundManager::SetNowPlaying(std::string const& title) { STR.NowPlaying = title; }
 
 void SoundManager::SetVolume(float const& volume)
 {
@@ -40,9 +46,23 @@ void SoundManager::SetVolume(float const& volume)
 	SE_Move.volume = Volume;
 }
 
-void SoundManager::SetHighlight(UINT32 const& Highlight)
+void SoundManager::SetFadeIO()
 {
-	NowPlaying.loop = true;
-	NowPlaying.loopBegin = Highlight;
+	LoopLength -= Time::Get::Delta();
+	if (BGM.isLoopEnd()) LoopLength = 850000 / 44100.0f;
+
+	//곡이 끝나기 2초전 페이드아웃
+	if (LoopLength < 2.0f)
+	{
+		BGM.volume -= Volume * Time::Get::Delta() / 2;
+		BGM.SetVolume();
+	}
+	//페이드 인
+	else if (BGM.volume < Volume)
+	{
+		BGM.volume += Volume * Time::Get::Delta() / 2;
+		BGM.SetVolume();
+	}
 }
+
 

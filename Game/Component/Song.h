@@ -28,9 +28,10 @@ public:
 	Song();
 	Song(std::string const& file);
 	void ParseData(std::string& data);
-	void SetCenter();
-	void UnsetCenter();
+	Chart* GetChart(ConstValue::Difficulty const&diff);
 	std::string GetTitle();
 	UINT GetHighlight();
+	void Draw();
+	
 };
 

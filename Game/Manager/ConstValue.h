@@ -10,42 +10,43 @@ namespace ConstValue
 	SceneList operator--(SceneList& sl);
 	bool operator<(SceneList& A, SceneList& B);
 
-
-	const float DefVolume = 0.8f;
-
-
-	const UINT MaxScore = 1000000;
+	//옵션  관련
+	enum class OptionList { Sync, Speed, Keys };
+	OptionList operator++(OptionList& ol);
+	OptionList operator--(OptionList& ol);
+	bool operator<(OptionList& A, OptionList& B);
 
 	const int MaxSync = 10000;
 	const int MinSync = -10000;
-
-	const UINT32 LoopLength = static_cast<UINT32>(850000.0f / 44000.0f);
 
 	const float MaxSpeed = 20.0f;
 	const float DefSpeed = 6.0f;
 	const float MinSpeed = 0.5f;
 
-	const UINT JudgeRange = 50;	//ms
-	const UINT MissRange = 200; //ms
-	const UINT recognizeRange = 400; //ms;
+	const float DefVolume = 0.8f;
 
 	const size_t DefKeys[4] = { 0x44, 0x46, 0x4A, 0x4B };
 
-	enum class Judge { Perfect, Good, Miss, None };
-	
-	enum class OptionList { Sync, Speed, Keys };
+	//선곡 씬 관련
 	enum class Difficulty { Easy, Normal, Hard };
 	const std::string StrDiffi[3] = { "Easy", "Normal", "Hard" };
-
-
-    OptionList operator++(OptionList& ol);
-    OptionList operator--(OptionList& ol);
-	bool operator<(OptionList& A, OptionList& B);
-
 
 	Difficulty operator++(Difficulty& d);
 	Difficulty operator--(Difficulty& d);
 	std::string const& ToString(Difficulty& d);
+
+	//판정 관련
+	enum class Judge { Perfect, Good, Miss, None };
+
+	const UINT JudgeRange = 50;	//ms
+	const UINT MissRange = 200; //ms
+	const UINT recognizeRange = 400; //ms;
+
+	const UINT MaxScore = 1000000;
+
+	//사운드 관련
+	const UINT32 LoopLength = 850000;
+	const float Sample = 44.1f;	//샘플링
 }
 
 namespace Keycode

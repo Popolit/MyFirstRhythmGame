@@ -13,11 +13,12 @@ namespace Resource
 		size_t MappedKeys[4] = { 0, };
 
 		//공용 자원
-		std::vector<class Song*> Songs;
-		size_t SongSize;
-		SoundManager *SM;
+		SoundManager* SM;
 		std::string BGMTitle;
-		class Chart* pCh = nullptr;
+		std::vector<class Song*> Songs;
+		Song* NowPlaying;
+		size_t SongCnt;
+		ConstValue::Difficulty NowDiff;
 	}
 
 	void Start()
@@ -35,7 +36,9 @@ namespace Resource
 		SM->SetBGM("TitleBGM");
 
 		GetSongs();
-		SongSize = Songs.size();
+		SongCnt = Songs.size();
+		NowPlaying = nullptr;
+		NowDiff = ConstValue::Difficulty::Easy;
 	}
 
 	// 데이터 폴더 탐색, 곡 데이터를 받아옴
@@ -62,7 +65,7 @@ namespace Resource
 		}
 	}
 
-	void End() { delete pCh; delete SM; }
+	void End() { delete SM; }
 
 
 	namespace Get
@@ -71,21 +74,23 @@ namespace Resource
 		float SpeedValue() { return Resource::SpeedValue; }
 		void Keys(size_t (&target)[4]) { for (UINT u = 0; u < 4; u++) target[u] = Resource::MappedKeys[u]; }
 		const char* Title() { return BGMTitle.data(); }
-		Song* SongAt(size_t& index) 
-		{ 
-			if (SongSize <= index) index -= SongSize;
-			return Songs.at(index);
-		}
-		Chart *pChart() { return pCh; }
+		size_t SongCount() { return SongCnt; }
 		SoundManager* SM() { return Resource::SM; }
+		Song* NowPlaying() { return Resource::NowPlaying; }		
+		ConstValue::Difficulty Diff() { return NowDiff; }
 	}
 	namespace Set
 	{
 		void SyncValue(int const& newSync) { Resource::SyncValue = newSync; }
 		void SpeedValue(float const& newSpeed) { Resource::SpeedValue = newSpeed; };
 		void Keys(size_t (&newKeys)[4]) { for (UINT u = 0; u < 4; u++) Resource::MappedKeys[u] = newKeys[u]; }
-		void pChart(Chart* ch) { memcpy(pCh, ch, sizeof(Chart)); };
 		void BGM(std::string const& title) { BGMTitle = title; }
 		void Volume(float const& volume) { SM->Volume = volume;}
+		void NowPlaying(size_t& index) 
+		{
+			if (SongCnt <= index) index -= SongCnt;
+			Resource::NowPlaying = Songs.at(index);
+		}
+		void Diff(ConstValue::Difficulty const& diff) { NowDiff = diff; }
 	}
 };

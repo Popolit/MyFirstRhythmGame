@@ -14,17 +14,18 @@ namespace Resource
 		int SyncValue();
 		float SpeedValue();
 		void Keys(size_t(&target)[4]);
-		const char* Title();
-		Song* SongAt(size_t& index);
-		Chart* pChart();
+		Song* NowPlaying();
+		size_t SongCount();
 		SoundManager* SM();
+		ConstValue::Difficulty Diff();
 	}
 	namespace Set
 	{
 		void SyncValue(int const &newSync);
 		void SpeedValue(float const &newSpeed);
-		void Keys(size_t (&newKeys)[4]);	
-		void pChart(Chart* ch);
+		void Keys(size_t (&newKeys)[4]);
 		void Volume(float const&volume);
+		void NowPlaying(size_t& index);
+		void Diff(ConstValue::Difficulty const &diff);
 	}
 }
