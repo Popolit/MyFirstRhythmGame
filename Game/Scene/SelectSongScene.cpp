@@ -7,7 +7,7 @@ void SelectSongScene::Start()
 	Selection = 0;
 	SongCount = Resource::Get::SongCount();
 	Difficulty = ConstValue::Difficulty::Easy;
-	SM = Resource::Get::SM();
+	SM = SoundManager::Get();
 
 	Resource::Set::NowPlaying(Selection);
 	NowPlaying = Resource::Get::NowPlaying();

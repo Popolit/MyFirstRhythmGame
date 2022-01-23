@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "SoundManager.h"
 
+SoundManager* SoundManager::SM = nullptr;
+
 SoundManager::SoundManager()
 {
 	Volume = 0.0f;
@@ -9,18 +11,33 @@ SoundManager::SoundManager()
 	BGM.Content = STR.BGM.c_str();
 	BGM.loop = true;
 
-	NowPlaying.Content = STR.NowPlaying.data();
-	NowPlaying.loopLength = 0;
-	NowPlaying.loop = true;
-
 	SE_Decide.Content = "SE_Decide";
 	SE_Decide.loop = false;
-	
+
 	SE_Move.Content = "SE_Move";
 	SE_Move.loop = false;
+
+	SetVolume(ConstValue::DefVolume);
 }
 
-void SoundManager::SetBGM(std::string const& title, UINT32 const& Highlight) 
+SoundManager::~SoundManager() {}
+
+SoundManager*& SoundManager::Get()
+{
+	if (SM == nullptr) SM = new SoundManager();
+	return SM;
+}
+
+
+void SoundManager::Destroy()
+{
+	if (SM == nullptr) return;
+	delete SM;
+	SM = nullptr;
+}
+
+
+void SoundManager::SetBGM(std::string const& title, UINT32 const& Highlight)
 { 
 	STR.BGM = title;
 	BGM.Content = STR.BGM.c_str();
@@ -41,7 +58,6 @@ void SoundManager::SetVolume(float const& volume)
 	Volume = volume;
 
 	BGM.volume = Volume;
-	NowPlaying.volume = Volume;
 	SE_Decide.volume = Volume;
 	SE_Move.volume = Volume;
 }

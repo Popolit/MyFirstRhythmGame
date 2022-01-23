@@ -35,7 +35,7 @@ void TitleScene::Start()
     EndGame.Font = { "CookieRun Bold", 30, true };
     EndGame.Color = { 255, 255, 255 };
     
-    SM = Resource::Get::SM();
+    SM = SoundManager::Get();
     SM->SetBGM("TitleBGM");
     SM->BGM.Play();
 }

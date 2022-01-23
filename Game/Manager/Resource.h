@@ -16,7 +16,6 @@ namespace Resource
 		void Keys(size_t(&target)[4]);
 		Song* NowPlaying();
 		size_t SongCount();
-		SoundManager* SM();
 		ConstValue::Difficulty Diff();
 	}
 	namespace Set
@@ -24,7 +23,7 @@ namespace Resource
 		void SyncValue(int const &newSync);
 		void SpeedValue(float const &newSpeed);
 		void Keys(size_t (&newKeys)[4]);
-		void Volume(float const&volume);
+		//void Volume(float const&volume);
 		void NowPlaying(size_t& index);
 		void Diff(ConstValue::Difficulty const &diff);
 	}

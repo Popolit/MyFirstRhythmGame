@@ -3,7 +3,7 @@
 
 void ResultScene::Start()
 {
-	SM = Resource::Get::SM();
+	SM = SoundManager::Get();
 	NowPlaying = Resource::Get::NowPlaying();
 
 	Background.Content = "PlayBG";

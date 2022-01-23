@@ -1,10 +1,8 @@
 #pragma once
 #include "Manager/Resource.h"
 #include "Manager/ConstValue.h"
-#include "Manager/Scene.h"
 
-
-class JudgePhrase final : public Scene
+class JudgePhrase final
 {
 private:
 	ConstValue::Judge judge;
@@ -16,9 +14,8 @@ private:
 	Rendering::Animation::Component Good;
 	Rendering::Animation::Component Miss;
 public:
-	void Start() override;
+	JudgePhrase();
 	void setJudge(ConstValue::Judge judge);
-	void Update() override;
-	void End() override;
+	void Update(float const& location);
 };
 

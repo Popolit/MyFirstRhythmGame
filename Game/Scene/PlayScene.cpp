@@ -4,14 +4,14 @@
 void PlayScene::Start()
 {
     //변수 셋팅
-    SM = Resource::Get::SM();
+    SM = SoundManager::Get();
     pSong = Resource::Get::NowPlaying();
     SpeedValue = Resource::Get::SpeedValue();
     Resource::Get::Keys(MappedKeys);
     pJudgePhrase = new JudgePhrase();
-    pJudgePhrase->Start();
-    timed = 0.0f;
+    Timed = -3.0f;
     WaitingTime = 3.0f;
+    Waited = false;
 
     //노트 관련 생성
     pSong->GetChart(Resource::Get::Diff())->makeNotes(Notes);
@@ -24,40 +24,51 @@ void PlayScene::Start()
         noteCount[u] = Notes[u].size();
         NoteCount.Total += static_cast<UINT>(noteCount[u]);
         pHitEffects[u] = new HitEffect();
-        pHitEffects[u]->Start();
-        pHitEffects[u]->setLane(u);
+        pHitEffects[u]->SetLane(u);
     }
 
     pScore = new Score(NoteCount.Total);
     pCombo = new Combo();
 
     //드로잉 컴포넌트 셋팅
-    Camera.Location = { 0, 0 };
+    Camera.Location = { 0, SpeedValue * (- 300) };
 
     Background.Content = "PlayBG";
     Background.Length = { 1280, 720 };
 
     Lane.Content = "Lane";
     Lane.Length = { 500, 720 };
-    Lane.Location = { -300, 0 };
+    Lane.Location = { -300, SpeedValue * (- 300) };
 
     SM->SetBGM(pSong->GetTitle());
-    SM->BGM.Play();
 }
 
 ConstValue::SceneList PlayScene::UpdateScene()
 {
     using namespace ConstValue;
-    Judge judges[4] = { Judge::None, Judge::None, Judge::None, Judge::None };
-    timed += Time::Get::Delta();
+    
+    Timed += Time::Get::Delta();
 
     Camera.Location[1] += SpeedValue * 100 * Time::Get::Delta();
-    Background.Location[1] += SpeedValue * 100 * Time::Get::Delta();
-    Lane.Location[1] += SpeedValue * 100 * Time::Get::Delta();
 
-    Camera.Set();  
-    Background.Draw();
+    if (!Waited && 0 <= Timed)
+    {
+        Camera.Location[1]= 0;
+        Timed = 0.0f;
+        SM->BGM.Play();
+        Waited = true;
+    }
+
+    Lane.Location[1] = Camera.Location[1];
+    Background.Location[1] = Camera.Location[1];
+
+    Camera.Set();
+    //Background.Draw();
     Lane.Draw();
+
+
+    Judge judges[4] = { Judge::None, Judge::None, Judge::None, Judge::None };
+
     for (UINT u = 0; u < 4; u++)
     {
         //모든 노트를 처리함
@@ -65,7 +76,7 @@ ConstValue::SceneList PlayScene::UpdateScene()
         //노트를 처리하는 파트
         if (Input::Get::Key::Down(MappedKeys[u]))
         {
-            judges[u] = Notes[u][nextNoteIndex[u]].Judge(static_cast<UINT>(timed * 1000));
+            judges[u] = Notes[u][nextNoteIndex[u]].Judge(static_cast<UINT>(Timed * 1000));
             if (judges[u] != Judge::None)
             {
                 nextNoteIndex[u]++;
@@ -75,12 +86,12 @@ ConstValue::SceneList PlayScene::UpdateScene()
                 if (judges[u] != Judge::Miss)
                 {
                     pScore->Update(judges[u]);
-                    pHitEffects[u]->reset();
+                    pHitEffects[u]->Reset();
                 }
             }
         }
         //조작하지 않고 Miss라인을 넘어간 노트
-        else if (Notes[u][nextNoteIndex[u]].getTiming() < timed * 1000 - MissRange)
+        else if (Notes[u][nextNoteIndex[u]].getTiming() < Timed * 1000 - MissRange)
         {
             nextNoteIndex[u]++;
             pCombo->Update(Judge::Miss);
@@ -90,11 +101,17 @@ ConstValue::SceneList PlayScene::UpdateScene()
         for (UINT noteIndex = nextNoteIndex[u]; noteIndex < noteCount[u]; noteIndex++) Notes[u][noteIndex].DrawNote();
     }
 
-    for(UINT u = 0; u < 4; u++) pHitEffects[u]->Update();
-    pJudgePhrase->Update();
+    for(UINT u = 0; u < 4; u++) pHitEffects[u]->Update(Camera.Location[1]);
+    pJudgePhrase->Update(Camera.Location[1]);
     pScore->DrawScore();
     pCombo->Draw();
-    if (Input::Get::Key::Down(VK_ESCAPE)) { return SceneList::SelectSong; }
+
+
+    if (Input::Get::Key::Down(VK_ESCAPE)) 
+    {
+        SM->BGM.Stop();
+        return SceneList::SelectSong; 
+    }
     else if (Input::Get::Key::Down(VK_RETURN)) { return SceneList::Result; }
     else if (NoteCount.Processed == NoteCount.Total)
     {

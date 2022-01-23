@@ -11,4 +11,3 @@ public:
 	void Update() {}
 	virtual ConstValue::SceneList UpdateScene() abstract;
 };
-

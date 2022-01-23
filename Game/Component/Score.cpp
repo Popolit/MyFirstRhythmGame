@@ -3,15 +3,15 @@
 
 Score::Score()
 {
-	digit = 0;
+	Digit = 0;
 	strScore = "";
 	for (UINT u = ConstValue::MaxScore; 0 < u; u /= 10)
 	{
-		digit++;
+		Digit++;
 		strScore += '0';
 	}
 	TotalCount = 1;
-	GainedScoreCount = 0.0f;
+	Coeff = 0.0f;
 
 	CurrentScore.Content = strScore.data();
 	CurrentScore.Length = { 200, 50 };
@@ -32,13 +32,21 @@ Score::~Score()
 
 void Score::Update(ConstValue::Judge const& judge)
 {
-	if (judge == ConstValue::Judge::Perfect) GainedScoreCount += 1.0f;
-	else if (judge == ConstValue::Judge::Good) GainedScoreCount += 0.5f;
+	if (judge == ConstValue::Judge::Perfect)
+	{
+		Coeff += 1.0f;
+		Count.Perfect++;
+	}
+	else if (judge == ConstValue::Judge::Good)
+	{
+		Coeff += 0.5f;
+		Count.Good++;
+	}
 	else return;
 
 	strScore = "";
-	UINT CalculatedScore = static_cast<UINT>(ConstValue::MaxScore * GainedScoreCount / TotalCount);
-	for (UINT u = static_cast<UINT>(pow(10, digit - 1)); 0 < u; u /= 10)
+	UINT CalculatedScore = static_cast<UINT>(ConstValue::MaxScore * Coeff / TotalCount);
+	for (UINT u = static_cast<UINT>(pow(10, Digit - 1)); 0 < u; u /= 10)
 	{
 		strScore += '0' + ((CalculatedScore / u) % 10);
 	}

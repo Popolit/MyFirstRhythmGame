@@ -30,8 +30,11 @@ private:
 		UINT Total;
 	}NoteCount;
 	
-	float timed;
+
+	float Timed;
 	float WaitingTime;
+	
+	bool Waited;
 
 	Rendering::Camera               Camera;
 	Rendering::Image::Component		Lane;

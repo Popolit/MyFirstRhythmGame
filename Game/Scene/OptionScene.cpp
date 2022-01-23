@@ -14,7 +14,7 @@ void OptionScene::Start()
 	for (UINT u = 0; u < 4; u++) Str.Keys[u] = Keycode::toString(MappedKeys[u]);
 	IsSelected = false;
 
-	SM = Resource::Get::SM();
+	SM = SoundManager::Get();
 
 
 	//Image ¼ÂÆÃ

@@ -1,5 +1,6 @@
 #pragma once
-
+#include "Component/Score.h"
+#include "Component/Combo.h"
 class Result
 {
 private:
@@ -13,5 +14,5 @@ private:
 	}Count;
 public:
 	Result();
-
+	void Set(class Score *pScore, Combo* pCombo);
 };

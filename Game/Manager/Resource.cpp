@@ -2,6 +2,7 @@
 #include "Resource.h"
 #include "Component/Chart.h"
 #include "Component/Song.h"
+#include "Result.h"
 
 namespace Resource
 {
@@ -13,10 +14,12 @@ namespace Resource
 		size_t MappedKeys[4] = { 0, };
 
 		//공용 자원
-		SoundManager* SM;
 		std::string BGMTitle;
-		std::vector<class Song*> Songs;
+		std::vector<Song*> Songs;
+		std::vector<Result*> Results;
 		Song* NowPlaying;
+		Result* NowResult;
+
 		size_t SongCnt;
 		ConstValue::Difficulty NowDiff;
 	}
@@ -31,13 +34,10 @@ namespace Resource
 		MappedKeys[2] = DefKeys[2];
 		MappedKeys[3] = DefKeys[3];
 
-		SM = new SoundManager();
-		SM->SetVolume(DefVolume);
-		SM->SetBGM("TitleBGM");
-
 		GetSongs();
 		SongCnt = Songs.size();
 		NowPlaying = nullptr;
+		NowResult = nullptr;
 		NowDiff = ConstValue::Difficulty::Easy;
 	}
 
@@ -65,7 +65,7 @@ namespace Resource
 		}
 	}
 
-	void End() { delete SM; }
+	void End() { }
 
 
 	namespace Get
@@ -75,9 +75,9 @@ namespace Resource
 		void Keys(size_t (&target)[4]) { for (UINT u = 0; u < 4; u++) target[u] = Resource::MappedKeys[u]; }
 		const char* Title() { return BGMTitle.data(); }
 		size_t SongCount() { return SongCnt; }
-		SoundManager* SM() { return Resource::SM; }
 		Song* NowPlaying() { return Resource::NowPlaying; }		
 		ConstValue::Difficulty Diff() { return NowDiff; }
+		Result* NowResult() { return Resource::NowResult; }
 	}
 	namespace Set
 	{
@@ -85,12 +85,17 @@ namespace Resource
 		void SpeedValue(float const& newSpeed) { Resource::SpeedValue = newSpeed; };
 		void Keys(size_t (&newKeys)[4]) { for (UINT u = 0; u < 4; u++) Resource::MappedKeys[u] = newKeys[u]; }
 		void BGM(std::string const& title) { BGMTitle = title; }
-		void Volume(float const& volume) { SM->Volume = volume;}
+		//void Volume(float const& volume) { SM->Volume = volume;}
 		void NowPlaying(size_t& index) 
 		{
 			if (SongCnt <= index) index -= SongCnt;
 			Resource::NowPlaying = Songs.at(index);
 		}
 		void Diff(ConstValue::Difficulty const& diff) { NowDiff = diff; }
+
+		void Result(Score* score, Combo* combo)
+		{
+			score->
+		}
 	}
 };

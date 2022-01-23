@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "HitEffect.h"
 
-void HitEffect::Start()
+HitEffect::HitEffect()
 {
 	SpeedValue = Resource::Get::SpeedValue();
 	duration = 0.0f;
@@ -13,22 +13,19 @@ void HitEffect::Start()
 	effect.Repeatable = true;
 }
 
-void HitEffect::reset() { duration = 0.3f;}
+void HitEffect::Reset() { duration = 0.3f;}
 
-void HitEffect::setLane(UINT const &lane)
+void HitEffect::SetLane(UINT const &lane)
 {
 	effect.Location[0] = -450 + static_cast<float>(100 * lane);
 }
 
-void HitEffect::Update()
+void HitEffect::Update(float const& location)
 {
-	effect.Location[1] += SpeedValue * 100 * Time::Get::Delta();
+	effect.Location[1] = location - 248;
 	if (duration <= 0) return;
 
 	duration -= Time::Get::Delta();
 	
 	effect.Draw();
 }
-
-
-void HitEffect::End() {}

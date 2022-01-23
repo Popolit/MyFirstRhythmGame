@@ -3,21 +3,27 @@
 
 class SoundManager
 {
+private:
+	static SoundManager* SM ;
+	
 public:
 	float Volume;
 	float LoopLength;
 	struct 
 	{
 		std::string BGM;
-		std::string NowPlaying;
 	}STR;
 
 	Sound::Sound BGM;
-	Sound::Sound NowPlaying;
 	Sound::Sound SE_Move;
 	Sound::Sound SE_Decide;
-public:
+
+private:
 	SoundManager();
+	~SoundManager();
+public:
+	static SoundManager*& Get();
+	static void Destroy();
 	void SetBGM(std::string const& title, UINT32 const& Highlight = 0);
 	void SetVolume(float const& volume);
 	void SetFadeIO();

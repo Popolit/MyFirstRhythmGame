@@ -6,9 +6,15 @@
 class Score
 {
 private:
-	UINT digit;
+	UINT Digit;
 	UINT TotalCount;
-	float GainedScoreCount;
+	float Coeff;	//°è¼ö, Perfect = 1.0, Good = 0.5
+
+	struct
+	{
+		UINT Perfect;
+		UINT Good;
+	}Count;
 
 	std::string strScore;
 

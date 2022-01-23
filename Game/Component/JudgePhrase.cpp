@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "JudgePhrase.h"
 
-void JudgePhrase::Start()
+JudgePhrase::JudgePhrase()
 {
 	SpeedValue = Resource::Get::SpeedValue();
 
@@ -36,11 +36,11 @@ void JudgePhrase::setJudge(ConstValue::Judge judge)
 	this->judge = judge; 
 }
 
-void JudgePhrase::Update()
+void JudgePhrase::Update(float const& location)
 {
-	Perfect.Location[1] += SpeedValue * 100 * Time::Get::Delta();
-	Good.Location[1] += SpeedValue * 100 * Time::Get::Delta();
-	Miss.Location[1] += SpeedValue * 100 * Time::Get::Delta();
+	Perfect.Location[1] = location;
+	Good.Location[1] = location;
+	Miss.Location[1] = location;
 
 	if (renderingTime <= 0) return;
 
@@ -66,6 +66,3 @@ void JudgePhrase::Update()
 		}
 	}
 }
-
-
-void JudgePhrase::End() {}
