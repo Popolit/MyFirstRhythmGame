@@ -21,6 +21,7 @@ void Combo::Update(ConstValue::Judge const& judge)
 		return;
 	}
 	CurrentCombo++;
+	if (MaxCombo < CurrentCombo) MaxCombo = CurrentCombo;
 	StrCombo = std::to_string(CurrentCombo);
 }
 

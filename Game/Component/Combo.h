@@ -5,6 +5,7 @@ class Combo
 {
 private:
 	UINT CurrentCombo;
+	UINT MaxCombo;
 	std::string StrCombo;
 
 	Rendering::Text::Component TextCombo;

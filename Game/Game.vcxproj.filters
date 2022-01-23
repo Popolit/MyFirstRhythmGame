@@ -28,6 +28,7 @@
     <ClInclude Include="Component\JudgePhrase.h" />
     <ClInclude Include="Manager\Resource.h" />
     <ClInclude Include="Manager\SoundManager.h" />
+    <ClInclude Include="Manager\Result.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manager\Game.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="Component\JudgePhrase.cpp" />
     <ClCompile Include="Manager\Resource.cpp" />
     <ClCompile Include="Manager\SoundManager.cpp" />
+    <ClCompile Include="Manager\Result.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Font\CookieRun Black.ttf" />

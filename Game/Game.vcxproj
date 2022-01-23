@@ -183,6 +183,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Manager\Result.h" />
     <ClInclude Include="Scene\ResultScene.h" />
     <ClInclude Include="Component\Combo.h" />
     <ClInclude Include="Component\Chart.h" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Engine\Time.h" />
     <ClInclude Include="Engine\Vector.h" />
     <ClInclude Include="Manager\Game.h" />
+    <ClCompile Include="Manager\Result.cpp" />
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Component\Combo.cpp" />
     <ClCompile Include="Component\Note.cpp" />
