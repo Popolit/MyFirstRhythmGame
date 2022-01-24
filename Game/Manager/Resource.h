@@ -4,6 +4,10 @@
 
 class Chart;
 class Song;
+class Score;
+class Combo;
+class Result;
+
 namespace Resource
 {
 	void Start();
@@ -17,6 +21,7 @@ namespace Resource
 		Song* NowPlaying();
 		size_t SongCount();
 		ConstValue::Difficulty Diff();
+		Result* NowResult();
 	}
 	namespace Set
 	{
@@ -26,5 +31,6 @@ namespace Resource
 		//void Volume(float const&volume);
 		void NowPlaying(size_t& index);
 		void Diff(ConstValue::Difficulty const &diff);
+		void NowResult(Score* score, Combo* combo);
 	}
 }

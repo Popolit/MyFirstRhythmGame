@@ -22,20 +22,23 @@ Song::Song(std::string const& file)
 	ParseData(data);
 
 	Thumbnail.Content = STR.Title.data();
-	Thumbnail.Length = { 400, 400 };
-	Thumbnail.Location = { -200, 0 };
+	Thumbnail.Length = { 350, 350 };
+	Thumbnail.Location = { -300, 0 };
 
+	VLine.Content = "Pixel";
+	VLine.Length = { 5, 350 };
+	VLine.Location = { -20, 0 };
 	//텍스트 셋팅
 	Title.Content = STR.Title.data();
-	Title.Location = { 820,  220 };
+	Title.Location = { 890,  230 };
 	Title.Font = { "CookieRun Bold", 40, true };
-	Title.Length = { 300, 100 };
+	Title.Length = { 500, 50 };
 	Title.Color = { 255, 255, 255 };
 
 	Artist.Content = STR.Artist.data();
-	Artist.Location = { 820,  320 };
-	Artist.Font = { "CookieRun Bold", 40, true };
-	Artist.Length = { 300, 100 };
+	Artist.Location = { 890,  300 };
+	Artist.Font = { "CookieRun Bold", 30, true };
+	Artist.Length = { 500, 50 };
 	Artist.Color = { 255, 255, 255 };
 }
 
@@ -142,4 +145,11 @@ void Song::Draw()
 	Thumbnail.Draw();
 	Title.Draw();
 	Artist.Draw();
+	VLine.Draw();
+}
+
+void Song::DrawForResult()
+{
+	Thumbnail.Draw();
+	VLine.Draw();
 }

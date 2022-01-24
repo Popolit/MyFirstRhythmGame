@@ -18,9 +18,9 @@ void SelectSongScene::Start()
 	Background.Length = ConstValue::ScreenSize;
 
 	Diff.Content = "Easy";
-	Diff.Location = { 820,  420 };
+	Diff.Location = { 890,  420 };
 	Diff.Font = { "CookieRun Bold", 40, true };
-	Diff.Length = { 300, 100 };
+	Diff.Length = { 500, 100 };
 	Diff.Color = { 255, 255, 255 };
 	SM->BGM.Play();
 }
@@ -70,7 +70,7 @@ ConstValue::SceneList SelectSongScene::UpdateScene()
 	}
 	
 	Camera.Set();
-	Background.Draw();
+	//Background.Draw();
 	Diff.Draw();
 
 	NowPlaying->Draw();

@@ -19,10 +19,11 @@ private:
 	Chart *Hard;
 
 	Rendering::Image::Component		Thumbnail;
+	Rendering::Image::Component		VLine;
 
 	Rendering::Text::Component		Title;
 	Rendering::Text::Component		Artist;
-	Rendering::Text::Component		MaxScore;
+	Rendering::Text::Component		BestScore;
 
 public:
 	Song();
@@ -32,6 +33,6 @@ public:
 	std::string GetTitle();
 	UINT GetHighlight();
 	void Draw();
-	
+	void DrawForResult();
 };
 

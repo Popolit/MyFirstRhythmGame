@@ -12,6 +12,7 @@ private:
 public:
 	Combo();
 	void Update(ConstValue::Judge const &judge);
+	UINT GetMaxCombo();
 	void Draw();
 };
 

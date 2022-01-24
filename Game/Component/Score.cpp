@@ -25,10 +25,7 @@ Score::Score(UINT const& count) : Score()
 	if(count != 0) TotalCount = count;
 }
 
-Score::~Score()
-{
-	CurrentScore.Content = nullptr;
-}
+Score::~Score() {}
 
 void Score::Update(ConstValue::Judge const& judge)
 {

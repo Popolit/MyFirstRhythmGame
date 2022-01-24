@@ -112,11 +112,17 @@ ConstValue::SceneList PlayScene::UpdateScene()
         SM->BGM.Stop();
         return SceneList::SelectSong; 
     }
-    else if (Input::Get::Key::Down(VK_RETURN)) { return SceneList::Result; }
+    else if (Input::Get::Key::Down(VK_RETURN)) { 
+        Resource::Set::NowResult(pScore, pCombo);
+        return SceneList::Result; }
     else if (NoteCount.Processed == NoteCount.Total)
     {
         WaitingTime -= Time::Get::Delta();
-        if(WaitingTime <= 0) return SceneList::Result;
+        if (WaitingTime <= 0)
+        {
+            Resource::Set::NowResult(pScore, pCombo);
+            return SceneList::Result;
+        }
         return SceneList::Play;
     }
     else { return SceneList::Play; }

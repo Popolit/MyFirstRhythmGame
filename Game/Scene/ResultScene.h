@@ -1,22 +1,27 @@
 #pragma once
 #include "ModeScenes.h"
+#include "Manager/Result.h"
+#include "Component/Song.h"
+
 class ResultScene final : public ModeScenes
 {
 private:
-	ConstValue::SceneList Selection;
-
 	struct 
 	{
 		std::string Perfect;
 		std::string Good;
 		std::string Miss;
-	}Count;
+		std::string Title;
+	}STR;
 
 	struct
 	{
 		Rendering::Text::Component	Perfect;
 		Rendering::Text::Component	Good;
 		Rendering::Text::Component	Miss;
+		Rendering::Text::Component  Title;
+		Rendering::Text::Component  Diff;
+		Rendering::Text::Component  Combo;
 	}Text;
 
 	struct
@@ -30,7 +35,8 @@ private:
 	Rendering::Image::Component     Background;
 
 	Sound::Sound BGM;
-	Song* NowPlaying;
+	Song* pSong;
+	Result* pResult;
 
 public:
 	void Start()  override;

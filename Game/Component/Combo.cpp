@@ -25,6 +25,11 @@ void Combo::Update(ConstValue::Judge const& judge)
 	StrCombo = std::to_string(CurrentCombo);
 }
 
+UINT Combo::GetMaxCombo()
+{
+	return MaxCombo;
+}
+
 void Combo::Draw()
 {
 	TextCombo.Draw();

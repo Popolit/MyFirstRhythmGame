@@ -65,7 +65,12 @@ namespace Resource
 		}
 	}
 
-	void End() { }
+	void End() 
+	{
+		delete NowResult;
+		for(Song* song : Songs) delete song;
+		for(Result*result : Results) delete result;
+	}
 
 
 	namespace Get
@@ -92,10 +97,10 @@ namespace Resource
 			Resource::NowPlaying = Songs.at(index);
 		}
 		void Diff(ConstValue::Difficulty const& diff) { NowDiff = diff; }
-
-		void Result(Score* score, Combo* combo)
+		void NowResult(Score* score, Combo* combo)
 		{
-			score->
+			Resource::NowResult = new Result();
+			Resource::NowResult->Set(score, combo);
 		}
 	}
 };

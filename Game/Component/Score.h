@@ -3,9 +3,11 @@
 #include "Manager/Resource.h"
 #include <string>
 
-class Score
+class Score final
 {
 private:
+	friend class Result;
+
 	UINT Digit;
 	UINT TotalCount;
 	float Coeff;	//°è¼ö, Perfect = 1.0, Good = 0.5
