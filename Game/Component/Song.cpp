@@ -20,26 +20,6 @@ Song::Song(std::string const& file)
 		data += buffer;
 	};
 	ParseData(data);
-
-	Thumbnail.Content = STR.Title.data();
-	Thumbnail.Length = { 350, 350 };
-	Thumbnail.Location = { -300, 0 };
-
-	VLine.Content = "Pixel";
-	VLine.Length = { 5, 350 };
-	VLine.Location = { -20, 0 };
-	//텍스트 셋팅
-	Title.Content = STR.Title.data();
-	Title.Location = { 890,  230 };
-	Title.Font = { "CookieRun Bold", 40, true };
-	Title.Length = { 500, 50 };
-	Title.Color = { 255, 255, 255 };
-
-	Artist.Content = STR.Artist.data();
-	Artist.Location = { 890,  300 };
-	Artist.Font = { "CookieRun Bold", 30, true };
-	Artist.Length = { 500, 50 };
-	Artist.Color = { 255, 255, 255 };
 }
 
 //데이터 파싱
@@ -127,29 +107,4 @@ Chart* Song::GetChart(ConstValue::Difficulty const& diff)
 			return Hard;
 	}
 	return nullptr;
-}
-
-
-std::string Song::GetTitle()
-{
-	return STR.Title;
-}
-
-UINT Song::GetHighlight()
-{
-	return Highlight;
-}
-
-void Song::Draw()
-{
-	Thumbnail.Draw();
-	Title.Draw();
-	Artist.Draw();
-	VLine.Draw();
-}
-
-void Song::DrawForResult()
-{
-	Thumbnail.Draw();
-	VLine.Draw();
 }

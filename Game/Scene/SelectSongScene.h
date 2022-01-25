@@ -1,25 +1,35 @@
 #pragma once
-#include "ModeScenes.h"
+#include "Manager/Scene.h"
 #include "Component/Song.h"
 
-class SelectSongScene final : public ModeScenes
+class SelectSongScene final : public Scene
 {
 private:
-	size_t Selection;
-	size_t SongCount;
+	int Selection;
 	ConstValue::Difficulty Difficulty;
 
 	Song* NowPlaying;
 
 	Rendering::Camera               Camera;
 	Rendering::Image::Component     Background;
+
+	Rendering::Image::Component		Thumbnail;
+	Rendering::Image::Component		VLine;
+
+	Rendering::Text::Component		Title;
+	Rendering::Text::Component		Artist;
+	Rendering::Text::Component		BestScore;
+
+
 	Rendering::Animation::Component SelectionBox;
 
 	Rendering::Text::Component		Diff;
-
+private:
+	void SetSelection(int& Selection);
 public:
 	void Start()  override;
-	ConstValue::SceneList UpdateScene() override;
+	ConstValue::SceneList Update() override;
 	void End()    override;
+	
 };
 

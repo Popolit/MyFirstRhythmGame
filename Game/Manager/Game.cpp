@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "Game.h"
 #include "Scene/TitleScene.h"
-#include "Scene/OptionScene.h"
 #include "Scene/SelectSongScene.h"
-#include "Scene/ResultScene.h"
+#include "Scene/OptionScene.h"
 #include "Scene/PlayScene.h"
+#include "Scene/ResultScene.h"
 
 void Game::Start()
 {
@@ -23,7 +23,7 @@ bool Game::Update()
 {
 	using namespace ConstValue;
 	SceneList prevScene = NowScene;
-	NowScene = Scenes[prevScene]->UpdateScene();
+	NowScene = Scenes[prevScene]->Update();
 	if (NowScene == SceneList::End)
 	{
 		NowScene = prevScene;

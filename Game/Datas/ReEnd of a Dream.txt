@@ -3,7 +3,7 @@ ReEnd of a Dream, uma vs. Morimori Astushi, 34826
 
 [Notes]
 #Easy:
-0, 440, 5
+0, 440, 0
 1, 581, 0
 3, 723, 0
 2, 864, 0
@@ -716,7 +716,7 @@ ReEnd of a Dream, uma vs. Morimori Astushi, 34826
 3, 139826, 0
 
 #Normal:
-0, 440, 5
+0, 440, 0
 2, 581, 0
 0, 723, 0
 3, 864, 0
@@ -2039,7 +2039,7 @@ ReEnd of a Dream, uma vs. Morimori Astushi, 34826
 3, 139826, 0
 
 #Hard:
-0, 440, 5
+0, 440, 0
 1, 581, 0
 0, 723, 0
 1, 864, 0

@@ -3,6 +3,7 @@
 
 Chart::Chart() 
 {
+	LongCnt = 0;
 	isChartExist = false;
 }
 
@@ -26,6 +27,7 @@ Chart::Chart(std::string& notedata)
 	//Á¤·Ä
 	for (UINT u = 0; u < 4; u++) std::sort(NoteData[u].begin(), NoteData[u].end());
 	isChartExist = true;
+	LongCnt = 0;
 }
 
 void Chart::makeNotes(std::vector<Note>(&Notes)[4])
@@ -36,9 +38,12 @@ void Chart::makeNotes(std::vector<Note>(&Notes)[4])
 	{
 		for (std::pair<UINT, UINT> ndata : NoteData[u])
 		{
-			Note note = Note(ndata.first + SyncValue);
+			Note note = Note(ndata.first + SyncValue, ndata.second);
+			if (note.isLong()) LongCnt++;
 			note.MakeNoteImage(u);
 			Notes[u].push_back(note);
 		}
 	}
 }
+
+UINT Chart::GetLongCnt() { return LongCnt; }

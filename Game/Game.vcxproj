@@ -184,7 +184,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Manager\Result.h" />
-    <ClInclude Include="Manager\PlayComp.h" />
     <ClInclude Include="Scene\ResultScene.h" />
     <ClInclude Include="Component\Combo.h" />
     <ClInclude Include="Component\Chart.h" />
@@ -203,14 +202,12 @@
     <ClInclude Include="Engine\Vector.h" />
     <ClInclude Include="Manager\Game.h" />
     <ClCompile Include="Manager\Result.cpp" />
-    <ClCompile Include="Manager\PlayComp.cpp" />
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Component\Combo.cpp" />
     <ClCompile Include="Component\Note.cpp" />
     <ClCompile Include="Manager\Resource.cpp" />
     <ClInclude Include="Manager\Scene.h" />
     <ClInclude Include="Component\Note.h" />
-    <ClInclude Include="Scene\ModeScenes.h" />
     <ClInclude Include="Scene\PlayScene.h" />
     <ClInclude Include="Scene\SelectSongScene.h" />
     <ClInclude Include="Component\Score.h" />

@@ -1,7 +1,7 @@
 #pragma once
-#include "ModeScenes.h"
+#include "Manager/Scene.h"
 
-class TitleScene final : public ModeScenes
+class TitleScene final : public Scene
 {
 private:
 	ConstValue::SceneList Selection;
@@ -16,7 +16,7 @@ private:
 	Rendering::Text::Component EndGame;
 public:
 	void Start()  override;
-	ConstValue::SceneList UpdateScene() override;
+	ConstValue::SceneList Update() override;
 	void End()    override;
 };
 

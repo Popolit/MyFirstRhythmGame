@@ -1,11 +1,19 @@
 #pragma once
-#include "ModeScenes.h"
+#include "Manager/Scene.h"
 #include "Manager/Result.h"
 #include "Component/Song.h"
 
-class ResultScene final : public ModeScenes
+class ResultScene final : public Scene
 {
 private:
+	Sound::Sound BGM;
+	Song* pSong;
+	Result* pResult;
+
+
+	Rendering::Camera               Camera;
+	Rendering::Image::Component     Background;
+
 	struct 
 	{
 		std::string Perfect;
@@ -20,27 +28,28 @@ private:
 		Rendering::Text::Component	Good;
 		Rendering::Text::Component	Miss;
 		Rendering::Text::Component  Title;
+		Rendering::Text::Component	Artist;
+		Rendering::Text::Component	BestScore;
+
 		Rendering::Text::Component  Diff;
 		Rendering::Text::Component  Combo;
+
 	}Text;
 
 	struct
 	{
+		Rendering::Image::Component	Thumbnail;
+		Rendering::Image::Component	VLine;
+
 		Rendering::Image::Component	Perfect;
 		Rendering::Image::Component	Good;
 		Rendering::Image::Component	Miss;
 	}Image;
 
-	Rendering::Camera               Camera;
-	Rendering::Image::Component     Background;
-
-	Sound::Sound BGM;
-	Song* pSong;
-	Result* pResult;
 
 public:
 	void Start()  override;
-	ConstValue::SceneList UpdateScene() override;
+	ConstValue::SceneList Update() override;
 	void End()    override;
 };
 

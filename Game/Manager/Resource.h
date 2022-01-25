@@ -19,7 +19,7 @@ namespace Resource
 		float SpeedValue();
 		void Keys(size_t(&target)[4]);
 		Song* NowPlaying();
-		size_t SongCount();
+		int SongIndex();
 		ConstValue::Difficulty Diff();
 		Result* NowResult();
 	}
@@ -28,8 +28,7 @@ namespace Resource
 		void SyncValue(int const &newSync);
 		void SpeedValue(float const &newSpeed);
 		void Keys(size_t (&newKeys)[4]);
-		//void Volume(float const&volume);
-		void NowPlaying(size_t& index);
+		void NowPlaying(int& index);
 		void Diff(ConstValue::Difficulty const &diff);
 		void NowResult(Score* score, Combo* combo);
 	}

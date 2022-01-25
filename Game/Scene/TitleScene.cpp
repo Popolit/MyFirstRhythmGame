@@ -40,7 +40,7 @@ void TitleScene::Start()
     SM->BGM.Play();
 }
 
-ConstValue::SceneList TitleScene::UpdateScene()
+ConstValue::SceneList TitleScene::Update()
 {
     using namespace ConstValue;
     if (Input::Get::Key::Down(VK_UP))

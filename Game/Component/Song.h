@@ -4,6 +4,8 @@
 class Song
 {
 private:
+	friend class SelectSongScene;
+	friend class ResultScene;
 	struct 
 	{
 		std::string Title;
@@ -18,21 +20,10 @@ private:
 	Chart *Normal;
 	Chart *Hard;
 
-	Rendering::Image::Component		Thumbnail;
-	Rendering::Image::Component		VLine;
-
-	Rendering::Text::Component		Title;
-	Rendering::Text::Component		Artist;
-	Rendering::Text::Component		BestScore;
-
 public:
 	Song();
 	Song(std::string const& file);
 	void ParseData(std::string& data);
 	Chart* GetChart(ConstValue::Difficulty const&diff);
-	std::string GetTitle();
-	UINT GetHighlight();
-	void Draw();
-	void DrawForResult();
 };
 

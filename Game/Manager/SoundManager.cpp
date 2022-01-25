@@ -39,7 +39,7 @@ void SoundManager::Destroy()
 
 void SoundManager::SetBGM(std::string const& title, UINT32 const& Highlight)
 { 
-	STR.BGM = title;
+	if(title != "") STR.BGM = title;
 	BGM.Content = STR.BGM.c_str();
 	BGM.volume = Volume;
 	LoopLength = 850000 / 44100.0f;

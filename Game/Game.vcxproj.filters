@@ -16,7 +16,6 @@
     <ClInclude Include="Manager\ConstValue.h" />
     <ClInclude Include="Scene\PlayScene.h" />
     <ClInclude Include="Component\Chart.h" />
-    <ClInclude Include="Scene\ModeScenes.h" />
     <ClInclude Include="Scene\OptionScene.h" />
     <ClInclude Include="Scene\SelectSongScene.h" />
     <ClInclude Include="Component\Score.h" />
@@ -29,7 +28,6 @@
     <ClInclude Include="Manager\Resource.h" />
     <ClInclude Include="Manager\SoundManager.h" />
     <ClInclude Include="Manager\Result.h" />
-    <ClInclude Include="Manager\PlayComp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manager\Game.cpp" />
@@ -50,7 +48,6 @@
     <ClCompile Include="Manager\Resource.cpp" />
     <ClCompile Include="Manager\SoundManager.cpp" />
     <ClCompile Include="Manager\Result.cpp" />
-    <ClCompile Include="Manager\PlayComp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Font\CookieRun Black.ttf" />

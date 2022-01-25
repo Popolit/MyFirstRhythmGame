@@ -1,10 +1,7 @@
 #pragma once
-#include "ModeScenes.h"
-#include "Manager/ConstValue.h"
-#include <string>
+#include "Manager/Scene.h"
 
-
-class OptionScene final : public ModeScenes
+class OptionScene final : public Scene
 {
 private:
 	struct final
@@ -22,25 +19,33 @@ private:
 	
 	Rendering::Camera               Camera;
 	Rendering::Image::Component     Background;
-	Rendering::Image::Component		OptionUnderLine;
-	Rendering::Image::Component		KeyBox[4];
-	Rendering::Image::Component     ArrowUp;
-	Rendering::Image::Component     ArrowDown;
-	Rendering::Image::Component     ArrowSelection;
 
-	Rendering::Text::Component		OptionText;
+	struct
+	{
+		Rendering::Image::Component		UnderLine;
+		Rendering::Image::Component		KeyBox[4];
+		Rendering::Image::Component     ArrowUp;
+		Rendering::Image::Component     ArrowDown;
+		Rendering::Image::Component     ArrowSelection;
+	}Image;
+	
+	struct
+	{
+		Rendering::Text::Component		Option;
 
-	Rendering::Text::Component		IndiSync;
-	Rendering::Text::Component		IndiSpeed;
-	Rendering::Text::Component		IndiKeys;
+		Rendering::Text::Component		IndiSync;
+		Rendering::Text::Component		IndiSpeed;
+		Rendering::Text::Component		IndiKeys;
 
-	Rendering::Text::Component		TextSyncValue;
-	Rendering::Text::Component		TextSpeedValue;
-	Rendering::Text::Component		TextKeys[4];
+		Rendering::Text::Component		SyncValue;
+		Rendering::Text::Component		SpeedValue;
+		Rendering::Text::Component		Keys[4];
+	}Text;
+	
 
 	Rendering::Animation::Component AnimSelect;
 public:
 	void Start()  override;
-	ConstValue::SceneList UpdateScene() override;
+	ConstValue::SceneList Update() override;
 	void End()    override;
 };

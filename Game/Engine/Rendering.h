@@ -1,7 +1,5 @@
 #pragma once
 #include "Vector.h"
-//#include <dsound.h>
-//#pragma comment(lib, "dsound.lib")
 
 namespace Rendering
 {
@@ -90,51 +88,5 @@ namespace Rendering
 			Vector<2> Location = { 0, 0 };
 		};
 	}
-
-	/*namespace Sound
-	{
-		class Sound
-		{
-		private:
-			struct WaveHeaderType
-			{
-				char chunkId[4];
-				unsigned long chunkSize;
-				char format[4];
-				char subChunkId[4];
-				unsigned long subChunkSize;
-				unsigned short audioFormat;
-				unsigned short numChannels;
-				unsigned long sampleRate;
-				unsigned long bytesPerSecond;
-				unsigned short blockAlign;
-				unsigned short bitsPerSample;
-				char dataChunkId[4];
-				unsigned long dataSize;
-			};
-
-		public:
-			Sound();
-			Sound(const Sound&);
-			~Sound();
-
-			bool Initialize(HWND hwnd, std::string const& file);
-			void Shutdown();
-
-		private:
-			bool InitializeDirectSound(HWND);
-			void ShutdownDirectSound();
-
-			bool LoadWaveFile(const char*, IDirectSoundBuffer**);
-			void ShutdownWaveFile(IDirectSoundBuffer**);
-
-			bool PlayWaveFile();
-
-		private:
-			IDirectSound* m_DirectSound = nullptr;
-			IDirectSoundBuffer* m_primaryBuffer = nullptr;
-			IDirectSoundBuffer* m_secondaryBuffer1 = nullptr;
-		};
-	}*/
 };
 

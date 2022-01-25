@@ -36,7 +36,7 @@ namespace Resource
 
 		GetSongs();
 		SongCnt = Songs.size();
-		NowPlaying = nullptr;
+		NowPlaying = Songs.at(0);
 		NowResult = nullptr;
 		NowDiff = ConstValue::Difficulty::Easy;
 	}
@@ -78,9 +78,8 @@ namespace Resource
 		int SyncValue() { return Resource::SyncValue; }
 		float SpeedValue() { return Resource::SpeedValue; }
 		void Keys(size_t (&target)[4]) { for (UINT u = 0; u < 4; u++) target[u] = Resource::MappedKeys[u]; }
-		const char* Title() { return BGMTitle.data(); }
-		size_t SongCount() { return SongCnt; }
-		Song* NowPlaying() { return Resource::NowPlaying; }		
+		int SongIndex() { return static_cast<int>(std::find(Songs.begin(), Songs.end(), Resource::NowPlaying) - Songs.begin()); }
+		Song* NowPlaying() { return Resource::NowPlaying; }
 		ConstValue::Difficulty Diff() { return NowDiff; }
 		Result* NowResult() { return Resource::NowResult; }
 	}
@@ -90,10 +89,10 @@ namespace Resource
 		void SpeedValue(float const& newSpeed) { Resource::SpeedValue = newSpeed; };
 		void Keys(size_t (&newKeys)[4]) { for (UINT u = 0; u < 4; u++) Resource::MappedKeys[u] = newKeys[u]; }
 		void BGM(std::string const& title) { BGMTitle = title; }
-		//void Volume(float const& volume) { SM->Volume = volume;}
-		void NowPlaying(size_t& index) 
+		void NowPlaying(int& index) 
 		{
-			if (SongCnt <= index) index -= SongCnt;
+			if (index < 0) index += static_cast<int>(SongCnt);
+			else if (SongCnt <= index) index -= static_cast<int>(SongCnt);
 			Resource::NowPlaying = Songs.at(index);
 		}
 		void Diff(ConstValue::Difficulty const& diff) { NowDiff = diff; }

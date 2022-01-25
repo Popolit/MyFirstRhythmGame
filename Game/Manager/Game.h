@@ -11,6 +11,6 @@ public:
 	void End() override;
 
 public:
-	std::map<ConstValue::SceneList, class ModeScenes*> Scenes;
+	std::map<ConstValue::SceneList, class Scene*> Scenes;
 	ConstValue::SceneList NowScene;
 };

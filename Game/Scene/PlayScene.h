@@ -1,13 +1,13 @@
 #pragma once
+#include "Manager/Scene.h"
 #include "Component/Combo.h"
-#include "ModeScenes.h"
 #include "Component/JudgePhrase.h"
 #include "Component/HitEffect.h"
 #include "Component/Note.h"
 #include "Component/Song.h"
 #include "Component/Score.h"
 
-class PlayScene final : public ModeScenes
+class PlayScene final : public Scene
 {
 private:
 	Song* pSong;
@@ -42,6 +42,6 @@ private:
 
 public:
 	void Start()  override;
-	ConstValue::SceneList UpdateScene() override;
+	ConstValue::SceneList Update() override;
 	void End()    override;
 };

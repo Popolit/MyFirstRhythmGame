@@ -9,13 +9,13 @@
 class Chart final
 {
 private:
-	//TODO: 난이도 추가 필요
 	bool isChartExist;
-	//pair<타이밍, 롱>
-	std::vector<std::pair<UINT, UINT>> NoteData[4];
+	UINT LongCnt;
+	std::vector<std::pair<UINT, UINT>> NoteData[4];	//pair<타이밍, 롱노트>
 public:
 	Chart();
 	Chart(std::string & notedata);
 	void makeNotes(std::vector<Note>(&Notes)[4]);	
+	UINT GetLongCnt();
 };
 
