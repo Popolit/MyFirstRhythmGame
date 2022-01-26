@@ -27,12 +27,12 @@ Chart::Chart(std::string& notedata)
 	//Á¤·Ä
 	for (UINT u = 0; u < 4; u++) std::sort(NoteData[u].begin(), NoteData[u].end());
 	isChartExist = true;
-	LongCnt = 0;
 }
 
 void Chart::makeNotes(std::vector<Note>(&Notes)[4])
 {
 	if (!isChartExist) return;
+	LongCnt = 0;
 	int SyncValue = Resource::Get::SyncValue();
 	for (UINT u = 0; u < 4; u++)
 	{
