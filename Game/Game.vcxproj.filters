@@ -28,6 +28,7 @@
     <ClInclude Include="Manager\Resource.h" />
     <ClInclude Include="Manager\SoundManager.h" />
     <ClInclude Include="Manager\Result.h" />
+    <ClInclude Include="Component\Keybeam.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manager\Game.cpp" />
@@ -48,6 +49,7 @@
     <ClCompile Include="Manager\Resource.cpp" />
     <ClCompile Include="Manager\SoundManager.cpp" />
     <ClCompile Include="Manager\Result.cpp" />
+    <ClCompile Include="Component\Keybeam.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Font\CookieRun Black.ttf" />

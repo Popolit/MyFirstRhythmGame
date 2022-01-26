@@ -35,10 +35,13 @@ private:
 
 		Rendering::Text::Component		IndiSync;
 		Rendering::Text::Component		IndiSpeed;
+		Rendering::Text::Component		IndiVolume;
 		Rendering::Text::Component		IndiKeys;
+		
 
 		Rendering::Text::Component		SyncValue;
 		Rendering::Text::Component		SpeedValue;
+		Rendering::Text::Component		VolumeValue;
 		Rendering::Text::Component		Keys[4];
 	}Text;
 	

@@ -23,9 +23,9 @@ void Note::MakeNoteImage(UINT const& lineNum)
 	if (UpTiming)
 	{
 		height += (UpTiming - Timing) * Resource::Get::SpeedValue() / 10;
-		location[1] = (Timing + UpTiming) * Resource::Get::SpeedValue() / 20 - 250;
+		location[1] = (Timing + UpTiming) * Resource::Get::SpeedValue() / 20 - 243;
 	}
-	else location[1] = Timing * Resource::Get::SpeedValue() / 10 - 250;
+	else location[1] = Timing * Resource::Get::SpeedValue() / 10 - 243;
 
 	NoteImage.Length = { 100, height };
 	NoteImage.Location = location;
@@ -62,11 +62,11 @@ ConstValue::Judge Note::PressedJudge(UINT const& inputTiming)
 	if (UpTiming >= inputTiming)
 	{
 		NoteImage.Length[1] = 20 + (UpTiming - inputTiming) * Resource::Get::SpeedValue() / 10;
-		NoteImage.Location[1] = (inputTiming + UpTiming) * Resource::Get::SpeedValue() / 20 - 250;
+		NoteImage.Location[1] = (inputTiming + UpTiming) * Resource::Get::SpeedValue() / 20 - 243;
 	}
 	else NoteImage.Length[1] = 0;
 
-	if (inputTiming < UpTiming) return Judge::None;
+	if (inputTiming < UpTiming) return Judge::Perfect;
 	if (inputTiming - UpTiming > recognizeRange) return Judge::Miss;
 	else return Judge::None;
 }

@@ -3,6 +3,7 @@
 #include "Component/Combo.h"
 #include "Component/JudgePhrase.h"
 #include "Component/HitEffect.h"
+#include "Component/Keybeam.h"
 #include "Component/Note.h"
 #include "Component/Song.h"
 #include "Component/Score.h"
@@ -15,6 +16,7 @@ private:
 	Score* pScore;
 	JudgePhrase* pJudgePhrase;
 	HitEffect* pHitEffects[4];
+	Keybeam* pKeybeam[4];
 
 	ConstValue::Difficulty Diffculty;
 

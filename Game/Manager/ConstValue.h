@@ -11,7 +11,7 @@ namespace ConstValue
 	bool operator<(SceneList& A, SceneList& B);
 
 	//옵션  관련
-	enum class OptionList { Sync, Speed, Keys };
+	enum class OptionList { Sync, Speed, Volume, Keys };
 	OptionList operator++(OptionList& ol);
 	OptionList operator--(OptionList& ol);
 	bool operator<(OptionList& A, OptionList& B);

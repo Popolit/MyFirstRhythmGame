@@ -70,6 +70,7 @@ namespace Resource
 		delete NowResult;
 		for(Song* song : Songs) delete song;
 		for(Result*result : Results) delete result;
+		SoundManager::Destroy();
 	}
 
 

@@ -4,17 +4,17 @@
 void OptionScene::Start()
 {
 	//변수 셋팅
+	SM = SoundManager::Get();
+
 	Selection = ConstValue::OptionList::Sync;
 	KeyIndex = 0;
 	Str.Sync = std::to_string(Resource::Get::SyncValue());
 	Str.Speed = std::to_string(Resource::Get::SpeedValue());
 	Str.Speed = Str.Speed.substr(0, Str.Speed.find_first_of('.') + 2 * sizeof(char));
-	//Str.Volume = 
+	Str.Volume = std::to_string(static_cast<UINT>(SM->Volume * 100));
 	Resource::Get::Keys(MappedKeys);
 	for (UINT u = 0; u < 4; u++) Str.Keys[u] = Keycode::toString(MappedKeys[u]);
 	IsSelected = false;
-
-	SM = SoundManager::Get();
 
 
 	//Image 셋팅
@@ -47,45 +47,57 @@ void OptionScene::Start()
 
 	Text.IndiSync.Content = "싱크 : ";
 	Text.IndiSync.Font = { "CookieRun Bold", 30, true };
-	Text.IndiSync.Location = { 300, 250 };
+	Text.IndiSync.Location = { 300, 200 };
 	Text.IndiSync.Length = { 200, 40 };
 	Text.IndiSync.Color = { 255, 255, 255 };
 
 	Text.IndiSpeed.Content = "속도 : ";
 	Text.IndiSpeed.Font = { "CookieRun Bold", 30, true };
-	Text.IndiSpeed.Location = { 300, 350 };
+	Text.IndiSpeed.Location = { 300, 300 };
 	Text.IndiSpeed.Length = { 200, 40 };
 	Text.IndiSpeed.Color = { 255, 255, 255 };
 
+	Text.IndiVolume.Content = "볼륨 : ";
+	Text.IndiVolume.Font = { "CookieRun Bold", 30, true };
+	Text.IndiVolume.Location = { 300, 400 };
+	Text.IndiVolume.Length = { 200, 40 };
+	Text.IndiVolume.Color = { 255, 255, 255 };
+
 	Text.IndiKeys.Content = "키 설정 : ";
 	Text.IndiKeys.Font = { "CookieRun Bold", 30, true };
-	Text.IndiKeys.Location = { 300, 450 };
+	Text.IndiKeys.Location = { 300, 500 };
 	Text.IndiKeys.Length = { 200, 40 };
 	Text.IndiKeys.Color = { 255, 255, 255 };
 
 	//옵션 수치 설정
 	Text.SyncValue.Content = Str.Sync.data();
 	Text.SyncValue.Font = { "CookieRun Bold", 30, true };
-	Text.SyncValue.Location = { 790, 255 };
+	Text.SyncValue.Location = { 790, 205 };
 	Text.SyncValue.Length = { 200, 40 };
 	Text.SyncValue.Color = { 255, 255, 255 };
 
 	Text.SpeedValue.Content = Str.Speed.data();
 	Text.SpeedValue.Font = { "CookieRun Bold", 30, true };
-	Text.SpeedValue.Location = { 790, 355 };
+	Text.SpeedValue.Location = { 790, 305 };
 	Text.SpeedValue.Length = { 200, 40 };
 	Text.SpeedValue.Color = { 255, 255, 255 };
+
+	Text.VolumeValue.Content = Str.Volume.data();
+	Text.VolumeValue.Font = { "CookieRun Bold", 30, true };
+	Text.VolumeValue.Location = { 790, 405 };
+	Text.VolumeValue.Length = { 200, 40 };
+	Text.VolumeValue.Color = { 255, 255, 255 };
 
 	for (UINT u = 0; u < 4; u++)
 	{
 		Text.Keys[u].Content = Str.Keys[u].data();
 		Text.Keys[u].Font = { "CookieRun Bold", 25, true };
-		Text.Keys[u].Location = { 640 + u * 100, 480 };
+		Text.Keys[u].Location = { 640 + u * 100, 530 };
 		Text.Keys[u].Length = { 70, 70 };
 		Text.Keys[u].Color = { 255, 255, 255 };
 
 		Image.KeyBox[u].Content = "KeyBox";
-		Image.KeyBox[u].Location = { 0 + u * 100, -100 };
+		Image.KeyBox[u].Location = { 0 + u * 100, -150 };
 		Image.KeyBox[u].Length = { 90, 90 };
 	}
 }
@@ -104,9 +116,11 @@ ConstValue::SceneList OptionScene::Update()
 	Text.IndiSync.Draw();
 	Text.IndiSpeed.Draw();
 	Text.IndiKeys.Draw();
+	Text.IndiVolume.Draw();
 
 	Text.SyncValue.Draw();
 	Text.SpeedValue.Draw();
+	Text.VolumeValue.Draw();
 
 	
 	for (UINT u = 0; u < 4; u++)
@@ -119,7 +133,7 @@ ConstValue::SceneList OptionScene::Update()
 	//수정할 옵션 선택
 	if (!IsSelected)
 	{		
-		Image.ArrowSelection.Location[1] = 100 - 100 * static_cast<float>(Selection);
+		Image.ArrowSelection.Location[1] = 150 - 100 * static_cast<float>(Selection);
 		Image.ArrowSelection.Draw();
 
 		if (Input::Get::Key::Down(VK_DOWN))
@@ -143,8 +157,8 @@ ConstValue::SceneList OptionScene::Update()
 	//선택한 옵션 수정
 	else
 	{	
-		Image.ArrowUp.Location[1] = 130 - 100 * static_cast<float>(Selection);
-		Image.ArrowDown.Location[1] = 100 - 100 * static_cast<float>(Selection);
+		Image.ArrowUp.Location[1] = 180 - 100 * static_cast<float>(Selection);
+		Image.ArrowDown.Location[1] = 150 - 100 * static_cast<float>(Selection);
 
 		switch (Selection)
 		{
@@ -169,22 +183,44 @@ ConstValue::SceneList OptionScene::Update()
 			}
 			case ConstValue::OptionList::Speed:
 			{
-				float SpeedValue = Get::SpeedValue();
-				if (Input::Get::Key::Down(VK_UP) && SpeedValue < ConstValue::MaxSpeed)
+				float speed = Get::SpeedValue();
+				if (Input::Get::Key::Down(VK_UP) && speed < ConstValue::MaxSpeed)
 				{
 					SM->SE_Move.Play();
-					SpeedValue += 0.5f;
-					Set::SpeedValue(SpeedValue);
-					Str.Speed = std::to_string(SpeedValue);
+					speed += 0.5f;
+					Set::SpeedValue(speed);
+					Str.Speed = std::to_string(speed);
 					Str.Speed = Str.Speed.substr(0, Str.Speed.find_first_of('.') + 2 * sizeof(char));
 				}
-				if (Input::Get::Key::Down(VK_DOWN) && SpeedValue > ConstValue::MinSpeed)
+				if (Input::Get::Key::Down(VK_DOWN) && speed > ConstValue::MinSpeed)
 				{
 					SM->SE_Move.Play();
-					SpeedValue -= 0.5f;
-					Set::SpeedValue(SpeedValue);
-					Str.Speed = std::to_string(SpeedValue);
+					speed -= 0.5f;
+					Set::SpeedValue(speed);
+					Str.Speed = std::to_string(speed);
 					Str.Speed = Str.Speed.substr(0, Str.Speed.find_first_of('.') + 2 * sizeof(char));
+				}
+				Image.ArrowUp.Draw();
+				Image.ArrowDown.Draw();
+				break;
+			}
+			case ConstValue::OptionList::Volume:
+			{
+				UINT volume = static_cast<UINT>(SM->Volume * 100);
+				if (Input::Get::Key::Down(VK_UP) && volume < 100)
+				{
+					SM->SE_Move.Play();
+					volume += 5;
+					SM->SetVolume(SM->Volume + 0.05f);
+					Str.Volume = std::to_string(volume);
+				}
+				if (Input::Get::Key::Down(VK_DOWN) && 0 < volume)
+				{
+					SM->SE_Move.Play();
+					volume -= 5;
+					SM->Volume -= 0.05f;
+					Str.Volume = std::to_string(volume);
+					SM->SetVolume(SM->Volume - 0.05f);
 				}
 				Image.ArrowUp.Draw();
 				Image.ArrowDown.Draw();
