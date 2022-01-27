@@ -12,6 +12,7 @@ namespace Resource
 {
 	void Start();
 	void GetSongs();
+	void GetOption();
 
 	namespace Get
 	{

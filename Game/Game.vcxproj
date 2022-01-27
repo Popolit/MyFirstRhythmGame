@@ -185,6 +185,7 @@
   <ItemGroup>
     <ClInclude Include="Component\Keybeam.h" />
     <ClInclude Include="Manager\Result.h" />
+    <ClInclude Include="Manager\Parser.h" />
     <ClInclude Include="Scene\ResultScene.h" />
     <ClInclude Include="Component\Combo.h" />
     <ClInclude Include="Component\Chart.h" />
@@ -204,6 +205,7 @@
     <ClInclude Include="Manager\Game.h" />
     <ClCompile Include="Component\Keybeam.cpp" />
     <ClCompile Include="Manager\Result.cpp" />
+    <ClCompile Include="Manager\Parser.cpp" />
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Component\Combo.cpp" />
     <ClCompile Include="Component\Note.cpp" />

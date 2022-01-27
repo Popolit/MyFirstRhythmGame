@@ -26,14 +26,7 @@ namespace Resource
 
 	void Start()
 	{
-		using namespace ConstValue;
-		SyncValue = 0;
-		SpeedValue = DefSpeed;
-		MappedKeys[0] = DefKeys[0];
-		MappedKeys[1] = DefKeys[1];
-		MappedKeys[2] = DefKeys[2];
-		MappedKeys[3] = DefKeys[3];
-
+		GetOption();
 		GetSongs();
 		SongCnt = Songs.size();
 		NowPlaying = Songs.at(0);
@@ -62,6 +55,44 @@ namespace Resource
 					Songs.push_back(song);
 				}
 			}
+		}
+	}
+	
+	void GetOption()
+	{
+		const char* path = "Datas/Option.ini";
+		FILE* pFile = nullptr;
+		fopen_s(&pFile, path, "r");
+
+		if (pFile == NULL)
+		{
+			SyncValue = 0;
+			SpeedValue = ConstValue::DefSpeed;
+			SoundManager::Get()->SetVolume(ConstValue::DefVolume);
+			MappedKeys[0] = ConstValue::DefKeys[0];
+			MappedKeys[1] = ConstValue::DefKeys[1];
+			MappedKeys[2] = ConstValue::DefKeys[2];
+			MappedKeys[3] = ConstValue::DefKeys[3];
+			return;
+		}
+
+		//¿É¼Ç ÆÄ½Ì
+		std::string data = "";
+		char buffer = ' ';
+		while (buffer != EOF)
+		{
+			buffer = fgetc(pFile);
+			data += buffer;
+		}
+
+		const char* opList[] = { "#Sync:", "#Speed:", "#Volume:", "#Keys:"};
+		size_t x, y;
+		for (const char* op : opList)
+		{
+			x = data.find(op) + strlen(op) * sizeof(char);
+			y = data.find("\n");
+			stoi(data.substr(x, y - x));
+			data.erase(0, y);
 		}
 	}
 

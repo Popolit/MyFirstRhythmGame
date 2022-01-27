@@ -20,6 +20,8 @@ Song::Song(std::string const& file)
 		data += buffer;
 	};
 	ParseData(data);
+
+	fclose(pFile);
 }
 
 //데이터 파싱
