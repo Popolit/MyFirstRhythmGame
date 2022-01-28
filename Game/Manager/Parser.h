@@ -1,5 +1,6 @@
 #pragma once
-namespace Parse
+namespace Parser
 {
-	void Do();
+	using namespace std;
+	map<string, map<string, string>> Parse(FILE *pFile);
 }

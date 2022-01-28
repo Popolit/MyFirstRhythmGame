@@ -16,7 +16,6 @@ namespace Resource
 		//공용 자원
 		std::string BGMTitle;
 		std::vector<Song*> Songs;
-		std::vector<Result*> Results;
 		Song* NowPlaying;
 		Result* NowResult;
 
@@ -64,6 +63,7 @@ namespace Resource
 		FILE* pFile = nullptr;
 		fopen_s(&pFile, path, "r");
 
+		//옵션 파일이 없으면 디폴트
 		if (pFile == NULL)
 		{
 			SyncValue = 0;
@@ -73,34 +73,60 @@ namespace Resource
 			MappedKeys[1] = ConstValue::DefKeys[1];
 			MappedKeys[2] = ConstValue::DefKeys[2];
 			MappedKeys[3] = ConstValue::DefKeys[3];
+			fclose(pFile);
 			return;
 		}
 
-		//옵션 파싱
-		std::string data = "";
-		char buffer = ' ';
-		while (buffer != EOF)
-		{
-			buffer = fgetc(pFile);
-			data += buffer;
-		}
+		std::map<std::string, std::string> options = Parser::Parse(pFile)["Option"];
 
-		const char* opList[] = { "#Sync:", "#Speed:", "#Volume:", "#Keys:"};
-		size_t x, y;
-		for (const char* op : opList)
+		SyncValue = stoi(options["Sync"]);
+		SpeedValue = stof(options["Speed"]);
+		SoundManager::Get()->SetVolume(stoi(options["Volume"]));
+
+		std::string strKeys = options["Keys"];
+		for (UINT u = 0; u < 4; u++)
 		{
-			x = data.find(op) + strlen(op) * sizeof(char);
-			y = data.find("\n");
-			stoi(data.substr(x, y - x));
-			data.erase(0, y);
+			size_t token = strKeys.find_first_of(',');
+			MappedKeys[u] = stoi(strKeys.substr(0, token));
+			strKeys.erase(0, token + sizeof(char));
+		}	
+	}
+
+	void SaveOption()
+	{
+		using namespace std;
+
+		const char* path = "Datas/Option.ini";
+		FILE* pFile = nullptr;
+		fopen_s(&pFile, path, "w");
+
+		string data = "[Option]";
+		data += "\n#Sync: ";
+		data += to_string(SyncValue);
+		data += "\n#Speed: ";
+		string temp_speed = to_string(SpeedValue);
+		data += temp_speed.substr(0, temp_speed.find_first_of('.') + 2 * sizeof(char));;
+		data += "\n#Volume: ";
+		data += to_string(static_cast<UINT>(round(SoundManager::Get()->Volume * 100)));
+		data += "\n#Keys: ";
+		for (UINT u = 0; u < 4; u++)
+		{
+			data += to_string(MappedKeys[u]);
+			data += ", ";
 		}
+		data.pop_back();
+		data.pop_back();
+
+		fputs(data.data(), pFile);
+
+		fclose(pFile);
 	}
 
 	void End() 
 	{
+		SaveOption();
 		delete NowResult;
 		for(Song* song : Songs) delete song;
-		for(Result*result : Results) delete result;
 		SoundManager::Destroy();
 	}
 

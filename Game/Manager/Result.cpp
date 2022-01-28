@@ -3,6 +3,9 @@
 
 Result::Result()
 {
+	Perfect = false;
+	FullCombo = false;
+
 	STR.Score = "";
 	STR.MaxCombo = "";
 	STR.Perfect = "";
@@ -40,6 +43,22 @@ Result::Result()
 	Render.Miss.Color = { 255, 255, 255 };
 }
 
+Result::Result(std::string result) : Result()
+{
+	STR.Score		= result["Score"];
+	STR.MaxCombo	= result["MaxCombo"];
+	STR.Perfect		= result["Perfect"];
+	STR.Good		= result["Good"];
+	STR.Miss		= result["Miss"];
+	if (result["Perfect"] == "1") Perfect = true;
+	if (result["FullCombo"] == "1") FullCombo = true;
+}
+
+std::string Result::GetScore()
+{
+	return STR.Score;
+}
+
 void Result::Set(class Score* pScore, Combo* pCombo)
 {
 	STR.Score = pScore->strScore;
@@ -48,6 +67,56 @@ void Result::Set(class Score* pScore, Combo* pCombo)
 	STR.Good = std::to_string(pScore->Count.Good);
 	STR.Miss = std::to_string(pScore->TotalCount - pScore->Count.Perfect - pScore->Count.Good);
 }
+
+void Result::Update(std::string const& title, Result* newResult)
+{
+	if (newResult->STR.Score < STR.Score) return;
+
+	memcpy(this, newResult, sizeof(Result));
+	
+	std::string path = "Datas/" + title + ".txt";
+	FILE* pFile = nullptr;
+
+	std::string original;
+
+	fopen_s(&pFile, path.data(), "r");
+	char buffer = fgetc(pFile);
+	
+	while (buffer != EOF)
+	{
+		original += buffer;
+		buffer = fgetc(pFile);
+	}
+
+	fclose(pFile);
+
+
+	std::string Diff = ConstValue::ToString(Resource::Get::Diff());
+
+
+	original = original.substr(0, original.find("\n[HighScore]"));
+
+
+
+
+	std::string highScore = "\n[HighScore]";
+
+	highScore += "\n#" + Diff + ": ";
+	highScore += STR.Score;
+	highScore += ", " + STR.MaxCombo;
+	highScore += ", " + STR.Perfect;
+	highScore += ", " + STR.Good;
+	highScore += ", " + STR.Miss;
+	highScore += ", " + Perfect ? "1" : "0";
+	highScore += ", " + FullCombo ? "1" : "0";
+
+	fopen_s(&pFile, path.data(), "w");
+	fputs((original + highScore).data(), pFile);
+
+	
+	int a = 0;
+}
+
 
 void Result::Draw()
 {

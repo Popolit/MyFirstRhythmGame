@@ -1,5 +1,7 @@
 [Metadata]
-Chronomia, Lime, 115002
+#Title: Chronomia
+#Artist: Lime
+#Highlight: 115002
 
 [Notes]
 #Easy:

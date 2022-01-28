@@ -10,6 +10,7 @@ Chart::Chart()
 Chart::Chart(std::string& notedata)
 {
 	size_t pos = 0;
+	//노트 데이터 파싱
 	while ((pos = notedata.find('\n')) != std::string::npos)
 	{
 		std::string ndata = notedata.substr(0, pos);
@@ -38,7 +39,7 @@ void Chart::makeNotes(std::vector<Note>(&Notes)[4])
 	{
 		for (std::pair<UINT, UINT> ndata : NoteData[u])
 		{
-			Note note = Note(ndata.first + SyncValue, ndata.second);
+			Note note = Note(ndata.first + SyncValue, ndata.second + SyncValue);
 			if (note.isLong()) LongCnt++;
 			note.MakeNoteImage(u);
 			Notes[u].push_back(note);

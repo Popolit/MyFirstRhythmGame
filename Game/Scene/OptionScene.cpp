@@ -211,16 +211,15 @@ ConstValue::SceneList OptionScene::Update()
 				{
 					SM->SE_Move.Play();
 					volume += 5;
-					SM->SetVolume(SM->Volume + 0.05f);
+					SM->SetVolume(volume);
 					Str.Volume = std::to_string(volume);
 				}
 				if (Input::Get::Key::Down(VK_DOWN) && 0 < volume)
 				{
 					SM->SE_Move.Play();
 					volume -= 5;
-					SM->Volume -= 0.05f;
 					Str.Volume = std::to_string(volume);
-					SM->SetVolume(SM->Volume - 0.05f);
+					SM->SetVolume(volume);
 				}
 				Image.ArrowUp.Draw();
 				Image.ArrowDown.Draw();

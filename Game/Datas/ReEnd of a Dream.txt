@@ -1,5 +1,7 @@
 [Metadata]
-ReEnd of a Dream, uma vs. Morimori Astushi, 34826
+#Title: ReEnd of a Dream
+#Artist: uma vs. Morimori Astushi
+#Highlight: 34826
 
 [Notes]
 #Easy:

@@ -25,7 +25,7 @@ public:
 	static SoundManager*& Get();
 	static void Destroy();
 	void SetBGM(std::string const& title = "", UINT32 const& Highlight = 0);
-	void SetVolume(float const& volume);
+	void SetVolume(UINT const& volume);
 	void SetFadeIO();
 };
 

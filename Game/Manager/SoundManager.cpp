@@ -53,9 +53,9 @@ void SoundManager::SetBGM(std::string const& title, UINT32 const& Highlight)
 	else BGM.loop = false;
 }
 
-void SoundManager::SetVolume(float const& volume)
+void SoundManager::SetVolume(UINT const& volume)
 {
-	Volume = volume;
+	Volume = volume / 100.0f;
 
 	BGM.volume = Volume;
 	SE_Decide.volume = Volume;

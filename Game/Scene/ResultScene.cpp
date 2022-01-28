@@ -44,11 +44,14 @@ void ResultScene::Start()
 	Text.Combo.Length = { 300, 100 };
 	Text.Combo.Color = { 255, 255, 255 };
 
-	Text.Diff.Content = "Easy";
+	Text.Diff.Content = ConstValue::ToString(Resource::Get::Diff()).data();
 	Text.Diff.Location = { 645,  675 };
 	Text.Diff.Font = { "CookieRun Bold", 30, true };
-	Text.Diff.Length = { 50, 50 };
+	Text.Diff.Length = { 120, 50 };
 	Text.Diff.Color = { 255, 255, 255 };
+
+
+	pSong->ResultUpdate(pResult);
 }
 
 ConstValue::SceneList ResultScene::Update()

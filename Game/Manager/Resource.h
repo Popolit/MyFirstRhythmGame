@@ -1,6 +1,7 @@
 #pragma once
-#include"ConstValue.h"
+#include "ConstValue.h"
 #include "SoundManager.h"
+#include "Parser.h"
 
 class Chart;
 class Song;
@@ -11,6 +12,7 @@ class Result;
 namespace Resource
 {
 	void Start();
+	void End();
 	void GetSongs();
 	void GetOption();
 

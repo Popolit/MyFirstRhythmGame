@@ -1,7 +1,0 @@
-[Metadata]
-Cyber-12, MaouDamashii, 15000
-
-[Notes]
-#Easy:
-#Normal:
-#Hard:

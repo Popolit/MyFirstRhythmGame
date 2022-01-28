@@ -23,7 +23,7 @@ namespace ConstValue
 	const float DefSpeed = 6.0f;
 	const float MinSpeed = 0.5f;
 
-	const float DefVolume = 0.8f;
+	const UINT DefVolume = 80;
 
 	const size_t DefKeys[4] = { 0x44, 0x46, 0x4A, 0x4B };
 
@@ -33,7 +33,7 @@ namespace ConstValue
 
 	Difficulty operator++(Difficulty& d);
 	Difficulty operator--(Difficulty& d);
-	std::string const& ToString(Difficulty& d);
+	std::string const& ToString(Difficulty const& d);
 
 	//판정 관련
 	enum class Judge { Perfect, Good, Miss, None };

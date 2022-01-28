@@ -1,5 +1,7 @@
 [Metadata]
-Strahv -Encore-, Feryquitous, 53840
+#Title: Strahv -Encore-
+#Artist: Feryquitous
+#Highlight: 53840
 
 [Notes]
 #Easy:

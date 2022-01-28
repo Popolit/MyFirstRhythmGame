@@ -41,7 +41,8 @@ namespace ConstValue
         return d = (d == Difficulty::Easy) ? Difficulty::Easy : static_cast<Difficulty>(static_cast<int>(d) - 1);
     }
 
-    std::string const& ToString(Difficulty& d)
+
+    std::string const& ToString(Difficulty const& d)
     {
         switch (d)
         {

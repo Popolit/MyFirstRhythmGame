@@ -7,6 +7,9 @@ class Result final
 private:
 	friend class ResultScene;
 
+	bool Perfect;
+	bool FullCombo;
+
 	struct
 	{
 		std::string Perfect;
@@ -26,6 +29,9 @@ private:
 
 public:
 	Result();
+	Result(std::string result);
+	std::string GetScore();
 	void Set(class Score *pScore, Combo* pCombo);
+	void Update(std::string const& title, Result *newResult);
 	void Draw();
 };

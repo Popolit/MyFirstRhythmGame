@@ -43,6 +43,7 @@ void Game::End()
 	{
 		delete it.second;
 	}
+	Resource::End();
 }
 
 Engine::Game* Engine::Initialize() {return new::Game();}
