@@ -34,5 +34,6 @@ namespace Resource
 		void NowPlaying(int& index);
 		void Diff(ConstValue::Difficulty const &diff);
 		void NowResult(Score* score, Combo* combo);
+		void NowResult(Result* result);
 	}
 }

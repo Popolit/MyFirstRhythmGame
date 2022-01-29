@@ -26,6 +26,7 @@ private:
 	Rendering::Text::Component		Diff;
 private:
 	void SetSelection(int& Selection);
+	void SetDiff(ConstValue::Difficulty const& diff);
 public:
 	void Start()  override;
 	ConstValue::SceneList Update() override;

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Result.h"
+#include <regex>
 
 Result::Result()
 {
@@ -80,6 +81,11 @@ std::string Result::GetScore()
 	return STR.Score;
 }
 
+bool Result::IsFC()
+{
+	return FullCombo;
+}
+
 void Result::Set(class Score* pScore, Combo* pCombo)
 {
 	STR.Score = pScore->strScore;
@@ -91,10 +97,18 @@ void Result::Set(class Score* pScore, Combo* pCombo)
 
 void Result::Update(std::string const& title, Result* newResult)
 {
+	//점수와 별개로 갱신
+	Perfect |= newResult->Perfect;
+	FullCombo |= newResult->FullCombo;
+
 	if (newResult->STR.Score < STR.Score) return;
 
-	memcpy(this, newResult, sizeof(Result));
-	
+	STR.Score = newResult->STR.Score;
+	STR.MaxCombo = newResult->STR.MaxCombo;
+	STR.Perfect = newResult->STR.Perfect;
+	STR.Good = newResult->STR.Good;
+	STR.Miss = newResult->STR.Miss;
+
 	std::string path = "Datas/" + title + ".txt";
 	FILE* pFile = nullptr;
 
@@ -111,36 +125,36 @@ void Result::Update(std::string const& title, Result* newResult)
 
 	fclose(pFile);
 
-
 	std::string Diff = ConstValue::ToString(Resource::Get::Diff());
 
-	size_t pos = original.find("\n[BestScore]");
+	size_t pos = original.find("\n\n[BestScore]");
 	std::string others = original.substr(0, pos);
-
-
-	original.erase(0, pos);
-
 	std::string scores = "";
-	pos = original.find("#Easy");
-	if (pos != std::string::npos)
-	{
+	//기존 스코어가 존재
+	if (pos != std::string::npos) scores = original.substr(pos);
+	//스코어가 없으면 새로 포맷 생성
+	else scores = "\n\n[Bestscore]\n#Easy: \n#Normal: \n#Hard: ";
 
-	}
-	pos = original.find("#" + Diff + ": ");
+	//새로 교체될 스코어
+	std::string newScore;
 
+	FullCombo = true;
+	newScore += "#" + Diff + ": ";
+	newScore += STR.Score;
+	newScore += ", " + STR.MaxCombo;
+	newScore += ", " + STR.Perfect;
+	newScore += ", " + STR.Good;
+	newScore += ", " + STR.Miss;
+	newScore += ", " + std::to_string(Perfect);
+	newScore += ", " + std::to_string(FullCombo);
 
-	/*highScore += "\n#" + Diff + ": ";
-	highScore += STR.Score;
-	highScore += ", " + STR.MaxCombo;
-	highScore += ", " + STR.Perfect;
-	highScore += ", " + STR.Good;
-	highScore += ", " + STR.Miss;
-	highScore += ", " + Perfect ? "1" : "0";
-	highScore += ", " + FullCombo ? "1" : "0";*/
+	//스코어 교체
+	scores = std::regex_replace(scores, std::regex("^#" + Diff + "[^\n]*"), newScore);
 
-	//fopen_s(&pFile, path.data(), "w");
-	//fputs((original + highScore).data(), pFile);
-
+	//파일 쓰기 후 종료
+	fopen_s(&pFile, path.data(), "w");
+	fputs((others + scores).data(), pFile);
+	fclose(pFile);
 }
 
 

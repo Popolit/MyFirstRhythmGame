@@ -91,6 +91,11 @@ ConstValue::SceneList SelectSongScene::Update()
 	SM->SetFadeIO();
 
 	if (Input::Get::Key::Down(VK_ESCAPE)) return ConstValue::SceneList::Title;
+	if (Input::Get::Key::Down(0x44))
+	{
+		Resource::Set::NowResult(NowPlaying->BestResults[static_cast<int>(Difficulty)]);
+		return ConstValue::SceneList::Result;
+	}
     return ConstValue::SceneList::SelectSong;
 }
 
@@ -111,5 +116,16 @@ void SelectSongScene::SetSelection(int &Selection)
 	Thumbnail.Content = NowPlaying->STR.Title.data();
 	Title.Content = NowPlaying->STR.Title.data();
 	Artist.Content = NowPlaying->STR.Artist.data();
+	
+	
+}
 
+void SelectSongScene::SetDiff(ConstValue::Difficulty const& diff)
+{
+	Result* rslt = Resource::Get::NowPlaying()->BestResults[static_cast<int>(diff)];
+	if (rslt->GetScore() == "1000000") {}
+	else if (rslt->IsFC()) {}
+
+
+	
 }

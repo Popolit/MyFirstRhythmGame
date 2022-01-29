@@ -159,5 +159,6 @@ namespace Resource
 			Resource::NowResult = new Result();
 			Resource::NowResult->Set(score, combo);
 		}
+		void NowResult(Result* result) { Resource::NowResult = result; }
 	}
 };
