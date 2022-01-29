@@ -45,13 +45,34 @@ Result::Result()
 
 Result::Result(std::string result) : Result()
 {
-	STR.Score		= result["Score"];
-	STR.MaxCombo	= result["MaxCombo"];
-	STR.Perfect		= result["Perfect"];
-	STR.Good		= result["Good"];
-	STR.Miss		= result["Miss"];
-	if (result["Perfect"] == "1") Perfect = true;
-	if (result["FullCombo"] == "1") FullCombo = true;
+	if (result == "") return;
+	size_t pos = result.find_first_of(',');
+	
+	STR.Score = result.substr(0, pos);
+	result.erase(0, pos + sizeof(char) * 2);
+	pos = result.find_first_of(',');
+
+	STR.MaxCombo = result.substr(0, pos);
+	result.erase(0, pos + sizeof(char) * 2);
+	pos = result.find_first_of(',');
+
+	STR.Perfect = result.substr(0, pos);
+	result.erase(0, pos + sizeof(char) * 2);
+	pos = result.find_first_of(',');
+
+	STR.Good = result.substr(0, pos);
+	result.erase(0, pos + sizeof(char) * 2);
+	pos = result.find_first_of(',');
+
+	STR.Miss = result.substr(0, pos);
+	result.erase(0, pos + sizeof(char) * 2);
+	pos = result.find_first_of(',');
+
+	Perfect = stoi(result.substr(0, pos));
+	result.erase(0, pos + sizeof(char) * 2);
+	pos = result.find_first_of(',');
+
+	FullCombo = stoi(result.substr(0, pos));
 }
 
 std::string Result::GetScore()
@@ -93,28 +114,33 @@ void Result::Update(std::string const& title, Result* newResult)
 
 	std::string Diff = ConstValue::ToString(Resource::Get::Diff());
 
-
-	original = original.substr(0, original.find("\n[HighScore]"));
-
-
+	size_t pos = original.find("\n[BestScore]");
+	std::string others = original.substr(0, pos);
 
 
-	std::string highScore = "\n[HighScore]";
+	original.erase(0, pos);
 
-	highScore += "\n#" + Diff + ": ";
+	std::string scores = "";
+	pos = original.find("#Easy");
+	if (pos != std::string::npos)
+	{
+
+	}
+	pos = original.find("#" + Diff + ": ");
+
+
+	/*highScore += "\n#" + Diff + ": ";
 	highScore += STR.Score;
 	highScore += ", " + STR.MaxCombo;
 	highScore += ", " + STR.Perfect;
 	highScore += ", " + STR.Good;
 	highScore += ", " + STR.Miss;
 	highScore += ", " + Perfect ? "1" : "0";
-	highScore += ", " + FullCombo ? "1" : "0";
+	highScore += ", " + FullCombo ? "1" : "0";*/
 
-	fopen_s(&pFile, path.data(), "w");
-	fputs((original + highScore).data(), pFile);
+	//fopen_s(&pFile, path.data(), "w");
+	//fputs((original + highScore).data(), pFile);
 
-	
-	int a = 0;
 }
 
 

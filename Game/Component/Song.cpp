@@ -21,7 +21,7 @@ Song::Song(std::string const& path)
 	Charts[1] = new Chart(content["Normal"]);
 	Charts[2] = new Chart(content["Hard"]);
 
-	content = data["HighScore"];
+	content = data["BestScore"];
 	if (content.empty())
 	{
 		BestResults[0] = new Result();
