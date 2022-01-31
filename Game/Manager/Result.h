@@ -30,7 +30,7 @@ private:
 public:
 	Result();
 	Result(std::string result);
-	std::string GetScore();
+	std::string const& GetScore();
 	bool IsFC();
 	void Set(class Score *pScore, Combo* pCombo);
 	void Update(std::string const& title, Result *newResult);

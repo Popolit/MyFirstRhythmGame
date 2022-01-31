@@ -9,17 +9,18 @@ private:
 	ConstValue::Difficulty Difficulty;
 
 	Song* NowPlaying;
+	Result* BestResult;
 
 	Rendering::Camera               Camera;
 	Rendering::Image::Component     Background;
 
 	Rendering::Image::Component		Thumbnail;
 	Rendering::Image::Component		VLine;
+	Rendering::Image::Component		Rank;
 
 	Rendering::Text::Component		Title;
 	Rendering::Text::Component		Artist;
 	Rendering::Text::Component		BestScore;
-
 
 	Rendering::Animation::Component SelectionBox;
 

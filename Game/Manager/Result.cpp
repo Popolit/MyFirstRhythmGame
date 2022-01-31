@@ -76,7 +76,7 @@ Result::Result(std::string result) : Result()
 	FullCombo = stoi(result.substr(0, pos));
 }
 
-std::string Result::GetScore()
+std::string const & Result::GetScore()
 {
 	return STR.Score;
 }
@@ -129,16 +129,15 @@ void Result::Update(std::string const& title, Result* newResult)
 
 	size_t pos = original.find("\n\n[BestScore]");
 	std::string others = original.substr(0, pos);
-	std::string scores = "";
+	std::string scores;
 	//기존 스코어가 존재
 	if (pos != std::string::npos) scores = original.substr(pos);
 	//스코어가 없으면 새로 포맷 생성
-	else scores = "\n\n[Bestscore]\n#Easy: \n#Normal: \n#Hard: ";
+	else scores = "\n\n[BestScore]\n#Easy: \n#Normal: \n#Hard: ";
 
 	//새로 교체될 스코어
 	std::string newScore;
 
-	FullCombo = true;
 	newScore += "#" + Diff + ": ";
 	newScore += STR.Score;
 	newScore += ", " + STR.MaxCombo;

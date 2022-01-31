@@ -10,7 +10,7 @@ Song::Song(std::string const& path)
 	fopen_s(&pFile, path.data(), "r");
 	map<string, map<string, string>> data = Parser::Parse(pFile);
 
-	map<string, string> content = data["Metadata"];
+	map<string, string> content = data["MetaData"];
 
 	STR.Title = content["Title"];
 	STR.Artist = content["Artist"];

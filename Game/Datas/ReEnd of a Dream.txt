@@ -1,4 +1,4 @@
-[Metadata]
+[MetaData]
 #Title: ReEnd of a Dream
 #Artist: uma vs. Morimori Astushi
 #Highlight: 34826
@@ -4098,3 +4098,8 @@
 0, 139543, 0
 2, 139826, 0
 1, 139826, 0
+
+[BestScore]
+#Easy: 
+#Normal: 0983393, 1053, 1341, 42, 2, 0, 0
+#Hard: 

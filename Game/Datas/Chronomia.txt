@@ -1,4 +1,4 @@
-[Metadata]
+[MetaData]
 #Title: Chronomia
 #Artist: Lime
 #Highlight: 115002
@@ -2848,7 +2848,7 @@
 2, 143896, 0
 3, 143989, 0
 
-[Bestscore]
+[BestScore]
 #Easy: 
 #Normal: 0985933, 782, 760, 22, 0, 0, 1
 #Hard: 

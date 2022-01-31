@@ -1,4 +1,4 @@
-[Metadata]
+[MetaData]
 #Title: Strahv -Encore-
 #Artist: Feryquitous
 #Highlight: 53840

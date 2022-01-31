@@ -10,6 +10,7 @@ void SelectSongScene::Start()
 
 	Resource::Set::NowPlaying(Selection);
 	NowPlaying = Resource::Get::NowPlaying();
+	BestResult = NowPlaying->BestResults[static_cast<int>(Difficulty)];
 	SM->SetBGM(NowPlaying->STR.Title, NowPlaying->Highlight);
 
 	//이미지 셋팅
@@ -23,6 +24,10 @@ void SelectSongScene::Start()
 	VLine.Content = "Pixel";
 	VLine.Length = { 5, 350 };
 	VLine.Location = { -20, 0 };
+	
+	Rank.Content = "Rank_A"; 
+	Rank.Length = { 50, 50 };
+	Rank.Location = { 100, -150 };
 
 	//텍스트 셋팅
 	Title.Content = NowPlaying->STR.Title.data();
@@ -36,6 +41,12 @@ void SelectSongScene::Start()
 	Artist.Font = { "CookieRun Bold", 30, true };
 	Artist.Length = { 500, 50 };
 	Artist.Color = { 255, 255, 255 };
+
+	BestScore.Content = BestResult->GetScore().data();
+	BestScore.Location = { 890, 530 };
+	BestScore.Font = { "CookieRun Bold", 50, true };
+	BestScore.Length = { 200, 100 };
+	BestScore.Color = { 255, 255, 255 };
 
 	Diff.Content = ConstValue::ToString(Difficulty).c_str();
 	Diff.Location = { 890,  420 };
@@ -53,22 +64,30 @@ ConstValue::SceneList SelectSongScene::Update()
 	if (Input::Get::Key::Down(VK_LEFT))
 	{
 		SetSelection(--Selection);
+		BestResult = NowPlaying->BestResults[static_cast<int>(Difficulty)];
+		BestScore.Content = BestResult->GetScore().data();
 	}
 	if (Input::Get::Key::Down(VK_RIGHT))
 	{
 		SetSelection(++Selection);
+		BestResult = NowPlaying->BestResults[static_cast<int>(Difficulty)];
+		BestScore.Content = BestResult->GetScore().data();
 	}
 	if (Input::Get::Key::Down(VK_UP))
 	{
 		SM->SE_Move.Play();
 		++Difficulty;
 		Diff.Content = ConstValue::ToString(Difficulty).c_str();
+		BestResult = NowPlaying->BestResults[static_cast<int>(Difficulty)];
+		BestScore.Content = BestResult->GetScore().data();
 	}
 	if (Input::Get::Key::Down(VK_DOWN))
 	{
 		SM->SE_Move.Play();
 		--Difficulty;
 		Diff.Content = ConstValue::ToString(Difficulty).c_str();
+		BestResult = NowPlaying->BestResults[static_cast<int>(Difficulty)];
+		BestScore.Content = BestResult->GetScore().data();
 	}
 
 
@@ -82,12 +101,16 @@ ConstValue::SceneList SelectSongScene::Update()
 	Camera.Set();
 	//Background.Draw();
 	Diff.Draw();
+	
 
 	Thumbnail.Draw();
 	Title.Draw();
 	Artist.Draw();
-	VLine.Draw();
+	BestScore.Draw();
 
+	VLine.Draw();
+	Rank.Draw();
+	
 	SM->SetFadeIO();
 
 	if (Input::Get::Key::Down(VK_ESCAPE)) return ConstValue::SceneList::Title;
