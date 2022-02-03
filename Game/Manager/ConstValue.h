@@ -5,7 +5,7 @@ namespace ConstValue
 	const Vector<2> ScreenSize = { 1280, 720 };
 
 	//씬 관련
-	enum class SceneList { Title, SelectSong, Option, End, Play, Result, };
+	enum class SceneList { Title, SelectSong, Option, End, Play };
 	SceneList operator++(SceneList& sl);
 	SceneList operator--(SceneList& sl);
 	bool operator<(SceneList& A, SceneList& B);
@@ -29,11 +29,15 @@ namespace ConstValue
 
 	//선곡 씬 관련
 	enum class Difficulty { Easy, Normal, Hard };
-	const std::string StrDiffi[3] = { "Easy", "Normal", "Hard" };
+	const std::map<Difficulty, std::string> DiffToStr =
+	{
+		{Difficulty::Easy, "Easy"},
+		{Difficulty::Normal, "Normal"},
+		{Difficulty::Hard, "Hard"}
+	};
 
 	Difficulty operator++(Difficulty& d);
 	Difficulty operator--(Difficulty& d);
-	std::string const& ToString(Difficulty const& d);
 
 	//판정 관련
 	enum class Judge { Perfect, Good, Miss, None };
@@ -47,6 +51,19 @@ namespace ConstValue
 	//사운드 관련
 	const UINT32 LoopLength = 850000;
 	const float Sample = 44.1f;	//샘플링
+
+	//기타
+	enum class Rank { P, FC, S, A, B, C, D };
+	const std::map<Rank, std::string> RankToImg = 
+	{
+		{Rank::P, "Rank_P"},
+		{Rank::FC, "Rank_FC"},
+		{Rank::S, "Rank_S"},
+		{Rank::A, "Rank_A"},
+		{Rank::B, "Rank_B"},
+		{Rank::C, "Rank_C"},
+		{Rank::D, "Rank_D"}
+	};
 }
 
 namespace Keycode

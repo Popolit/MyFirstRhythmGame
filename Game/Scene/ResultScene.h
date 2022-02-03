@@ -1,11 +1,13 @@
 #pragma once
-#include "Manager/Scene.h"
 #include "Manager/Result.h"
 #include "Component/Song.h"
 
-class ResultScene final : public Scene
+class ResultScene final
 {
 private:
+	bool IsNewResult;
+
+	SoundManager* SM;
 	Sound::Sound BGM;
 	Song* pSong;
 	Result* pResult;
@@ -48,8 +50,7 @@ private:
 
 
 public:
-	void Start()  override;
-	ConstValue::SceneList Update() override;
-	void End()    override;
+	ResultScene(bool const& isNewResult = true);
+	bool Update();
 };
 

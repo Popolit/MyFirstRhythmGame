@@ -54,6 +54,7 @@ ConstValue::Judge Note::Judge(UINT const& inputTiming)
 	else return Judge::None;
 }
 
+//롱노트 누르고 있을 때 판정
 ConstValue::Judge Note::PressedJudge(UINT const& inputTiming)
 {
 	using namespace ConstValue;
@@ -71,6 +72,7 @@ ConstValue::Judge Note::PressedJudge(UINT const& inputTiming)
 	else return Judge::None;
 }
 
+//롱노트 뗄 때 판정
 ConstValue::Judge Note::UpJudge(UINT const& inputTiming)
 {
 	using namespace ConstValue;

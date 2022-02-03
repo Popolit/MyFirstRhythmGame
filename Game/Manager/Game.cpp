@@ -4,7 +4,6 @@
 #include "Scene/SelectSongScene.h"
 #include "Scene/OptionScene.h"
 #include "Scene/PlayScene.h"
-#include "Scene/ResultScene.h"
 
 void Game::Start()
 {
@@ -15,7 +14,6 @@ void Game::Start()
 	Scenes.insert({ ConstValue::SceneList::SelectSong, new SelectSongScene });
 	Scenes.insert({ ConstValue::SceneList::Option, new OptionScene });
 	Scenes.insert({ ConstValue::SceneList::Play, new PlayScene });
-	Scenes.insert({ ConstValue::SceneList::Result, new ResultScene });
 
 	Scenes[NowScene]->Start();
 }
@@ -39,7 +37,7 @@ bool Game::Update()
 void Game::End()
 {
 	Scenes[NowScene]->End();
-	for (auto it : Scenes)
+	for (std::pair<ConstValue::SceneList, Scene*> it : Scenes)
 	{
 		delete it.second;
 	}

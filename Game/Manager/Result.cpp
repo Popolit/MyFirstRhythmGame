@@ -125,7 +125,7 @@ void Result::Update(std::string const& title, Result* newResult)
 
 	fclose(pFile);
 
-	std::string Diff = ConstValue::ToString(Resource::Get::Diff());
+	std::string Diff = ConstValue::DiffToStr.at(Resource::Get::Diff());
 
 	size_t pos = original.find("\n\n[BestScore]");
 	std::string others = original.substr(0, pos);

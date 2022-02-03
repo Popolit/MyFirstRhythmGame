@@ -9,6 +9,7 @@ void PlayScene::Start()
     SpeedValue = Resource::Get::SpeedValue();
     Resource::Get::Keys(MappedKeys);
     pJudgePhrase = new JudgePhrase();
+    pResultScene = nullptr;
     Timed = -3.0f;
     WaitingTime = 3.0f;
     Waited = false;
@@ -50,6 +51,16 @@ void PlayScene::Start()
 ConstValue::SceneList PlayScene::Update()
 {
     using namespace ConstValue;
+
+    if (pResultScene != nullptr)
+    {
+        if (pResultScene->Update())
+        {
+            SM->BGM.Stop();
+            return SceneList::SelectSong;
+        }
+        return SceneList::Play;
+    }
     
     Timed += Time::Get::Delta();
 
@@ -156,7 +167,7 @@ ConstValue::SceneList PlayScene::Update()
     }
     else if (Input::Get::Key::Down(VK_RETURN)) { 
         Resource::Set::NowResult(pScore, pCombo);
-        return SceneList::Result; 
+        pResultScene = new ResultScene();
     }
     else if (NoteCount.Processed == NoteCount.Total)
     {
@@ -164,11 +175,10 @@ ConstValue::SceneList PlayScene::Update()
         if (WaitingTime <= 0)
         {
             Resource::Set::NowResult(pScore, pCombo);
-            return SceneList::Result;
+            pResultScene = new ResultScene();
         }
-        return SceneList::Play;
     }
-    else { return SceneList::Play; }
+    return SceneList::Play;
 }
 
 void PlayScene::End() 
@@ -176,6 +186,7 @@ void PlayScene::End()
     delete pJudgePhrase; 
     delete pScore;
     delete pCombo;
+    delete pResultScene;
     for (UINT u = 0; u < 4; u++)
     {
         Notes[u].clear();

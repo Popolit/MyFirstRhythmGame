@@ -1,5 +1,6 @@
 #pragma once
 #include "Manager/Scene.h"
+#include "ResultScene.h"
 #include "Component/Combo.h"
 #include "Component/JudgePhrase.h"
 #include "Component/HitEffect.h"
@@ -17,6 +18,8 @@ private:
 	JudgePhrase* pJudgePhrase;
 	HitEffect* pHitEffects[4];
 	Keybeam* pKeybeam[4];
+	ResultScene* pResultScene;
+
 
 	ConstValue::Difficulty Diffculty;
 

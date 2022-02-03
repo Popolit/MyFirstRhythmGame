@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SoundManager.h"
 
-SoundManager* SoundManager::SM = nullptr;
+SoundManager* SoundManager::Instance = nullptr;
 
 SoundManager::SoundManager()
 {
@@ -24,16 +24,16 @@ SoundManager::~SoundManager() {}
 
 SoundManager*& SoundManager::Get()
 {
-	if (SM == nullptr) SM = new SoundManager();
-	return SM;
+	if (Instance == nullptr) Instance = new SoundManager();
+	return Instance;
 }
 
 
 void SoundManager::Destroy()
 {
-	if (SM == nullptr) return;
-	delete SM;
-	SM = nullptr;
+	if (Instance == nullptr) return;
+	delete Instance;
+	Instance = nullptr;
 }
 
 

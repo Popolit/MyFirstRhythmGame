@@ -26,15 +26,15 @@ void OptionScene::Start()
 	Image.UnderLine.Length = { 1170, 5 };
 
 	Image.ArrowUp.Content = "ArrowUp";
-	Image.ArrowUp.Location = { 450, 0 };
+	Image.ArrowUp.Location = { 450, 180 };
 	Image.ArrowUp.Length = { 25, 25 };
 	
 	Image.ArrowDown.Content = "ArrowDown";
-	Image.ArrowDown.Location = { 450, 0 };
+	Image.ArrowDown.Location = { 450, 150 };
 	Image.ArrowDown.Length = { 25, 25 };
 
 	Image.ArrowSelection.Content = "ArrowSelection";
-	Image.ArrowSelection.Location = { 450, 270 };
+	Image.ArrowSelection.Location = { 450, 150 };
 	Image.ArrowSelection.Length = { 50, 25 };
 	
 	//인터페이스 텍스트 설정
@@ -133,13 +133,14 @@ ConstValue::SceneList OptionScene::Update()
 	//수정할 옵션 선택
 	if (!IsSelected)
 	{		
-		Image.ArrowSelection.Location[1] = 150 - 100 * static_cast<float>(Selection);
+		Image.ArrowSelection.Location[1] = 150.0f - 100 * static_cast<int>(Selection);
+		Image.ArrowUp.Location[1] = 180.0f - 100 * static_cast<int>(Selection);
+		Image.ArrowDown.Location[1] = 150.0f - 100 * static_cast<int>(Selection);
 		Image.ArrowSelection.Draw();
-
 		if (Input::Get::Key::Down(VK_DOWN))
 		{
 			SM->SE_Move.Play();
-			++Selection;
+			++Selection;	
 		}
 		if (Input::Get::Key::Down(VK_UP))
 		{
@@ -157,9 +158,6 @@ ConstValue::SceneList OptionScene::Update()
 	//선택한 옵션 수정
 	else
 	{	
-		Image.ArrowUp.Location[1] = 180 - 100 * static_cast<float>(Selection);
-		Image.ArrowDown.Location[1] = 150 - 100 * static_cast<float>(Selection);
-
 		switch (Selection)
 		{
 			case ConstValue::OptionList::Sync:
@@ -168,7 +166,7 @@ ConstValue::SceneList OptionScene::Update()
 				if (Input::Get::Key::Down(VK_UP))
 				{
 					SM->SE_Move.Play();
-					Set::SyncValue(++sync);
+					Set::SyncValue(++sync);				
 					Str.Sync = std::to_string(sync);
 				}
 				if (Input::Get::Key::Down(VK_DOWN))

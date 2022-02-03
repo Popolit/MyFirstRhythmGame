@@ -9,7 +9,7 @@ namespace ConstValue
     }
     SceneList operator--(SceneList& sl)
     {
-        return sl = sl == SceneList::Title ? SceneList::Title : static_cast<SceneList>(static_cast<int>(sl) - 1);
+        return sl = sl == SceneList::SelectSong ? SceneList::SelectSong : static_cast<SceneList>(static_cast<int>(sl) - 1);
     }
 
     bool operator<(SceneList& A, SceneList& B)
@@ -39,30 +39,6 @@ namespace ConstValue
     Difficulty operator--(Difficulty& d)
     {
         return d = (d == Difficulty::Easy) ? Difficulty::Easy : static_cast<Difficulty>(static_cast<int>(d) - 1);
-    }
-
-
-    std::string const& ToString(Difficulty const& d)
-    {
-        switch (d)
-        {
-            case Difficulty::Easy:
-            {
-                return StrDiffi[0];
-            }
-            case Difficulty::Normal:
-            {
-                return StrDiffi[1];
-            }
-            case Difficulty::Hard:
-            {
-                return StrDiffi[2];
-            }
-            default:
-            {
-                return StrDiffi[0];
-            }
-        }
     }
 }
 

@@ -43,23 +43,17 @@ void TitleScene::Start()
 ConstValue::SceneList TitleScene::Update()
 {
     using namespace ConstValue;
+
+    SelectMode.Location[1] = -30.0f - 50 * static_cast<int>(Selection);
     if (Input::Get::Key::Down(VK_UP))
     {
-        if (SceneList::SelectSong < Selection)
-        {
-            SM->SE_Move.Play();
-            --Selection;
-            SelectMode.Location[1] += 50;
-        }
+        SM->SE_Move.Play();
+        --Selection;
     }
     if (Input::Get::Key::Down(VK_DOWN))
     {
-        if (Selection < ConstValue::SceneList::End)
-        {
-            SM->SE_Move.Play();
-            ++Selection;
-            SelectMode.Location[1] -= 50;
-        }
+        SM->SE_Move.Play();
+        ++Selection;
     }
     if (Input::Get::Key::Down(VK_RETURN))
     {

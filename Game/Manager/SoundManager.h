@@ -4,7 +4,7 @@
 class SoundManager
 {
 private:
-	static SoundManager* SM ;
+	static SoundManager* Instance ;
 	
 public:
 	float Volume;

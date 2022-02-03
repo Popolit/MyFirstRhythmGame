@@ -1,11 +1,10 @@
 #include "stdafx.h"
 #include "ResultScene.h"
 
-void ResultScene::Start()
+ResultScene::ResultScene(bool const& isNewResult)
 {
 	SM = SoundManager::Get();
 	pSong = Resource::Get::NowPlaying();
-	pResult = Resource::Get::NowResult();
 
 	STR.Title = pSong->STR.Title.data();
 
@@ -44,17 +43,22 @@ void ResultScene::Start()
 	Text.Combo.Length = { 300, 100 };
 	Text.Combo.Color = { 255, 255, 255 };
 
-	Text.Diff.Content = ConstValue::ToString(Resource::Get::Diff()).data();
+	Text.Diff.Content = ConstValue::DiffToStr.at(Resource::Get::Diff()).data();
 	Text.Diff.Location = { 645,  675 };
 	Text.Diff.Font = { "CookieRun Bold", 30, true };
 	Text.Diff.Length = { 120, 50 };
 	Text.Diff.Color = { 255, 255, 255 };
 
-
-	pSong->ResultUpdate(pResult);
+	if (isNewResult)
+	{
+		pResult = Resource::Get::NowResult();
+		pSong->ResultUpdate(pResult);
+		delete pResult;
+	}
+	pResult = pSong->BestResults[static_cast<int>(Resource::Get::Diff())];
 }
 
-ConstValue::SceneList ResultScene::Update()
+bool ResultScene::Update()
 {
 	Camera.Set();
 	Background.Draw();
@@ -71,15 +75,6 @@ ConstValue::SceneList ResultScene::Update()
 	pResult->Draw();
 
 
-	if (Input::Get::Key::Down(VK_RETURN) || Input::Get::Key::Down(VK_ESCAPE))
-	{
-		return ConstValue::SceneList::SelectSong;
-	}
-
-	return ConstValue::SceneList::Result;
-}
-
-void ResultScene::End() 
-{
-	SM->BGM.Stop();
+	if (Input::Get::Key::Down(VK_RETURN) || Input::Get::Key::Down(VK_ESCAPE)) return true;
+	return false;
 }
