@@ -26,7 +26,7 @@ void SelectSongScene::Start()
 	Image.VLine.Length = { 5, 350 };
 	Image.VLine.Location = { -20, 0 };
 
-	Image.Rank.Content = "Rank_A"; 
+	Image.Rank.Content = ConstValue::RankToImg.at(BestResult->GetRank()).data();
 	Image.Rank.Length = { 50, 50 };
 	Image.Rank.Location = { 100, -150 };
 
@@ -84,17 +84,21 @@ ConstValue::SceneList SelectSongScene::Update()
 	{
 		SM->SE_Move.Play();
 		++Diff;
-		Text.Diff.Content = ConstValue::DiffToStr.at(Resource::Get::Diff()).c_str();
+		Text.Diff.Content = ConstValue::DiffToStr.at(Diff).c_str();
+		Resource::Set::Diff(Diff);
 		BestResult = NowPlaying->BestResults[static_cast<int>(Diff)];
 		Text.BestScore.Content = BestResult->GetScore().data();
+		Image.Rank.Content = ConstValue::RankToImg.at(BestResult->GetRank()).data();
 	}
 	if (Input::Get::Key::Down(VK_DOWN))
 	{
 		SM->SE_Move.Play();
 		--Diff;
-		Text.Diff.Content = ConstValue::DiffToStr.at(Resource::Get::Diff()).c_str();
+		Text.Diff.Content = ConstValue::DiffToStr.at(Diff).c_str();
+		Resource::Set::Diff(Diff);
 		BestResult = NowPlaying->BestResults[static_cast<int>(Diff)];
 		Text.BestScore.Content = BestResult->GetScore().data();
+		Image.Rank.Content = ConstValue::RankToImg.at(BestResult->GetRank()).data();
 	}
 
 
@@ -148,6 +152,7 @@ void SelectSongScene::SetSelection(int &Selection)
 
 	BestResult = NowPlaying->BestResults[static_cast<int>(Diff)];
 	Text.BestScore.Content = BestResult->GetScore().data();
+	Image.Rank.Content = ConstValue::RankToImg.at(BestResult->GetRank()).data();
 }
 
 void SelectSongScene::SetDiff(ConstValue::Difficulty const& diff)

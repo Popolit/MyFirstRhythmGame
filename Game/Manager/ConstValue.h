@@ -53,8 +53,18 @@ namespace ConstValue
 	const float Sample = 44.1f;	//»ùÇÃ¸µ
 
 	//±âÅ¸
-	enum class Rank { P, FC, S, A, B, C, D };
-	const std::map<Rank, std::string> RankToImg = 
+	enum class Rank { P, FC, S, A, B, C, D, None };
+	const std::map<Rank, UINT> RankToScore =
+	{
+		{Rank::P, 1000000},
+		{Rank::S, 990000},
+		{Rank::A, 970000},
+		{Rank::B, 930000},
+		{Rank::C, 880000},
+		{Rank::D, 0}
+	};
+
+	const std::map<Rank, std::string> RankToImg =
 	{
 		{Rank::P, "Rank_P"},
 		{Rank::FC, "Rank_FC"},
@@ -62,7 +72,8 @@ namespace ConstValue
 		{Rank::A, "Rank_A"},
 		{Rank::B, "Rank_B"},
 		{Rank::C, "Rank_C"},
-		{Rank::D, "Rank_D"}
+		{Rank::D, "Rank_D"},
+		{Rank::None, "Rank_None"}
 	};
 }
 

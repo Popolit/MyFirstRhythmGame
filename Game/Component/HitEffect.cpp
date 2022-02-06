@@ -4,12 +4,12 @@
 HitEffect::HitEffect()
 {
 	SpeedValue = Resource::Get::SpeedValue();
-	duration = 0.0f;
 
 	effect.Content = "HitEffect";
 	effect.Location[1] = -248;
 	effect.Length = { 210, 210 };
 	effect.Duration = 0.3f;
+	effect.Playback = 0.3f;
 	effect.Repeatable = false;
 	
 
@@ -17,17 +17,14 @@ HitEffect::HitEffect()
 	effectL.Location[1] = -248;
 	effectL.Length = { 210, 210 };
 	effectL.Duration = 0.3f;
+	effectL.Playback = 0.3f;
 	effectL.Repeatable = true;
 }
 
 void HitEffect::Reset(bool const& isLong) 
 { 
 	if (isLong) durationL = 0.2f;
-	else
-	{
-		effect.Playback = 0;
-		duration = 0.3f;
-	}
+	else effect.Playback = 0.0f;
 }
 
 void HitEffect::SetLane(UINT const &lane)
@@ -38,18 +35,14 @@ void HitEffect::SetLane(UINT const &lane)
 
 void HitEffect::Update(float const& location)
 {
-	if (0 < duration)
-	{
-		effect.Location[1] = location - 248;
-		effect.Draw();
-	}
-	else if (0 < durationL)
+	effect.Location[1] = location - 248;
+	effect.Draw();
+	if (0 < durationL)
 	{
 		effectL.Location[1] = location - 248;
 		effectL.Draw();
 	}
 	else return;
 
-	duration -= Time::Get::Delta();
 	durationL -= Time::Get::Delta();
 }

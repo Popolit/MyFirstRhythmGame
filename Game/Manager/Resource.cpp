@@ -125,7 +125,12 @@ namespace Resource
 	void End() 
 	{
 		SaveOption();
-		for(Song* song : Songs) delete song;
+		for (Song* song : Songs)
+		{
+			song = NULL;
+			delete song;
+		}
+		if (NowResult != NULL) delete NowResult;
 		SoundManager::Destroy();
 	}
 

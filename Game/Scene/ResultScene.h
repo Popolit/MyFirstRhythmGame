@@ -16,14 +16,6 @@ private:
 	Rendering::Camera               Camera;
 	Rendering::Image::Component     Background;
 
-	struct 
-	{
-		std::string Perfect;
-		std::string Good;
-		std::string Miss;
-		std::string Title;
-	}STR;
-
 	struct
 	{
 		Rendering::Text::Component	Perfect;
@@ -34,7 +26,8 @@ private:
 		Rendering::Text::Component	BestScore;
 
 		Rendering::Text::Component  Diff;
-		Rendering::Text::Component  Combo;
+		Rendering::Text::Component  IndiCombo;
+		Rendering::Text::Component  MaxCombo;
 
 	}Text;
 
@@ -46,6 +39,8 @@ private:
 		Rendering::Image::Component	Perfect;
 		Rendering::Image::Component	Good;
 		Rendering::Image::Component	Miss;
+
+		Rendering::Image::Component Rank;
 	}Image;
 
 

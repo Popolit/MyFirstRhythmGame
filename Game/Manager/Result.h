@@ -9,7 +9,9 @@ private:
 
 	bool Perfect;
 	bool FullCombo;
-
+	UINT Score;
+	ConstValue::Rank Rank;
+	
 	struct
 	{
 		std::string Perfect;
@@ -18,15 +20,9 @@ private:
 		std::string Score;
 		std::string MaxCombo;
 	}STR;
-	struct
-	{
-		Rendering::Text::Component Perfect;
-		Rendering::Text::Component Good;
-		Rendering::Text::Component Miss;
-		Rendering::Text::Component Score;
-		Rendering::Text::Component MaxCombo;
-	}Render;
 
+private:
+	void SetRank();
 public:
 	Result();
 	Result(std::string result);
@@ -34,5 +30,5 @@ public:
 	bool IsFC();
 	void Set(class Score *pScore, Combo* pCombo);
 	void Update(std::string const& title, Result *newResult);
-	void Draw();
+	ConstValue::Rank GetRank();
 };

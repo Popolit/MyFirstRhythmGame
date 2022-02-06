@@ -4,7 +4,6 @@ class HitEffect final
 {
 private:
 	float SpeedValue;
-	float duration;
 	float durationL;
 	Rendering::Animation::Component effect;
 	Rendering::Animation::Component effectL; //∑’≥Î∆Æ
