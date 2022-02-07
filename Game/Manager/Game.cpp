@@ -22,11 +22,14 @@ bool Game::Update()
 	using namespace ConstValue;
 	SceneList prevScene = NowScene;
 	NowScene = Scenes[prevScene]->Update();
+	
+	//게임 종료
 	if (NowScene == SceneList::End)
 	{
 		NowScene = prevScene;
 		return true;
 	}
+	//씬이 변경된 경우
 	if (NowScene != prevScene)
 	{
 		Scenes[prevScene]->End();
@@ -36,10 +39,15 @@ bool Game::Update()
 }
 void Game::End()
 {
+	//실행되던 씬을 종료 후 메모리 해제
 	Scenes[NowScene]->End();
 	for (std::pair<ConstValue::SceneList, Scene*> it : Scenes)
 	{
-		delete it.second;
+		if (it.second != nullptr)
+		{
+			delete it.second;
+			it.second = nullptr;
+		}
 	}
 	Resource::End();
 }

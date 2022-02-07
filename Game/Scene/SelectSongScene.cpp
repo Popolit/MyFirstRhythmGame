@@ -114,11 +114,12 @@ ConstValue::SceneList SelectSongScene::Update()
 
 
 	if (Input::Get::Key::Down(VK_ESCAPE)) return ConstValue::SceneList::Title;
+	//F2 입력시, 결과창을 보여줌
 	if (Input::Get::Key::Down(VK_F2))
 	{
 		SM->SE_Decide.Play();
-		Resource::Set::NowResult(NowPlaying->BestResults[static_cast<int>(Diff)]);
-		pResultScene = new ResultScene(false);
+		//Resource::Set::NowResult(NowPlaying->BestResults[static_cast<int>(Diff)]);
+		pResultScene = new ResultScene();
 	}
     return ConstValue::SceneList::SelectSong;
 }
@@ -133,6 +134,8 @@ void SelectSongScene::End()
 	SM->BGM.Stop();
 }
 
+
+//곡을 셋팅
 void SelectSongScene::SetSelection(int &Selection)
 {
 	SM->BGM.Stop();
@@ -148,6 +151,7 @@ void SelectSongScene::SetSelection(int &Selection)
 	SetDiff();
 }
 
+//난이도를 셋팅
 void SelectSongScene::SetDiff()
 {
 	SM->SE_Move.Play();

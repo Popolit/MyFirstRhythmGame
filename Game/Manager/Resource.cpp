@@ -15,22 +15,33 @@ namespace Resource
 
 		//공용 자원
 		std::string BGMTitle;
+		size_t SongCnt;
 		std::vector<Song*> Songs;
 		Song* NowPlaying;
-		Result* NowResult;
-
-		size_t SongCnt;
+		
 		ConstValue::Difficulty NowDiff;
 	}
 
+	//게임 시작 시 실행
 	void Start()
 	{
 		GetOption();
 		GetSongs();
 		SongCnt = Songs.size();
 		NowPlaying = Songs.at(0);
-		NowResult = nullptr;
 		NowDiff = ConstValue::Difficulty::Easy;
+	}
+
+	//게임 종료시 실행
+	void End()
+	{
+		SaveOption();
+		for (Song* song : Songs)
+		{
+			delete song;
+			song = nullptr;
+		}
+		SoundManager::Destroy();
 	}
 
 	// 데이터 폴더 탐색, 곡 데이터를 받아옴
@@ -57,6 +68,7 @@ namespace Resource
 		}
 	}
 	
+	//로컬에 저장된 사용자 옵션을 가져옴
 	void GetOption()
 	{
 		const char* path = "Datas/Option.ini";
@@ -92,6 +104,7 @@ namespace Resource
 		}	
 	}
 
+	//옵션을 로컬 파일로 저장
 	void SaveOption()
 	{
 		using namespace std;
@@ -122,19 +135,8 @@ namespace Resource
 		fclose(pFile);
 	}
 
-	void End() 
-	{
-		SaveOption();
-		for (Song* song : Songs)
-		{
-			delete song;
-			song = nullptr;
-		}
-		if (NowResult != nullptr) delete NowResult;
-		SoundManager::Destroy();
-	}
 
-
+	//자원을 가져옴
 	namespace Get
 	{
 		int SyncValue() { return Resource::SyncValue; }
@@ -143,8 +145,9 @@ namespace Resource
 		int SongIndex() { return static_cast<int>(std::find(Songs.begin(), Songs.end(), Resource::NowPlaying) - Songs.begin()); }
 		Song* NowPlaying() { return Resource::NowPlaying; }
 		ConstValue::Difficulty Diff() { return NowDiff; }
-		Result* NowResult() { return Resource::NowResult; }
 	}
+
+	//자원을 셋팅
 	namespace Set
 	{
 		void SyncValue(int const& newSync) { Resource::SyncValue = newSync; }
@@ -158,11 +161,5 @@ namespace Resource
 			Resource::NowPlaying = Songs.at(index);
 		}
 		void Diff(ConstValue::Difficulty const& diff) { NowDiff = diff; }
-		void NowResult(Score* score, Combo* combo)
-		{
-			Resource::NowResult = new Result();
-			Resource::NowResult->Set(score, combo);
-		}
-		void NowResult(Result* result) { Resource::NowResult = result; }
 	}
 };

@@ -44,7 +44,7 @@ ConstValue::SceneList TitleScene::Update()
 {
     using namespace ConstValue;
 
-    SelectMode.Location[1] = -30.0f - 50 * static_cast<int>(Selection);
+    
     if (Input::Get::Key::Down(VK_UP))
     {
         SM->SE_Move.Play();
@@ -60,6 +60,7 @@ ConstValue::SceneList TitleScene::Update()
         SM->SE_Decide.Play();
         return Selection;
     }
+    SelectMode.Location[1] = -30.0f - 50 * static_cast<int>(Selection);
 
     Camera.Set();
     Background.Draw();

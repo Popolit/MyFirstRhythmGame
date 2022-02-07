@@ -9,7 +9,7 @@ class Score final
 private:
 	friend class Result;
 
-	UINT Digit;
+	UINT Digit;		//점수 자릿수, 1000000 MaxScore 기준 7
 	UINT TotalCount;
 	float Coeff;	//계수, Perfect = 1.0, Good = 0.5
 

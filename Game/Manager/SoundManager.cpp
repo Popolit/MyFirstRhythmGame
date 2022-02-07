@@ -23,13 +23,14 @@ SoundManager::SoundManager()
 
 SoundManager::~SoundManager() {}
 
+//»ı¼º, ÀÎ½ºÅÏ½º ¹İÈ¯
 SoundManager*& SoundManager::Get()
 {
 	if (Instance == nullptr) Instance = new SoundManager();
 	return Instance;
 }
 
-
+//½Ì±ÛÅæ ÆÄ±«ÀÚ
 void SoundManager::Destroy()
 {
 	if (Instance == nullptr) return;

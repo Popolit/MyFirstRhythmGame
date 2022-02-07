@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ConstValue.h"
 
+//enum class의 연산자 오버로딩 정의
 namespace ConstValue
 {
     SceneList operator++(SceneList& sl)
@@ -42,8 +43,10 @@ namespace ConstValue
     }
 }
 
+
 namespace Keycode
-{
+{   
+    //Key코드 -> String
     std::string toString(size_t const& code)
     {
         std::map<size_t, std::string>::const_iterator it = KeyMap.find(code);

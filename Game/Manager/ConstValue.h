@@ -52,7 +52,7 @@ namespace ConstValue
 	const UINT32 LoopLength = 850000;
 	const float Sample = 44.1f;	//»ùÇÃ¸µ
 
-	//±âÅ¸
+	//·©Å© °ü·Ã
 	enum class Rank { P, FC, S, A, B, C, D, None };
 	const std::map<Rank, UINT> RankToScore =
 	{

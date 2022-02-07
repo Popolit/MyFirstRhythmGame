@@ -2,6 +2,7 @@
 #include "Component/Score.h"
 #include "Component/Combo.h"
 
+//게임 결과 정보를 저장하는 클래스
 class Result final
 {
 private:
@@ -26,9 +27,9 @@ private:
 public:
 	Result();
 	Result(std::string result);
+	Result(class Score *pScore, Combo* pCombo);
+	void Update(std::string const& title, Result *newResult);
 	std::string const& GetScore();
 	bool IsFC();
-	void Set(class Score *pScore, Combo* pCombo);
-	void Update(std::string const& title, Result *newResult);
 	ConstValue::Rank GetRank();
 };

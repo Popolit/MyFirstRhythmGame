@@ -18,6 +18,7 @@ private:
 	JudgePhrase* pJudgePhrase;
 	HitEffect* pHitEffects[4];
 	Keybeam* pKeybeam[4];
+	Result* pResult;
 	ResultScene* pResultScene;
 
 

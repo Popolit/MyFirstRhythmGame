@@ -17,6 +17,20 @@ Result::Result()
 	STR.Miss = "";
 }
 
+//플레이 후 새 Result가 생겼을 경우의 생성자
+Result::Result(class Score* pScore, Combo* pCombo) : Result()
+{
+	STR.Score = pScore->strScore;
+	STR.MaxCombo = std::to_string(pCombo->GetMaxCombo());
+	STR.Perfect = std::to_string(pScore->Count.Perfect);
+	STR.Good = std::to_string(pScore->Count.Good);
+	STR.Miss = std::to_string(pScore->TotalCount - pScore->Count.Perfect - pScore->Count.Good);
+
+	if (pScore->Count.Perfect == pScore->TotalCount) Perfect = true;
+	if (pScore->Count.Perfect + pScore->Count.Good == pScore->TotalCount) FullCombo = true;
+	SetRank();
+}
+
 //유저 기록이 있을 경우의 생성자
 Result::Result(std::string result) : Result()
 {
@@ -67,27 +81,6 @@ void Result::SetRank()
 	Rank = Rank::D;
 }
 
-std::string const & Result::GetScore()
-{
-	return STR.Score;
-}
-
-bool Result::IsFC()
-{
-	return FullCombo;
-}
-
-//플레이 후 새 Result가 생기면 Set
-void Result::Set(class Score* pScore, Combo* pCombo)
-{
-	STR.Score = pScore->strScore;
-	STR.MaxCombo = std::to_string(pCombo->GetMaxCombo());
-	STR.Perfect = std::to_string(pScore->Count.Perfect);
-	STR.Good = std::to_string(pScore->Count.Good);
-	STR.Miss = std::to_string(pScore->TotalCount - pScore->Count.Perfect - pScore->Count.Good);
-	SetRank();
-}
-
 //최고 기록이 나오거나, 랭크가 갱신되면 갱신
 void Result::Update(std::string const& title, Result* newResult)
 {
@@ -95,13 +88,19 @@ void Result::Update(std::string const& title, Result* newResult)
 	Perfect |= newResult->Perfect;
 	FullCombo |= newResult->FullCombo;
 
-	if (newResult->STR.Score < STR.Score) return;
+	if (newResult->STR.Score < STR.Score)
+	{
+		SetRank();
+		return;
+	}
 
 	STR.Score = newResult->STR.Score;
 	STR.MaxCombo = newResult->STR.MaxCombo;
 	STR.Perfect = newResult->STR.Perfect;
 	STR.Good = newResult->STR.Good;
 	STR.Miss = newResult->STR.Miss;
+
+	SetRank();
 
 	std::string path = "Datas/" + title + ".txt";
 	FILE* pFile = nullptr;
@@ -148,8 +147,22 @@ void Result::Update(std::string const& title, Result* newResult)
 	fopen_s(&pFile, path.data(), "w");
 	fputs((others + scores).data(), pFile);
 	fclose(pFile);
+
 }
 
+//스코어를 반환
+std::string const& Result::GetScore()
+{
+	return STR.Score;
+}
+
+//풀 콤보일 경우 반환
+bool Result::IsFC()
+{
+	return FullCombo;
+}
+
+//랭크를 반환
 ConstValue::Rank Result::GetRank()
 {
 	return Rank;

@@ -1,6 +1,7 @@
 #pragma once
 #include "Manager/Scene.h"
 
+//타이틀 화면
 class TitleScene final : public Scene
 {
 private:

@@ -1,6 +1,7 @@
 #pragma once
 #include "ConstValue.h"
 
+//사운드를 총괄하는 클래스
 class SoundManager
 {
 private:

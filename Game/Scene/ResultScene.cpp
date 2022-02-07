@@ -1,17 +1,13 @@
 #include "stdafx.h"
 #include "ResultScene.h"
 
-ResultScene::ResultScene(bool const& isNewResult)
+ResultScene::ResultScene(Result* newResult)
 {
 	//변수 셋팅
 	SM = SoundManager::Get();
 	pSong = Resource::Get::NowPlaying();
-	if (isNewResult)
-	{
-		pResult = Resource::Get::NowResult();
-		pSong->ResultUpdate(pResult);
-	}
-	else pResult = pSong->BestResults[static_cast<int>(Resource::Get::Diff())];
+	if (newResult == nullptr) pResult = pSong->BestResults[static_cast<int>(Resource::Get::Diff())];
+	else pResult = newResult;
 
 	//이미지 셋팅
 	Background.Content = "PlayBG";

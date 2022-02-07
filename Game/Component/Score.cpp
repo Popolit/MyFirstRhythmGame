@@ -4,7 +4,6 @@
 //기본 생성자
 Score::Score()
 {
-	Digit = 0;
 	strScore = "";
 	for (UINT u = ConstValue::MaxScore; 0 < u; u /= 10)
 	{
@@ -45,7 +44,7 @@ void Score::Update(ConstValue::Judge const& judge)
 	else return;
 
 	strScore = "";
-	UINT CalculatedScore = static_cast<UINT>(ConstValue::MaxScore * Coeff / TotalCount);
+	UINT CalculatedScore = static_cast<UINT>(ConstValue::MaxScore * Coeff / TotalCount); 
 	for (UINT u = static_cast<UINT>(pow(10, Digit - 1)); 0 < u; u /= 10)
 	{
 		strScore += '0' + ((CalculatedScore / u) % 10);

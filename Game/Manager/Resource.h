@@ -16,6 +16,7 @@ namespace Resource
 	void End();
 	void GetSongs();
 	void GetOption();
+	void SaveOption();
 
 	namespace Get
 	{
@@ -25,7 +26,6 @@ namespace Resource
 		Song* NowPlaying();
 		int SongIndex();
 		ConstValue::Difficulty Diff();
-		Result* NowResult();
 	}
 	namespace Set
 	{
@@ -34,7 +34,6 @@ namespace Resource
 		void Keys(size_t (&newKeys)[4]);
 		void NowPlaying(int& index);
 		void Diff(ConstValue::Difficulty const &diff);
-		void NowResult(Score* score, Combo* combo);
-		void NowResult(Result* result);
+
 	}
 }

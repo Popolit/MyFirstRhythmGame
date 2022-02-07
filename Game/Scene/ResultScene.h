@@ -43,7 +43,7 @@ private:
 
 
 public:
-	ResultScene(bool const& isNewResult = true);
+	ResultScene(Result* newResult = nullptr);
 	bool Update();
 };
 
