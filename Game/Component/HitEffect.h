@@ -1,5 +1,7 @@
 #pragma once
 #include "Manager/Resource.h"
+
+//히트 이펙트 클래스
 class HitEffect final
 {
 private:
@@ -9,8 +11,8 @@ private:
 	Rendering::Animation::Component effectL; //롱노트
 public:
 	HitEffect();
-	void Reset(bool const& isLong = false);
+	void Update(bool const& isLong = false);
 	void SetLane(UINT const& lane);
-	void Update(float const& location);
+	void Draw(float const& location);
 };
 

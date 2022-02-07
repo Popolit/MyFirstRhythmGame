@@ -7,7 +7,7 @@ Chart::Chart()
 	isChartExist = false;
 }
 
-Chart::Chart(std::string& notedata)
+Chart::Chart(std::string& notedata) : Chart::Chart()
 {
 	size_t pos = 0;
 	//노트 데이터 파싱
@@ -30,6 +30,7 @@ Chart::Chart(std::string& notedata)
 	isChartExist = true;
 }
 
+//노트 객체를 담아주는 함수
 void Chart::makeNotes(std::vector<Note>(&Notes)[4])
 {
 	if (!isChartExist) return;
@@ -47,4 +48,5 @@ void Chart::makeNotes(std::vector<Note>(&Notes)[4])
 	}
 }
 
+//롱 노트의 갯수를 반환
 UINT Chart::GetLongCnt() { return LongCnt; }

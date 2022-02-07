@@ -2,6 +2,7 @@
 #include "Result.h"
 #include <regex>
 
+//기존 유저기록이 없을 경우의 생성자
 Result::Result()
 {
 	Perfect = false;
@@ -16,6 +17,7 @@ Result::Result()
 	STR.Miss = "";
 }
 
+//유저 기록이 있을 경우의 생성자
 Result::Result(std::string result) : Result()
 {
 	if (result == "") return;
@@ -49,7 +51,7 @@ Result::Result(std::string result) : Result()
 	SetRank();
 }
 
-//랭크를 매기는 함수
+//점수 및 성적에 따라 랭크를 매기는 함수
 void Result::SetRank()
 {
 	using namespace ConstValue;
@@ -75,6 +77,7 @@ bool Result::IsFC()
 	return FullCombo;
 }
 
+//플레이 후 새 Result가 생기면 Set
 void Result::Set(class Score* pScore, Combo* pCombo)
 {
 	STR.Score = pScore->strScore;
@@ -85,6 +88,7 @@ void Result::Set(class Score* pScore, Combo* pCombo)
 	SetRank();
 }
 
+//최고 기록이 나오거나, 랭크가 갱신되면 갱신
 void Result::Update(std::string const& title, Result* newResult)
 {
 	//점수와 별개로 갱신

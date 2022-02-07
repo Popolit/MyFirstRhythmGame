@@ -15,7 +15,7 @@ public:
 	UINT getTiming();
 	bool isLong();
 	void MakeNoteImage(UINT const& lineNum);
-	void DrawNote();
+	void Draw();
 	ConstValue::Judge Judge(UINT const& inputTiming);
 	ConstValue::Judge PressedJudge(UINT const& inputTiming);
 	ConstValue::Judge UpJudge(UINT const& inputTiming);

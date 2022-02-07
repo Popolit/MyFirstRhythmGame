@@ -5,8 +5,6 @@
 class ResultScene final
 {
 private:
-	bool IsNewResult;
-
 	SoundManager* SM;
 	Sound::Sound BGM;
 	Song* pSong;

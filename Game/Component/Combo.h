@@ -1,6 +1,8 @@
 #pragma once
 #include "Manager/ConstValue.h"
 #include <string>
+
+//콤보를 다루는 클래스
 class Combo
 {
 private:

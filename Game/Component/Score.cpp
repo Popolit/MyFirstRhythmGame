@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Score.h"
 
+//기본 생성자
 Score::Score()
 {
 	Digit = 0;
@@ -20,6 +21,7 @@ Score::Score()
 	CurrentScore.Color = { 255, 255, 255 };
 }
 
+//총 노트 갯수를 이용한 객체 생성자
 Score::Score(UINT const& count) : Score()
 {
 	if(count != 0) TotalCount = count;
@@ -27,6 +29,7 @@ Score::Score(UINT const& count) : Score()
 
 Score::~Score() {}
 
+//노트를 처리할 때마다 업데이트
 void Score::Update(ConstValue::Judge const& judge)
 {
 	if (judge == ConstValue::Judge::Perfect)
@@ -49,7 +52,8 @@ void Score::Update(ConstValue::Judge const& judge)
 	}
 }
 
-void Score::DrawScore() 
+//점수를 그려주는 함수
+void Score::Draw() 
 {
 	CurrentScore.Draw();
 }

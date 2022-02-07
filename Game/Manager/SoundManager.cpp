@@ -3,6 +3,7 @@
 
 SoundManager* SoundManager::Instance = nullptr;
 
+//싱글톤 생성자
 SoundManager::SoundManager()
 {
 	Volume = 0.0f;
@@ -36,7 +37,7 @@ void SoundManager::Destroy()
 	Instance = nullptr;
 }
 
-
+//BGM을 변경, Highligt가 있으면 하이라이트 구간을 설정
 void SoundManager::SetBGM(std::string const& title, UINT32 const& Highlight)
 { 
 	if(title != "") STR.BGM = title;
@@ -53,6 +54,7 @@ void SoundManager::SetBGM(std::string const& title, UINT32 const& Highlight)
 	else BGM.loop = false;
 }
 
+//전체 볼륨 조정
 void SoundManager::SetVolume(UINT const& volume)
 {
 	Volume = volume / 100.0f;
@@ -62,6 +64,7 @@ void SoundManager::SetVolume(UINT const& volume)
 	SE_Move.volume = Volume;
 }
 
+//노래가 페이드 인/아웃 하도록 함
 void SoundManager::SetFadeIO()
 {
 	LoopLength -= Time::Get::Delta();

@@ -9,6 +9,7 @@ class Score;
 class Combo;
 class Result;
 
+//게임 내에서 사용되는 자원들
 namespace Resource
 {
 	void Start();

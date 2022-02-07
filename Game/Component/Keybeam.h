@@ -1,4 +1,6 @@
 #pragma once
+
+//Å°ºö Å¬·¡½º
 class Keybeam
 {
 private:
@@ -6,7 +8,7 @@ private:
 public:
 	Keybeam();
 	void SetLane(UINT const & lane);
-	void Reset();
+	void Update();
 	void Pressing();
 	void Draw(float const& location);
 };

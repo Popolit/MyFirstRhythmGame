@@ -2,6 +2,7 @@
 #include "Chart.h"
 #include "Manager/Result.h"
 
+//곡에 대한 정보를 가진 클래스
 class Song
 {
 private:

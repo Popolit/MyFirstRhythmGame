@@ -3,6 +3,7 @@
 
 HitEffect::HitEffect()
 {
+	durationL = 0.0f;
 	SpeedValue = Resource::Get::SpeedValue();
 
 	effect.Content = "HitEffect";
@@ -21,19 +22,22 @@ HitEffect::HitEffect()
 	effectL.Repeatable = true;
 }
 
-void HitEffect::Reset(bool const& isLong) 
+//노트 처리 시, 이펙트 갱신 함수
+void HitEffect::Update(bool const& isLong) 
 { 
 	if (isLong) durationL = 0.2f;
 	else effect.Playback = 0.0f;
 }
 
+//이펙트가 나타날 레인을 설정
 void HitEffect::SetLane(UINT const &lane)
 {
 	effect.Location[0] = -450 + static_cast<float>(100 * lane);
 	effectL.Location[0] = effect.Location[0];
 }
 
-void HitEffect::Update(float const& location)
+//이펙트를 그리는 함수
+void HitEffect::Draw(float const& location)
 {
 	effect.Location[1] = location - 248;
 	effect.Draw();

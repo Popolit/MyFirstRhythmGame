@@ -12,6 +12,7 @@ Combo::Combo()
 	TextCombo.Color = {255, 255, 255};
 }
 
+//콤보 업데이트
 void Combo::Update(ConstValue::Judge const& judge)
 {
 	if (judge == ConstValue::Judge::Miss)

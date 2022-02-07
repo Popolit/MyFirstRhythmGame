@@ -61,6 +61,8 @@ void SelectSongScene::Start()
 ConstValue::SceneList SelectSongScene::Update()
 {
 	SM->SetFadeIO();
+
+	//결과 화면을 보여줄 경우
 	if (pResultScene != nullptr)
 	{
 		if (pResultScene->Update())
@@ -80,32 +82,21 @@ ConstValue::SceneList SelectSongScene::Update()
 	{
 		SetSelection(++Selection);
 	}
+	//난이도 변경
 	if (Input::Get::Key::Down(VK_UP))
 	{
-		SM->SE_Move.Play();
-		++Diff;
-		Text.Diff.Content = ConstValue::DiffToStr.at(Diff).c_str();
-		Resource::Set::Diff(Diff);
-		BestResult = NowPlaying->BestResults[static_cast<int>(Diff)];
-		Text.BestScore.Content = BestResult->GetScore().data();
-		Image.Rank.Content = ConstValue::RankToImg.at(BestResult->GetRank()).data();
+		Resource::Set::Diff(++Diff);
+		SetDiff();
 	}
 	if (Input::Get::Key::Down(VK_DOWN))
-	{
-		SM->SE_Move.Play();
-		--Diff;
-		Text.Diff.Content = ConstValue::DiffToStr.at(Diff).c_str();
-		Resource::Set::Diff(Diff);
-		BestResult = NowPlaying->BestResults[static_cast<int>(Diff)];
-		Text.BestScore.Content = BestResult->GetScore().data();
-		Image.Rank.Content = ConstValue::RankToImg.at(BestResult->GetRank()).data();
+	{		
+		Resource::Set::Diff(--Diff);
+		SetDiff();
 	}
 
 
 	if (Input::Get::Key::Down(VK_RETURN))
 	{
-		SM->SE_Decide.Play();
-		Resource::Set::Diff(Diff);
 		return ConstValue::SceneList::Play;
 	}
 	
@@ -134,12 +125,16 @@ ConstValue::SceneList SelectSongScene::Update()
 
 void SelectSongScene::End()
 {
+	if (pResultScene != nullptr)
+	{
+		pResultScene = nullptr;
+		delete pResultScene;
+	}
 	SM->BGM.Stop();
 }
 
 void SelectSongScene::SetSelection(int &Selection)
 {
-	SM->SE_Move.Play();
 	SM->BGM.Stop();
 	Resource::Set::NowPlaying(Selection);
 	NowPlaying = Resource::Get::NowPlaying();
@@ -150,14 +145,16 @@ void SelectSongScene::SetSelection(int &Selection)
 	Text.Title.Content = NowPlaying->STR.Title.data();
 	Text.Artist.Content = NowPlaying->STR.Artist.data();
 
+	SetDiff();
+}
+
+void SelectSongScene::SetDiff()
+{
+	SM->SE_Move.Play();
+	Text.Diff.Content = ConstValue::DiffToStr.at(Diff).c_str();
+	Result* rslt = Resource::Get::NowPlaying()->BestResults[static_cast<int>(Diff)];
+
 	BestResult = NowPlaying->BestResults[static_cast<int>(Diff)];
 	Text.BestScore.Content = BestResult->GetScore().data();
 	Image.Rank.Content = ConstValue::RankToImg.at(BestResult->GetRank()).data();
-}
-
-void SelectSongScene::SetDiff(ConstValue::Difficulty const& diff)
-{
-	Result* rslt = Resource::Get::NowPlaying()->BestResults[static_cast<int>(diff)];
-	if (rslt->GetScore() == "1000000") {}
-	else if (rslt->IsFC()) {}
 }

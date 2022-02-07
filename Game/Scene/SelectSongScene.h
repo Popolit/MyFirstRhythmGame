@@ -36,7 +36,7 @@ private:
 	
 private:
 	void SetSelection(int& Selection);
-	void SetDiff(ConstValue::Difficulty const& diff);
+	void SetDiff();
 public:
 	void Start()  override;
 	ConstValue::SceneList Update() override;

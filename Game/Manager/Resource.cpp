@@ -127,10 +127,10 @@ namespace Resource
 		SaveOption();
 		for (Song* song : Songs)
 		{
-			song = NULL;
 			delete song;
+			song = nullptr;
 		}
-		if (NowResult != NULL) delete NowResult;
+		if (NowResult != nullptr) delete NowResult;
 		SoundManager::Destroy();
 	}
 

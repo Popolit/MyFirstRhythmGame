@@ -3,6 +3,7 @@
 
 JudgePhrase::JudgePhrase()
 {
+	judge = ConstValue::Judge::None;
 	SpeedValue = Resource::Get::SpeedValue();
 
 	Perfect.Content = "Perfect";
@@ -26,7 +27,8 @@ JudgePhrase::JudgePhrase()
 	renderingTime = 0.0f;	
 }
 
-void JudgePhrase::setJudge(ConstValue::Judge judge) 
+//판정문구를 갱신
+void JudgePhrase::Update(ConstValue::Judge judge) 
 {
 	renderingTime = 1.0f;
 	Perfect.Playback = 0.0f;
@@ -36,7 +38,8 @@ void JudgePhrase::setJudge(ConstValue::Judge judge)
 	this->judge = judge; 
 }
 
-void JudgePhrase::Update(float const& location)
+//문구를 그려주는 함수
+void JudgePhrase::Draw(float const& location)
 {
 	Perfect.Location[1] = location;
 	Good.Location[1] = location;

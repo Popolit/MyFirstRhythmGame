@@ -3,6 +3,7 @@
 #include "Manager/Resource.h"
 #include <string>
 
+//점수 클래스
 class Score final
 {
 private:
@@ -26,6 +27,6 @@ public:
 	Score(UINT const &count);
 	~Score();
 	void Update(ConstValue::Judge const & judge);
-	void DrawScore();
+	void Draw();
 };
 

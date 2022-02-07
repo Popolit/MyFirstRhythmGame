@@ -3,6 +3,7 @@
 
 Song::Song() {}
 
+//로컬 파일들을 가져와 파싱, 객체를 생성하는 생성자
 Song::Song(std::string const& path)
 {
 	using namespace std;
@@ -41,15 +42,19 @@ Song::~Song()
 	for (UINT u = 0; u < 3; u++)
 	{
 		delete Charts[u];
+		Charts[u] = nullptr;
 		delete BestResults[u];
+		BestResults[u] = nullptr;
 	}
 }
 
+//난이도에 맞는 채보를 반환하는 함수
 Chart* Song::GetChart(ConstValue::Difficulty const& diff)
 {
 	return Charts[static_cast<int>(diff)];
 }
 
+//플레이 결과를 반영하는 함수
 void Song::ResultUpdate(Result* newResult)
 {
 	BestResults[static_cast<int>(Resource::Get::Diff())]->Update(STR.Title, newResult);

@@ -10,6 +10,7 @@ bool Note::isLong()
 	return 0 < UpTiming;
 }
 
+//노트 이미지를 생성
 void Note::MakeNoteImage(UINT const& lineNum)
 {
 	if (lineNum == 0 || lineNum == 3) NoteImage.Content = "NoteWhite";
@@ -31,7 +32,7 @@ void Note::MakeNoteImage(UINT const& lineNum)
 	NoteImage.Location = location;
 }
 
-void Note::DrawNote() { NoteImage.Draw(); }
+void Note::Draw() { NoteImage.Draw(); }
 
 //판정을 반환
 ConstValue::Judge Note::Judge(UINT const& inputTiming)

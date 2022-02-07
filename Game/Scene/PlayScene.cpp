@@ -52,6 +52,7 @@ ConstValue::SceneList PlayScene::Update()
 {
     using namespace ConstValue;
 
+    //게임 종료 후 결과 창 표기
     if (pResultScene != nullptr)
     {
         if (pResultScene->Update())
@@ -63,9 +64,10 @@ ConstValue::SceneList PlayScene::Update()
     }
     
     Timed += Time::Get::Delta();
-
     Camera.Location[1] += SpeedValue * 100 * Time::Get::Delta();
 
+    //게임 시작 후 대기시간 3초를 세어
+    //게임 시간을 0초로 초기화
     if (!Waited && 0 <= Timed)
     {
         Camera.Location[1]= 0;
@@ -82,13 +84,13 @@ ConstValue::SceneList PlayScene::Update()
     Lane.Draw();
  
 
-
     Judge judges[4] = { Judge::None, Judge::None, Judge::None, Judge::None };
 
+    //4라인에 대하여
     for (UINT u = 0; u < 4; u++)
     {
         pKeybeam[u]->Draw(Camera.Location[1]);
-        //모든 노트를 처리함
+        //모든 노트를 처리하면 종료
         if (nextNoteIndex[u] == noteCount[u]) continue;
 
         //처리할 노트가 롱노트인지 확인
@@ -96,18 +98,18 @@ ConstValue::SceneList PlayScene::Update()
         //노트를 처리하는 파트
         if (Input::Get::Key::Down(MappedKeys[u]))
         {
-            pKeybeam[u]->Reset();
+            pKeybeam[u]->Update();
             judges[u] = Notes[u][nextNoteIndex[u]].Judge(static_cast<UINT>(Timed * 1000));
             if (judges[u] != Judge::None)
             {
-                pJudgePhrase->setJudge(judges[u]);
+                pJudgePhrase->Update(judges[u]);
                 pCombo->Update(judges[u]);
                 NoteCount.Processed++;
 
                 if (!isLong) nextNoteIndex[u]++;    
                 if (judges[u] != Judge::Miss)
                 {
-                    pHitEffects[u]->Reset(isLong);
+                    pHitEffects[u]->Update(isLong);
                     pScore->Update(judges[u]);
                 }
             }
@@ -120,12 +122,12 @@ ConstValue::SceneList PlayScene::Update()
             
             if (judges[u] == Judge::Miss)
             {
-                pJudgePhrase->setJudge(judges[u]);
+                pJudgePhrase->Update(judges[u]);
                 nextNoteIndex[u]++;
                 NoteCount.Processed++;
                 pCombo->Update(judges[u]);
             }
-            if (judges[u] != Judge::None) pHitEffects[u]->Reset(true);
+            if (judges[u] != Judge::None) pHitEffects[u]->Update(true);
             
         }
         //롱노트 떼는 판정
@@ -134,10 +136,10 @@ ConstValue::SceneList PlayScene::Update()
             judges[u] = Notes[u][nextNoteIndex[u]].UpJudge(static_cast<UINT>(Timed * 1000));
             if (judges[u] != Judge::None)
             {
-                pJudgePhrase->setJudge(judges[u]);
+                pJudgePhrase->Update(judges[u]);
                 nextNoteIndex[u]++;
                 NoteCount.Processed++;
-                pHitEffects[u]->Reset(true);
+                pHitEffects[u]->Update(true);
                 pScore->Update(judges[u]);
                 pCombo->Update(judges[u]);
             }
@@ -147,16 +149,16 @@ ConstValue::SceneList PlayScene::Update()
         {
             nextNoteIndex[u]++;
             pCombo->Update(Judge::Miss);
-            pJudgePhrase->setJudge(Judge::Miss);
+            pJudgePhrase->Update(Judge::Miss);
             NoteCount.Processed++;
         }
 
-        for (UINT noteIndex = nextNoteIndex[u]; noteIndex < noteCount[u]; noteIndex++) Notes[u][noteIndex].DrawNote();
+        for (UINT noteIndex = nextNoteIndex[u]; noteIndex < noteCount[u]; noteIndex++) Notes[u][noteIndex].Draw();
     }
 
-    for(UINT u = 0; u < 4; u++) pHitEffects[u]->Update(Camera.Location[1]);
-    pJudgePhrase->Update(Camera.Location[1]);
-    pScore->DrawScore();
+    for(UINT u = 0; u < 4; u++) pHitEffects[u]->Draw(Camera.Location[1]);
+    pJudgePhrase->Draw(Camera.Location[1]);
+    pScore->Draw();
     pCombo->Draw();
 
 
