@@ -22,6 +22,11 @@ private:
 		Rendering::Image::Component		Thumbnail;
 		Rendering::Image::Component		VLine;
 		Rendering::Image::Component		Rank;
+		
+		Rendering::Image::Component		IndiBar;
+
+		Rendering::Image::Component		ArrowLeft;
+		Rendering::Image::Component		ArrowRight;
 	}Image;
 
 	struct

@@ -6,7 +6,7 @@ void TitleScene::Start()
     Selection = ConstValue::SceneList::SelectSong;
 
     //이미지
-	Background.Content = "TitleScene";
+	Background.Content = "TitleBG";
     Background.Length = ConstValue::ScreenSize;
 
     //애니메이션

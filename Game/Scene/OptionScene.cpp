@@ -18,24 +18,17 @@ void OptionScene::Start()
 
 
 	//Image 셋팅
-	Background.Content = "PlayBG";
-	Background.Length = { 1280, 720 };
-
 	Image.UnderLine.Content = "Pixel";
 	Image.UnderLine.Location = { -5, 270 };
 	Image.UnderLine.Length = { 1170, 5 };
 
-	Image.ArrowUp.Content = "ArrowUp";
-	Image.ArrowUp.Location = { 450, 180 };
-	Image.ArrowUp.Length = { 25, 25 };
-	
-	Image.ArrowDown.Content = "ArrowDown";
-	Image.ArrowDown.Location = { 450, 150 };
-	Image.ArrowDown.Length = { 25, 25 };
+	Image.ArrowUD.Content = "ArrowUpDown";
+	Image.ArrowUD.Location = { 450, 170 };
+	Image.ArrowUD.Length = { 30, 50 };
 
 	Image.ArrowSelection.Content = "ArrowSelection";
-	Image.ArrowSelection.Location = { 450, 150 };
-	Image.ArrowSelection.Length = { 50, 25 };
+	Image.ArrowSelection.Location = { 450, 170 };
+	Image.ArrowSelection.Length = { 40, 40 };
 	
 	//인터페이스 텍스트 설정
 	Text.Option.Content = "OPTION";
@@ -72,19 +65,19 @@ void OptionScene::Start()
 	//옵션 수치 설정
 	Text.SyncValue.Content = Str.Sync.data();
 	Text.SyncValue.Font = { "CookieRun Bold", 30, true };
-	Text.SyncValue.Location = { 790, 205 };
+	Text.SyncValue.Location = { 790, 200 };
 	Text.SyncValue.Length = { 200, 40 };
 	Text.SyncValue.Color = { 255, 255, 255 };
 
 	Text.SpeedValue.Content = Str.Speed.data();
 	Text.SpeedValue.Font = { "CookieRun Bold", 30, true };
-	Text.SpeedValue.Location = { 790, 305 };
+	Text.SpeedValue.Location = { 790, 300 };
 	Text.SpeedValue.Length = { 200, 40 };
 	Text.SpeedValue.Color = { 255, 255, 255 };
 
 	Text.VolumeValue.Content = Str.Volume.data();
 	Text.VolumeValue.Font = { "CookieRun Bold", 30, true };
-	Text.VolumeValue.Location = { 790, 405 };
+	Text.VolumeValue.Location = { 790, 400 };
 	Text.VolumeValue.Length = { 200, 40 };
 	Text.VolumeValue.Color = { 255, 255, 255 };
 
@@ -106,10 +99,8 @@ ConstValue::SceneList OptionScene::Update()
 {
 	using namespace Resource;
 	Camera.Set();
-	Background.Draw();
 
 	Image.UnderLine.Draw();
-
 
 	Text.Option.Draw();
 	
@@ -121,7 +112,6 @@ ConstValue::SceneList OptionScene::Update()
 	Text.SyncValue.Draw();
 	Text.SpeedValue.Draw();
 	Text.VolumeValue.Draw();
-
 	
 	for (UINT u = 0; u < 4; u++)
 	{
@@ -133,9 +123,8 @@ ConstValue::SceneList OptionScene::Update()
 	//수정할 옵션 선택
 	if (!IsSelected)
 	{		
-		Image.ArrowSelection.Location[1] = 150.0f - 100 * static_cast<int>(Selection);
-		Image.ArrowUp.Location[1] = 180.0f - 100 * static_cast<int>(Selection);
-		Image.ArrowDown.Location[1] = 150.0f - 100 * static_cast<int>(Selection);
+		Image.ArrowSelection.Location[1] = 170.0f - 102 * static_cast<int>(Selection);
+		Image.ArrowUD.Location[1] = 170.0f - 102 * static_cast<int>(Selection);
 		Image.ArrowSelection.Draw();
 		if (Input::Get::Key::Down(VK_DOWN))
 		{
@@ -175,8 +164,7 @@ ConstValue::SceneList OptionScene::Update()
 					Set::SyncValue(--sync);
 					Str.Sync = std::to_string(sync);
 				}
-				Image.ArrowUp.Draw();
-				Image.ArrowDown.Draw();
+				Image.ArrowUD.Draw();
 				break;
 			}
 			case ConstValue::OptionList::Speed:
@@ -198,8 +186,7 @@ ConstValue::SceneList OptionScene::Update()
 					Str.Speed = std::to_string(speed);
 					Str.Speed = Str.Speed.substr(0, Str.Speed.find_first_of('.') + 2 * sizeof(char));
 				}
-				Image.ArrowUp.Draw();
-				Image.ArrowDown.Draw();
+				Image.ArrowUD.Draw();
 				break;
 			}
 			case ConstValue::OptionList::Volume:
@@ -219,8 +206,7 @@ ConstValue::SceneList OptionScene::Update()
 					Str.Volume = std::to_string(volume);
 					SM->SetVolume(volume);
 				}
-				Image.ArrowUp.Draw();
-				Image.ArrowDown.Draw();
+				Image.ArrowUD.Draw();
 				break;
 			}
 			case ConstValue::OptionList::Keys:
@@ -269,6 +255,7 @@ ConstValue::SceneList OptionScene::Update()
 					}					
 				}
 				break;
+
 			}
 		}
 		if (Input::Get::Key::Down(VK_RETURN) || Input::Get::Key::Down(VK_ESCAPE)) IsSelected = false;

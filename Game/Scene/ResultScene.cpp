@@ -10,7 +10,7 @@ ResultScene::ResultScene(Result* newResult)
 	else pResult = newResult;
 
 	//이미지 셋팅
-	Background.Content = "PlayBG";
+	Background.Content = "ResultBG";
 	Background.Length = ConstValue::ScreenSize;
 
 	Image.Thumbnail.Content = pSong->STR.Title.data();
@@ -89,6 +89,8 @@ ResultScene::ResultScene(Result* newResult)
 
 bool ResultScene::Update()
 {
+	if (pResult->GetRank() == ConstValue::Rank::None) return true;
+
 	Camera.Set();
 	Background.Draw();
 

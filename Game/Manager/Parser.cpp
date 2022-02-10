@@ -1,11 +1,10 @@
 #include "stdafx.h"
 #include "Parser.h"
 
-//파싱을 담당
+//로컬 데이터 파싱을 담당
 namespace Parser
 {
-	//파일 데이터 파싱
-	//포맷 예시 :
+	//데이터 포맷 :
 	// "[카테고리]"
 	// "#내용: 값"
 	map<string, map<string, string>> Parse(FILE *pFile)

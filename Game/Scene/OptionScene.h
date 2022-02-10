@@ -4,6 +4,14 @@
 class OptionScene final : public Scene
 {
 private:
+	UINT KeyIndex;
+	size_t MappedKeys[4];
+	bool IsSelected;
+	ConstValue::OptionList Selection;
+	
+
+	Rendering::Camera               Camera;
+
 	struct final
 	{
 		std::string Sync;
@@ -12,20 +20,11 @@ private:
 		std::string Keys[4];
 	}Str;
 
-	UINT KeyIndex;
-	size_t MappedKeys[4];
-	bool IsSelected;
-	ConstValue::OptionList Selection;
-	
-	Rendering::Camera               Camera;
-	Rendering::Image::Component     Background;
-
 	struct
 	{
 		Rendering::Image::Component		UnderLine;
 		Rendering::Image::Component		KeyBox[4];
-		Rendering::Image::Component     ArrowUp;
-		Rendering::Image::Component     ArrowDown;
+		Rendering::Image::Component     ArrowUD;
 		Rendering::Image::Component     ArrowSelection;
 	}Image;
 	

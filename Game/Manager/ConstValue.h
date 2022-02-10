@@ -58,9 +58,9 @@ namespace ConstValue
 	{
 		{Rank::P, 1000000},
 		{Rank::S, 990000},
-		{Rank::A, 970000},
-		{Rank::B, 930000},
-		{Rank::C, 880000},
+		{Rank::A, 950000},
+		{Rank::B, 900000},
+		{Rank::C, 800000},
 		{Rank::D, 0}
 	};
 
