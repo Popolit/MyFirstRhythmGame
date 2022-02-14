@@ -145,10 +145,10 @@ namespace Sound
 
 		XAUDIO2_BUFFER buffer = { 0 };
 
-		DWORD dwAudioSize;
-		DWORD dwAudioPosition;
+		DWORD dwAudioSize = DWORD();
+		DWORD dwAudioPosition = DWORD();
 		MUST(FindAudio(hFile, fourccRIFF, dwAudioSize, dwAudioPosition));
-		DWORD fileType;
+		DWORD fileType = DWORD();
 		MUST(ReadAudioData(hFile, &fileType, sizeof(DWORD), dwAudioPosition));
 		if (fileType != fourccWAVE) return;
 
