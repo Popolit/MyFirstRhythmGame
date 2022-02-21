@@ -13,7 +13,9 @@
 <br>
 . Or, You can also make new Chart Files.<br>
 . Refer to my charts to make your own chart file.<br>
-. You need to make chart file in Data folder<br>
+. You need to make chart file(file name must be same with title tag) in Data folder<br>
+. You need to put in Song file(file name must be same with title tag) in Sound folder<br>
+. You need to put Image file(file name must be same with title tag and file must be png format) in Image floder<br> 
 . ChartFile format : Sample.txt<br>
 <br>
 <hr/>
@@ -58,7 +60,9 @@ Line Number(0~3), Timing(ms), Up Timing(If it is Long Note)
 <br>
 . 혹은, 새 차트 파일을 만들 수도 있습니다.<br>
 . 새 차트 파일을 만들려면 제가 업로드한 차트를 참조하세요.<br>
-. 차트 파일들은 모두 Data 폴더에 들어있어야 합니다.<br>
+. 차트 파일(파일 이름이 Title 태그와 같아야 합니다)들은 모두 Data 폴더에 들어있어야 합니다.<br>
+. 노래 파일(파일 이름이 Title 태그와 같아야 합니다)를 Sound 폴더에 넣어주어야 합니다.<br>
+. 이미지 파일(파일 이름이 Title 태그와 같고, png 형식이어야 합니다)을 Image 폴더에 넣어주어야 합니다.<br>
 . 차트 파일 형식 : Sample.txt<br>
 <br>
 <hr/>
