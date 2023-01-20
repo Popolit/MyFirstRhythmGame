@@ -18,7 +18,7 @@ void PlayScene::Start()
     //노트 관련 생성
     Chart* chart = pSong->GetChart(Resource::Get::Diff());
     chart->makeNotes(Notes);
-    
+
     NoteCount.Total = 0;
     NoteCount.Total += chart->GetLongCnt();  //롱노트 갯수 추가
     NoteCount.Processed = 0;
@@ -37,14 +37,14 @@ void PlayScene::Start()
     pCombo = new Combo();
 
     //드로잉 컴포넌트 셋팅
-    Camera.Location = { 0, SpeedValue * (- 300) };
+    Camera.Location = { 0, SpeedValue * (-300) };
 
     Background.Content = "PlayBG";
     Background.Length = { 1280, 720 };
 
     Lane.Content = "Lane";
     Lane.Length = { 500, 720 };
-    Lane.Location = { -300, SpeedValue * (- 300) };
+    Lane.Location = { -300, SpeedValue * (-300) };
 
     SM->SetBGM();
 }
@@ -63,15 +63,15 @@ ConstValue::SceneList PlayScene::Update()
         }
         return SceneList::Play;
     }
-    
+
     Timed += Time::Get::Delta();
     Camera.Location[1] += SpeedValue * 100 * Time::Get::Delta();
 
     //게임 시작 후 대기시간 3초를 세어
-    //게임 시간을 0초로 초기화
-    if (!Waited && 0 <= Timed)
+    //게임 시간을 0 + 맞춘 싱크초로 초기화
+    if (!Waited && 0.f <= Timed)
     {
-        Camera.Location[1]= 0;
+        Camera.Location[1] = 0;
         Timed = 0.0f;
         SM->BGM.Play();
         Waited = true;
@@ -83,7 +83,7 @@ ConstValue::SceneList PlayScene::Update()
     Camera.Set();
     //Background.Draw();
     Lane.Draw();
- 
+
 
     Judge judges[4] = { Judge::None, Judge::None, Judge::None, Judge::None };
 
@@ -107,11 +107,17 @@ ConstValue::SceneList PlayScene::Update()
                 pCombo->Update(judges[u]);
                 NoteCount.Processed++;
 
-                if (!isLong) nextNoteIndex[u]++;    
+                if (!isLong) nextNoteIndex[u]++;
                 if (judges[u] != Judge::Miss)
                 {
                     pHitEffects[u]->Update(isLong);
                     pScore->Update(judges[u]);
+                }
+                //MIss, Long Note
+                else if (isLong)
+                {
+                    nextNoteIndex[u]++;
+                    NoteCount.Processed++;
                 }
             }
         }
@@ -120,7 +126,7 @@ ConstValue::SceneList PlayScene::Update()
         {
             pKeybeam[u]->Pressing();
             judges[u] = Notes[u][nextNoteIndex[u]].PressedJudge(static_cast<UINT>(Timed * 1000));
-            
+
             if (judges[u] == Judge::Miss)
             {
                 pJudgePhrase->Update(judges[u]);
@@ -129,7 +135,7 @@ ConstValue::SceneList PlayScene::Update()
                 pCombo->Update(judges[u]);
             }
             if (judges[u] != Judge::None) pHitEffects[u]->Update(true);
-            
+
         }
         //롱노트 떼는 판정
         else if (Input::Get::Key::Up(MappedKeys[u]) && isLong)
@@ -152,23 +158,25 @@ ConstValue::SceneList PlayScene::Update()
             pCombo->Update(Judge::Miss);
             pJudgePhrase->Update(Judge::Miss);
             NoteCount.Processed++;
+            if (isLong)
+                NoteCount.Processed++;
         }
 
         for (UINT noteIndex = nextNoteIndex[u]; noteIndex < noteCount[u]; noteIndex++) Notes[u][noteIndex].Draw();
     }
 
-    for(UINT u = 0; u < 4; u++) pHitEffects[u]->Draw(Camera.Location[1]);
+    for (UINT u = 0; u < 4; u++) pHitEffects[u]->Draw(Camera.Location[1]);
     pJudgePhrase->Draw(Camera.Location[1]);
     pScore->Draw();
     pCombo->Draw();
 
 
-    if (Input::Get::Key::Down(VK_ESCAPE)) 
+    if (Input::Get::Key::Down(VK_ESCAPE))
     {
         SM->BGM.Stop();
-        return SceneList::SelectSong; 
+        return SceneList::SelectSong;
     }
-    else if (Input::Get::Key::Down(VK_RETURN)) { 
+    else if (Input::Get::Key::Down(VK_RETURN)) {
         pResult = new Result(pScore, pCombo);
         pSong->ResultUpdate(pResult);
         pResultScene = new ResultScene(pResult);
@@ -186,9 +194,9 @@ ConstValue::SceneList PlayScene::Update()
     return SceneList::Play;
 }
 
-void PlayScene::End() 
+void PlayScene::End()
 {
-    delete pJudgePhrase; 
+    delete pJudgePhrase;
     delete pScore;
     delete pCombo;
     delete pResultScene;

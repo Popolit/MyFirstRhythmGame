@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Chart.h"
 
-Chart::Chart() 
+Chart::Chart()
 {
 	LongCnt = 0;
 	isChartExist = false;
@@ -40,7 +40,7 @@ void Chart::makeNotes(std::vector<Note>(&Notes)[4])
 	{
 		for (std::pair<UINT, UINT> ndata : NoteData[u])
 		{
-			Note note = Note(ndata.first + SyncValue, ndata.second + SyncValue);
+			Note note = Note(ndata.first + SyncValue, ndata.second ? ndata.second + SyncValue : 0);
 			if (note.isLong()) LongCnt++;
 			note.MakeNoteImage(u);
 			Notes[u].push_back(note);
